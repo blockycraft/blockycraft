@@ -1,0 +1,43 @@
+name: Blockycraft
+
+on:
+  pull_request:
+    paths:
+      - blockycraft/*
+      - blockycraft/*/*
+      - blockycraft/*/*/*
+      - blockycraft/*/*/*/*
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+    
+      - uses: actions/cache@v1.1.0
+        with:
+          path: Library
+          key: Library
+
+      # - name: Run tests
+      #   uses: webbertakken/unity-test-runner@v1.3
+      #   with:
+      #     unityVersion: 2019.3.14f1
+
+      - name: Build project
+        uses: webbertakken/unity-builder@v0.10
+        with:
+          unityVersion: 2019.3.14f1
+          targetPlatform: WebGL 
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Build
+          path: build
