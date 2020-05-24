@@ -34,9 +34,9 @@ public sealed class VoxelBuilder
 
                 var uv = ComputeUV(block, face);
                 uvs.Add(uv);
-                uvs.Add(new Vector2(uv.x, uv.y + VoxelBuilder.NormalizedBlockTextureSize));
-                uvs.Add(new Vector2(uv.x + VoxelBuilder.NormalizedBlockTextureSize, uv.y));
-                uvs.Add(new Vector2(uv.x + VoxelBuilder.NormalizedBlockTextureSize, uv.y + VoxelBuilder.NormalizedBlockTextureSize));
+                uvs.Add(new Vector2(uv.x, uv.y + GridUVFactor));
+                uvs.Add(new Vector2(uv.x + GridUVFactor, uv.y));
+                uvs.Add(new Vector2(uv.x + GridUVFactor, uv.y + GridUVFactor));
 
                 for (int idx = 0; idx < Voxel.Triangles.Length; idx++)
                     triangles.Add(vertexIndex + Voxel.Triangles[idx]);
