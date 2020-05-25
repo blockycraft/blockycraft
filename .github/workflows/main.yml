@@ -55,5 +55,5 @@ jobs:
         # if: github.ref == 'refs/heads/master'
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
+          BRANCH: docs
           FOLDER: docs/
