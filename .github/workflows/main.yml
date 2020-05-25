@@ -50,6 +50,7 @@ jobs:
 
       - name: Copy binaries for distribution
         run: |
+          mkdir -p docs/player
           cp -r build/WebGL/WebGL/* docs/player
 
       - name: Deploy 🚀
