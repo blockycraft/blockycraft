@@ -36,7 +36,7 @@ jobs:
       #     unityVersion: 2019.3.14f1
 
       - name: Build project
-        uses: webbertakken/unity-builder@v0.10
+        uses: webbertakken/unity-builder@v1.0
         with:
           projectPath: blockycraft/
           unityVersion: 2019.3.14f1
