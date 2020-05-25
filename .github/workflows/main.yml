@@ -48,10 +48,9 @@ jobs:
       #     name: Build
       #     path: build
 
-      # - name: Package
-      #   run: |
-      #     ls build/
-      #     ls build/WebGL
+      - name: Package
+        run: |
+          ls
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
