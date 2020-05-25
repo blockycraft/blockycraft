@@ -25,32 +25,32 @@ jobs:
         with:
           lfs: true
 
-      # - uses: actions/cache@v1.1.0
-      #   with:
-      #     path: blockycraft/Library
-      #     key: blockycraft/Library
+      - uses: actions/cache@v1.1.0
+        with:
+          path: blockycraft/Library
+          key: blockycraft/Library
 
-      # # - name: Run tests
-      # #   uses: webbertakken/unity-test-runner@v1.3
-      # #   with:
-      # #     unityVersion: 2019.3.14f1
-
-      # - name: Build project
-      #   uses: webbertakken/unity-builder@v0.10
+      # - name: Run tests
+      #   uses: webbertakken/unity-test-runner@v1.3
       #   with:
-      #     projectPath: blockycraft/
       #     unityVersion: 2019.3.14f1
-      #     targetPlatform: WebGL
 
-      # - name: Upload to artifacts
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: Build
-      #     path: build
+      - name: Build project
+        uses: webbertakken/unity-builder@v0.10
+        with:
+          projectPath: blockycraft/
+          unityVersion: 2019.3.14f1
+          targetPlatform: WebGL
 
-      - name: Package
+      - name: Upload to artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: Build
+          path: build
+
+      - name: Copy binaries for distribution
         run: |
-          ls
+          cp -r build/WebGL/WebGL/* docs/player
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
