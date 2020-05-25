@@ -40,7 +40,9 @@ jobs:
         with:
           projectPath: blockycraft/
           unityVersion: 2019.3.14f1
-          targetPlatform: WebGL
+          targetPlatform:
+            - WebGL
+            - StandaloneWindows64
 
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
