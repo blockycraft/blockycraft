@@ -8,6 +8,9 @@ on:
       - blockycraft/*/*/*
       - blockycraft/*/*/*/*
       - .github/workflows/main.yml
+  push:
+    branches:
+      - master
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -21,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
-    
+
       - uses: actions/cache@v1.1.0
         with:
           path: blockycraft/Library
@@ -33,13 +36,28 @@ jobs:
       #     unityVersion: 2019.3.14f1
 
       - name: Build project
-        uses: webbertakken/unity-builder@v0.10
+        uses: webbertakken/unity-builder@v1.0
         with:
-          projectPath: blockycraft/
+          projectPath: blockycraft/.
           unityVersion: 2019.3.14f1
-          targetPlatform: WebGL 
-
-      - uses: actions/upload-artifact@v1
+          targetPlatform: WebGL
+          buildName: blockycraft
+            
+      - name: Upload to artifacts
+        uses: actions/upload-artifact@v1
         with:
           name: Build
           path: build
+
+      - name: Copy binaries for distribution
+        run: |
+          mkdir -p docs/player
+          cp -r build/WebGL/blockycraft/* docs/player
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs/
