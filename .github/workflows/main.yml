@@ -41,6 +41,7 @@ jobs:
           projectPath: blockycraft/.
           unityVersion: 2019.3.14f1
           targetPlatform: WebGL
+          buildName: blockycraft
             
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
@@ -51,7 +52,7 @@ jobs:
       - name: Copy binaries for distribution
         run: |
           mkdir -p docs/player
-          cp -r build/WebGL/WebGL/* docs/player
+          cp -r build/blockycraft/WebGL/* docs/player
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
