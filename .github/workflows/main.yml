@@ -38,10 +38,9 @@ jobs:
       - name: Build project
         uses: webbertakken/unity-builder@v1.0
         with:
-          projectPath: blockycraft/
+          projectPath: blockycraft/.
           unityVersion: 2019.3.14f1
-          targetPlatform: StandaloneWindows64
-          # targetPlatform: WebGL
+          targetPlatform: WebGL
             
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
