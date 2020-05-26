@@ -8,6 +8,9 @@ on:
       - blockycraft/*/*/*
       - blockycraft/*/*/*/*
       - .github/workflows/main.yml
+  push:
+    branches:
+      - master
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
