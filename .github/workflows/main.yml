@@ -8,9 +8,6 @@ on:
       - blockycraft/*/*/*
       - blockycraft/*/*/*/*
       - .github/workflows/main.yml
-  push:
-    paths:
-      - .github/workflows/main.yml
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -56,7 +53,7 @@ jobs:
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
-        # if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master'
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
