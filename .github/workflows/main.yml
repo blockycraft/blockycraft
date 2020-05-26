@@ -52,7 +52,7 @@ jobs:
       - name: Copy binaries for distribution
         run: |
           mkdir -p docs/player
-          cp -r build/blockycraft/WebGL/* docs/player
+          cp -r build/WebGL/blockycraft/* docs/player
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
