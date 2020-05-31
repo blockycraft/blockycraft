@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public sealed class VoxelBuilder
@@ -17,16 +19,29 @@ public sealed class VoxelBuilder
             1f - (y + 1) * GridUVFactor
         );
     }
-    public Mesh Build(IList<BlockType> blocks, Vector3 position)
+
+    private IEnumerable<(int, int)> ListBlocks(BlockType[,] blocks) {
+        for (int x = 0; x < blocks.GetLength(0); x++)
+            for (int y = 0; y < blocks.GetLength(1); y++)
+                yield return (x, y);
+    }
+
+    public Mesh Build(BlockType block, Vector3 position)
+    {
+        return Build(new[,] { { block } }, position);
+    }
+
+    public Mesh Build(BlockType[,] blocks, Vector3 position)
     {
         int vertexIndex = 0;
         var vertices = new List<Vector3>();
         var triangles = new List<int>();
         var uvs = new List<Vector2>();
-        var offset = Vector3.zero;
 
-        foreach (var block in blocks)
+        foreach (var location in ListBlocks(blocks))
         {
+            var block = blocks[location.Item1, location.Item2];
+            var offset = location.Item1 * Vector3.right + location.Item2 * Vector3.forward;
             for (int face = 0; face < Voxel.NumberOfFaces; face++)
             {
                 for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
@@ -43,9 +58,6 @@ public sealed class VoxelBuilder
                 
                 vertexIndex += Voxel.VerticesInFace;
             }
-
-            // TODO: Determine position by chunk location
-            offset += Vector3.left;
         }
         Mesh mesh = new Mesh
         {

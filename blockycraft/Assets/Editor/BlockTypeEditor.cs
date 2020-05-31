@@ -55,7 +55,7 @@ public class BlockTypeEditor : Editor
 
     private void ReloadMesh(GameObject previewRendererObject, BlockType block)
     {
-        var mesh = builder.Build(new[] { block }, -Voxel.Center);
+        var mesh = builder.Build(block, -Voxel.Center);
         previewRendererObject.GetComponent<MeshFilter>().mesh = mesh;
     }
 
