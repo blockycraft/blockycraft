@@ -28,26 +28,55 @@ public sealed class VoxelBuilder
 
     public Mesh Build(BlockType block, Vector3 position)
     {
-        return Build(new[,] { { block } }, position);
+        int vertexIndex = 0;
+        var vertices = new List<Vector3>();
+        var triangles = new List<int>();
+        var uvs = new List<Vector2>();
+
+        for (int face = 0; face < Voxel.NumberOfFaces; face++)
+        {
+            for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
+                vertices.Add(position + Voxel.Vertices[Voxel.Tris[face, vert]]);
+
+            var uv = ComputeUV(block, face);
+            uvs.Add(uv);
+            uvs.Add(new Vector2(uv.x, uv.y + GridUVFactor));
+            uvs.Add(new Vector2(uv.x + GridUVFactor, uv.y));
+            uvs.Add(new Vector2(uv.x + GridUVFactor, uv.y + GridUVFactor));
+
+            for (int idx = 0; idx < Voxel.Triangles.Length; idx++)
+                triangles.Add(vertexIndex + Voxel.Triangles[idx]);
+            
+            vertexIndex += Voxel.VerticesInFace;
+        }
+        
+        Mesh mesh = new Mesh
+        {
+            vertices = vertices.ToArray(),
+            triangles = triangles.ToArray(),
+            uv = uvs.ToArray()
+        };
+
+        mesh.RecalculateNormals();
+        return mesh;
     }
 
-    public Mesh Build(BlockType[,] blocks, Vector3 position)
+    public Mesh Build(BlockChunk blocks, Vector3 position)
     {
         int vertexIndex = 0;
         var vertices = new List<Vector3>();
         var triangles = new List<int>();
         var uvs = new List<Vector2>();
 
-        foreach (var location in ListBlocks(blocks))
+        foreach (var block in blocks.ToList())
         {
-            var block = blocks[location.Item1, location.Item2];
-            var offset = location.Item1 * Vector3.right + location.Item2 * Vector3.forward;
+            var offset = block.X * Vector3.right + block.Z * Vector3.forward + block.Y * Vector3.up;
             for (int face = 0; face < Voxel.NumberOfFaces; face++)
             {
                 for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
                     vertices.Add(position + offset + Voxel.Vertices[Voxel.Tris[face, vert]]);
 
-                var uv = ComputeUV(block, face);
+                var uv = ComputeUV(block.Type, face);
                 uvs.Add(uv);
                 uvs.Add(new Vector2(uv.x, uv.y + GridUVFactor));
                 uvs.Add(new Vector2(uv.x + GridUVFactor, uv.y));
