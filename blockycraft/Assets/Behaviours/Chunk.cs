@@ -30,14 +30,7 @@ public sealed class Chunk : MonoBehaviour
         var blockTypes = ReadBlockTypes();
 
         builder = new VoxelBuilder();
-        chunk = new BlockChunk();
-
-        foreach (var block in chunk.ToList())
-        {
-            var idx = (block.Y * chunk.Width + block.X) % blockTypes.Length;
-            chunk.Blocks[block.X, block.Y, block.Z] = blockTypes[idx];
-        }
-
+        chunk = BlockChunk.Assorted(blockTypes);
         var mesh = builder.Build(chunk, Vector3.zero);
         meshFilter.mesh = mesh;
     }
