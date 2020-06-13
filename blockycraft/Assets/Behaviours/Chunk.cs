@@ -1,28 +1,17 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public sealed class Chunk : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
     public MeshFilter meshFilter;
-    private VoxelBuilder builder;
     private BlockChunk chunk;
+    private GameObject _object;
 
-    static BlockType[] ReadBlockTypes()
-    {
-        BlockType[] result;
-        try
-        {
-            result = Resources.LoadAll("BlockTypes/", typeof(BlockType)).Cast<BlockType>().ToArray();
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Proper Method failed with the following exception: ");
-            Debug.Log(e);
-            throw e;
-        }
-        return result;
+    public GameObject GameObject { get => _object; }
+
+    public Chunk(GameObject gobj, BlockChunk chunk) {
+        this.chunk = chunk;
+        _object = gobj;
     }
 
     void Start()
