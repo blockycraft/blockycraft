@@ -7,7 +7,6 @@ public sealed class World : MonoBehaviour
     private const int CHUNK_COUNT = 4;
     private Chunk[,] chunks = new Chunk[CHUNK_COUNT, CHUNK_COUNT];
     public Material material;
-    private GameObject root;
 
     static BlockType[] ReadBlockTypes()
     {
@@ -27,32 +26,21 @@ public sealed class World : MonoBehaviour
 
     void Start()
     {
-        root = new GameObject();
         var blockTypes = ReadBlockTypes();
-        var builder = new VoxelBuilder();
+        
         for (int x = 0; x < chunks.GetLength(0); x++)
         {
             for (int z = 0; z < chunks.GetLength(1); z++)
             {
-                var chunkObject = new GameObject();
-                chunkObject.name = $"Chunk {x}, {z}";
-                var blockChunk = BlockChunk.Assorted(blockTypes);
-                var chunk = root.AddComponent<Chunk>();
-                chunk.chunk = blockChunk;
-
-                chunk.meshFilter = chunkObject.AddComponent<MeshFilter>();
-                chunk.meshRenderer = chunkObject.AddComponent<MeshRenderer>();
-                chunk.meshRenderer.material = material;
-                chunkObject.transform.position = x * Vector3.left * BlockChunk.SIZE + z * Vector3.forward * BlockChunk.SIZE;
-                var mesh = builder.Build(blockChunk, Vector3.zero);
-
-                chunk.meshFilter.mesh = mesh;
+                var chunk = gameObject.AddComponent<Chunk>();
+                chunk.Blocks =  BlockChunk.Assorted(blockTypes);
+                chunk.Voxel = material;
+                chunk.X = x;
+                chunk.Z = z;
+                chunk.Position = x * Vector3.left * BlockChunk.SIZE + z * Vector3.forward * BlockChunk.SIZE;
+                
                 chunks[x, z] = chunk;
             }
         }
-    }
-
-    void Update()
-    {
     }
 }
