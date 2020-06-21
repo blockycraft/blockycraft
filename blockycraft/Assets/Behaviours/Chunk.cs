@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public sealed class Chunk : MonoBehaviour
+public sealed class Chunk
 {
     public MeshRenderer meshRenderer;
     public MeshFilter meshFilter;
@@ -8,22 +8,40 @@ public sealed class Chunk : MonoBehaviour
     public Material Voxel { get; set; }
     public int X { get; set; }
     public int Z { get; set; }
-    private GameObject _gObj;
+    public GameObject gameObject { get; set; }
     public Vector3 Position { get; set; }
 
-    void Start()
+    Chunk() { }
+    
+    void Initialize()
     {
-        _gObj = new GameObject();
-        _gObj.transform.position = Position;
-        _gObj.name = $"Chunk {X},{Z}";
+        gameObject = new GameObject();
+        gameObject.transform.position = Position;
+        gameObject.name = $"Chunk {X},{Z}";
 
         var builder = new VoxelBuilder();
         var mesh = builder.Build(Blocks, Vector3.zero);
 
-        meshRenderer = _gObj.AddComponent<MeshRenderer>();
+        meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.material = Voxel;
 
-        meshFilter = _gObj.AddComponent<MeshFilter>();
+        meshFilter = gameObject.AddComponent<MeshFilter>();
         meshFilter.mesh = mesh;
+    }
+
+    public static Chunk Create(BlockType[] blockTypes, Material material, int x, int z, GameObject parent)
+    {
+        // Temporary method responsible for creating chunks
+        var chunk = new Chunk
+        {
+            Blocks = BlockChunk.Assorted(blockTypes),
+            Voxel = material,
+            X = x,
+            Z = z,
+            Position = x * Vector3.left * BlockChunk.SIZE + z * Vector3.forward * BlockChunk.SIZE
+        };
+        chunk.Initialize();
+        chunk.gameObject.transform.SetParent(parent.transform);
+        return chunk;
     }
 }
