@@ -32,14 +32,7 @@ public sealed class World : MonoBehaviour
         {
             for (int z = 0; z < chunks.GetLength(1); z++)
             {
-                var chunk = gameObject.AddComponent<Chunk>();
-                chunk.Blocks =  BlockChunk.Assorted(blockTypes);
-                chunk.Voxel = material;
-                chunk.X = x;
-                chunk.Z = z;
-                chunk.Position = x * Vector3.left * BlockChunk.SIZE + z * Vector3.forward * BlockChunk.SIZE;
-                
-                chunks[x, z] = chunk;
+                chunks[x, z] = Chunk.Create(blockTypes, material, x, z, gameObject); ;
             }
         }
     }
