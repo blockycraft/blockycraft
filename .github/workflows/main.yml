@@ -59,7 +59,7 @@ jobs:
         id: package-artifact
         run: |
           mkdir -p artifacts/
-          zip -r artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip build/${{ matrix.targetPlatform }}/blockycraft/
+          zip -r artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip build/${{ matrix.targetPlatform }}/
           echo "::set-output name=path::artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip"
 
       - name: Upload to artifacts
