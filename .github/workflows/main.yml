@@ -55,18 +55,12 @@ jobs:
           buildName: blockycraft
 
       # Upload artifacts if we are working with a release
-      - name: Package artifacts for release
-        id: package-artifact
-        run: |
-          mkdir -p artifacts/
-          zip -r artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip build/${{ matrix.targetPlatform }}/
-          echo "::set-output name=path::artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip"
 
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
         with:
           name: build-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
-          path: ${{ steps.package-artifact.outputs.path }}
+          path: build/${{ matrix.targetPlatform }}/
 
       # We only need to deploy if working with WeBGL
 
@@ -83,6 +77,14 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: docs/
+
+      - name: Package artifacts for release
+        id: package-artifact
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          mkdir -p artifacts/
+          zip -r artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip build/${{ matrix.targetPlatform }}/
+          echo "::set-output name=path::artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip"
 
       - name: Create Release
         id: create-release
