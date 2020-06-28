@@ -63,14 +63,14 @@ jobs:
       # We only need to deploy if working with WeBGL
 
       - name: Copy binaries for distribution
-        if: ${{ matrix.targetPlatform }} == 'WebGL'
+        if: matrix.targetPlatform == 'WebGL'
         run: |
           mkdir -p docs/player
           cp -r build/WebGL/blockycraft/* docs/player
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
-        if: github.ref == 'refs/heads/master' && ${{ matrix.targetPlatform }} == 'WebGL'
+        if: github.ref == 'refs/heads/master' && matrix.targetPlatform == 'WebGL'
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
