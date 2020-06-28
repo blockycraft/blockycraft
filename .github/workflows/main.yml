@@ -18,6 +18,17 @@ env:
 jobs:
   build:
     name: Build
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2019.3.14f1
+        targetPlatform:
+          - StandaloneOSX
+          - StandaloneWindows
+          - StandaloneWindows64
+          - StandaloneLinux64
+          - WebGL
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -39,24 +50,27 @@ jobs:
         uses: webbertakken/unity-builder@v1.0
         with:
           projectPath: blockycraft/.
-          unityVersion: 2019.3.14f1
-          targetPlatform: WebGL
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
           buildName: blockycraft
             
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: Build
+          name: build-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           path: build
 
+      # We only need to deploy if working with WeBGL
+
       - name: Copy binaries for distribution
+        if: matrix.targetPlatform == 'WebGL'
         run: |
           mkdir -p docs/player
           cp -r build/WebGL/blockycraft/* docs/player
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' && matrix.targetPlatform == 'WebGL'
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
