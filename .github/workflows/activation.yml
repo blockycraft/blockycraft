@@ -1,6 +1,6 @@
 name: Acquire activation file
 on:
-  push:
+  pull_request:
     paths:
       - .github/workflows/activation.yml
 
