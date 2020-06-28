@@ -78,12 +78,12 @@ jobs:
 
       # Upload artifacts if we are working with a release
       - name: Package artifacts for release
-        # if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           mkdir -p artifacts/
           zip -r artifacts/blockycraft-${{ matrix.targetPlatform }}.zip build/${{ matrix.targetPlatform }}/blockycraft/
 
-     - name: Create Release
+      - name: Create Release
         id: create-release
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/create-release@v1
