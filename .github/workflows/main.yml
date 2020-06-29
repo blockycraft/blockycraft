@@ -11,8 +11,9 @@ on:
   push:
     branches:
       - master
+  create:
     tags:
-      - v*
+      - "*"
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
