@@ -56,6 +56,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: blockycraft
+          versioning: Semantic
 
       # Upload artifacts if we are working with a release
 
