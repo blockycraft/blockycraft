@@ -49,6 +49,7 @@ jobs:
       #     unityVersion: 2019.3.14f1
 
       - name: Build project
+        if: startsWith(github.ref, 'refs/heads/') 
         uses: webbertakken/unity-builder@v1.0
         with:
           projectPath: blockycraft/.
@@ -60,6 +61,7 @@ jobs:
       # Upload artifacts if we are working with a release
 
       - name: Upload to artifacts
+        if: startsWith(github.ref, 'refs/heads/') 
         uses: actions/upload-artifact@v1
         with:
           name: build-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
@@ -68,7 +70,7 @@ jobs:
       # We only need to deploy if working with WeBGL
 
       - name: Copy binaries for distribution
-        if: matrix.targetPlatform == 'WebGL'
+        if: startsWith(github.ref, 'refs/heads/') && matrix.targetPlatform == 'WebGL'
         run: |
           mkdir -p docs/player
           cp -r build/WebGL/blockycraft/* docs/player
@@ -80,6 +82,22 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: docs/
+
+      #
+      # Deployment of Release Artifacts
+      #
+
+      - name: Get the package artifacts for release
+        id: package-artifact
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts/
+
+      - name: List artifacts
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          ls artifacts/
 
       - name: Package artifacts for release
         id: package-artifact
