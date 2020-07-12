@@ -4,7 +4,7 @@ using System.Linq;
 
 public sealed class World : MonoBehaviour
 {
-    private const int CHUNK_COUNT = 4;
+    private const int CHUNK_COUNT = 8;
     private Chunk[,] chunks = new Chunk[CHUNK_COUNT, CHUNK_COUNT];
     public Material material;
 
