@@ -10,7 +10,8 @@ on:
       - .github/workflows/main.yml
   push:
     branches:
-      - master
+      # - master
+      - "*"
     tags:
       - "*"
 
