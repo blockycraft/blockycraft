@@ -29,12 +29,11 @@ public sealed class Chunk
         meshFilter.mesh = mesh;
     }
 
-    public static Chunk Create(BlockType[] blockTypes, Material material, int x, int z, GameObject parent)
+    public static Chunk Create(BlockChunk blocks, Material material, int x, int z, GameObject parent)
     {
-        // Temporary method responsible for creating chunks
         var chunk = new Chunk
         {
-            Blocks = BlockChunk.Assorted(blockTypes),
+            Blocks = blocks,
             Voxel = material,
             X = x,
             Z = z,

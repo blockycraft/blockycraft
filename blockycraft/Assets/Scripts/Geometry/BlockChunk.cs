@@ -23,22 +23,4 @@ public sealed class BlockChunk
                 for (int z = 0; z < Depth; z++)
                     yield return new Block(x, y, z, Blocks[x, y, z]);
     }
-
-    public static BlockChunk Default(BlockType type) {
-        var chunk = new BlockChunk();
-        foreach (var block in chunk.ToList())
-            chunk.Blocks[block.X, block.Y, block.Z] = type;
-
-        return chunk;
-    }
-
-    public static BlockChunk Assorted(BlockType[] types) {
-        var chunk = new BlockChunk();
-        foreach (var block in chunk.ToList())
-        {
-            var idx = (block.Y * chunk.Width + block.X) % types.Length;
-            chunk.Blocks[block.X, block.Y, block.Z] = types[idx];
-        }
-        return chunk;
-    }
 }

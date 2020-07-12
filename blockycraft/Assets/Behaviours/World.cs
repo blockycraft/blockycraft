@@ -24,15 +24,33 @@ public sealed class World : MonoBehaviour
         return result;
     }
 
+    static Biome ReadFlatBiome()
+    {
+        Biome result;
+        try
+        {
+            result = (Biome)Resources.Load("Biomes/Flat", typeof(Biome));
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Proper Method failed with the following exception: ");
+            Debug.Log(e);
+            throw e;
+        }
+        return result;
+    }
+
     void Start()
     {
         var blockTypes = ReadBlockTypes();
+        var biome = ReadFlatBiome();
         
         for (int x = 0; x < chunks.GetLength(0); x++)
         {
             for (int z = 0; z < chunks.GetLength(1); z++)
             {
-                chunks[x, z] = Chunk.Create(blockTypes, material, x, z, gameObject); ;
+                var blocks = WorldGenerator.Generate(biome);
+                chunks[x, z] = Chunk.Create(blocks, material, x, z, gameObject); ;
             }
         }
     }
