@@ -43,40 +43,40 @@ jobs:
           path: blockycraft/Library
           key: blockycraft/Library
 
-      - name: Build project
-        if: startsWith(github.ref, 'refs/heads/') 
-        uses: webbertakken/unity-builder@v1.0
-        with:
-          projectPath: blockycraft/.
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-          buildName: blockycraft
-          versioning: Semantic
+      # - name: Build project
+      #   if: startsWith(github.ref, 'refs/heads/') 
+      #   uses: webbertakken/unity-builder@v1.0
+      #   with:
+      #     projectPath: blockycraft/.
+      #     unityVersion: ${{ matrix.unityVersion }}
+      #     targetPlatform: ${{ matrix.targetPlatform }}
+      #     buildName: blockycraft
+      #     versioning: Semantic
 
-      # Upload artifacts if we are working with a release
+      # # Upload artifacts if we are working with a release
 
-      - name: Upload to artifacts
-        if: startsWith(github.ref, 'refs/heads/') 
-        uses: actions/upload-artifact@v1
-        with:
-          name: build-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
-          path: build/${{ matrix.targetPlatform }}/
+      # - name: Upload to artifacts
+      #   if: startsWith(github.ref, 'refs/heads/') 
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: build-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+      #     path: build/${{ matrix.targetPlatform }}/
 
-      # We only need to deploy if working with WeBGL
+      # # We only need to deploy if working with WeBGL
 
-      - name: Copy binaries for distribution
-        if: startsWith(github.ref, 'refs/heads/') && matrix.targetPlatform == 'WebGL'
-        run: |
-          mkdir -p docs/player
-          cp -r build/WebGL/blockycraft/* docs/player
+      # - name: Copy binaries for distribution
+      #   if: startsWith(github.ref, 'refs/heads/') && matrix.targetPlatform == 'WebGL'
+      #   run: |
+      #     mkdir -p docs/player
+      #     cp -r build/WebGL/blockycraft/* docs/player
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        if: github.ref == 'refs/heads/master' && matrix.targetPlatform == 'WebGL'
-        with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: docs/
+      # - name: Deploy 🚀
+      #   uses: JamesIves/github-pages-deploy-action@releases/v3
+      #   if: github.ref == 'refs/heads/master' && matrix.targetPlatform == 'WebGL'
+      #   with:
+      #     ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     BRANCH: gh-pages
+      #     FOLDER: docs/
 
       #
       # Deployment of Release Artifacts
@@ -84,19 +84,19 @@ jobs:
 
       - name: Get the package artifacts for release
         id: package-artifact
-        if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         uses: actions/download-artifact@v2
         with:
           path: artifacts/
 
       - name: List artifacts
-        if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         run: |
           ls artifacts/
 
       - name: Package artifacts for release
         id: package-artifact
-        if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         run: |
           mkdir -p artifacts/
           zip -r artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip build/${{ matrix.targetPlatform }}/
@@ -104,7 +104,7 @@ jobs:
 
       - name: Create Release
         id: create-release
-        if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -114,14 +114,14 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
-        id: upload-release-asset
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ${{ steps.package-artifact.outputs.path }}
-          asset_name: blockycraft-${{ matrix.targetPlatform }}.zip
-          asset_content_type: application/zip
+      # - name: Upload Release Asset
+      #   id: upload-release-asset
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create-release.outputs.upload_url }}
+      #     asset_path: ${{ steps.package-artifact.outputs.path }}
+      #     asset_name: blockycraft-${{ matrix.targetPlatform }}.zip
+      #     asset_content_type: application/zip
