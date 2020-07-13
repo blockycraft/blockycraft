@@ -43,11 +43,6 @@ jobs:
           path: blockycraft/Library
           key: blockycraft/Library
 
-      # - name: Run tests
-      #   uses: webbertakken/unity-test-runner@v1.3
-      #   with:
-      #     unityVersion: 2019.3.14f1
-
       - name: Build project
         uses: webbertakken/unity-builder@v1.0
         with:
