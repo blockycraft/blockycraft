@@ -1,8 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public sealed class Iterator3D : IEnumerable<Vector3>
+public sealed class Iterator3D : IEnumerable<(int x, int y, int z)>
 {
     public int Width { get; }
     public int Length { get; }
@@ -17,12 +16,12 @@ public sealed class Iterator3D : IEnumerable<Vector3>
         Depth = depth;
     }
 
-    public IEnumerator<Vector3> GetEnumerator()
+    public IEnumerator<(int x, int y, int z)> GetEnumerator()
     {
         for (int x = 0; x < Width; x++)
             for (int y = 0; y < Length; y++)
                 for (int z = 0; z < Depth; z++)
-                    yield return new Vector3(x, y, z);
+                    yield return (x, y, z);
     }
 
     IEnumerator IEnumerable.GetEnumerator()

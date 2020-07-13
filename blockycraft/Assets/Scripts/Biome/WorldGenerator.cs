@@ -4,9 +4,10 @@ public sealed class WorldGenerator
     {
         var chunk = new BlockChunk();
         var iterator = chunk.GetIterator();
-        foreach (var block in iterator) {
-            var idx = (int)(block.y % biome.Blocks.Count);
-            chunk.Blocks[(int)block.x, (int)block.y, (int)block.z] = biome.Blocks[idx].Type;
+        foreach (var (x, y, z) in iterator)
+        {
+            var idx = y % biome.Blocks.Count;
+            chunk.Blocks[x, y, z] = biome.Blocks[idx].Type;
         }
         return chunk;
     }
@@ -15,8 +16,8 @@ public sealed class WorldGenerator
     {
         var chunk = new BlockChunk();
         var iterator = chunk.GetIterator();
-        foreach (var block in iterator)
-            chunk.Blocks[(int)block.x, (int)block.y, (int)block.z] = type;
+        foreach (var (x, y, z) in iterator)
+            chunk.Blocks[x, y, z] = type;
 
         return chunk;
     }
@@ -25,10 +26,10 @@ public sealed class WorldGenerator
     {
         var chunk = new BlockChunk();
         var iterator = chunk.GetIterator();
-        foreach (var block in iterator)
+        foreach (var (x, y, z) in iterator)
         {
-            var idx = (int) ((block.y * chunk.Width + block.x) % types.Length);
-            chunk.Blocks[(int)block.x, (int)block.y, (int)block.z] = types[idx];
+            var idx = (y * chunk.Width + x) % types.Length;
+            chunk.Blocks[x, y, z] = types[idx];
         }
         return chunk;
     }

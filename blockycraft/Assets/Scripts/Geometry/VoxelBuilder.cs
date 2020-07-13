@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public sealed class VoxelBuilder
 {
-    //TODO: Use a reference to the material itself (or some custom object)
     public static readonly int GridSize = 8;
     public static float GridUVFactor { get { return 1f / (float)GridSize; }}
 
@@ -18,12 +15,6 @@ public sealed class VoxelBuilder
             x * GridUVFactor, 
             1f - (y + 1) * GridUVFactor
         );
-    }
-
-    private IEnumerable<(int, int)> ListBlocks(BlockType[,] blocks) {
-        for (int x = 0; x < blocks.GetLength(0); x++)
-            for (int y = 0; y < blocks.GetLength(1); y++)
-                yield return (x, y);
     }
 
     public Mesh Build(BlockType block, Vector3 position)
@@ -69,11 +60,11 @@ public sealed class VoxelBuilder
         var uvs = new List<Vector2>();
         var iterator = blocks.GetIterator();
 
-        foreach (var block in iterator)
+        foreach (var (x, y, z) in iterator)
         {
-            var type = blocks.Blocks[(int)block.x, (int)block.y, (int)block.z];
+            var type = blocks.Blocks[x, y, z];
 
-            var offset = block.x * Vector3.right + block.z * Vector3.forward + block.y * Vector3.up;
+            var offset = x * Vector3.right + z * Vector3.forward + y * Vector3.up;
             for (int face = 0; face < Voxel.NumberOfFaces; face++)
             {
                 for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
