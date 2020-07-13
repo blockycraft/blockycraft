@@ -65,50 +65,24 @@ jobs:
           name: build-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           path: build/${{ matrix.targetPlatform }}/
 
-      # We only need to deploy if working with WeBGL
+  ghpages:
+    # if: github.ref == 'refs/heads/master'
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download WebGL from service
+        uses: actions/download-artifact@v2
+        with:
+          name: build-WebGL-2019.3.14f1
+          path: docs/player
 
-      - name: Copy binaries for distribution
-        if: matrix.targetPlatform == 'WebGL'
+      - name: Prepare WebGL player for GitHub Pages
         run: |
-          mkdir -p docs/player
-          cp -r build/WebGL/blockycraft/* docs/player
+          ls docs/player
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        if: github.ref == 'refs/heads/master' && matrix.targetPlatform == 'WebGL'
-        with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: docs/
-
-      - name: Package artifacts for release
-        id: package-artifact
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          mkdir -p artifacts/
-          zip -r artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip build/${{ matrix.targetPlatform }}/
-          echo "::set-output name=path::artifacts/blockycraft-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}.zip"
-
-      - name: Create Release
-        id: create-release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ${{ steps.package-artifact.outputs.path }}
-          asset_name: blockycraft-${{ matrix.targetPlatform }}.zip
-          asset_content_type: application/zip
+      # - name: Deploy 🚀
+      #   uses: JamesIves/github-pages-deploy-action@releases/v3
+      #   with:
+      #     ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     BRANCH: gh-pages
+      #     FOLDER: docs/
