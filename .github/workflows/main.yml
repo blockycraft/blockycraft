@@ -26,10 +26,10 @@ jobs:
         unityVersion:
           - 2019.3.14f1
         targetPlatform:
-          - StandaloneOSX
-          - StandaloneWindows
-          - StandaloneWindows64
-          - StandaloneLinux64
+          # - StandaloneOSX
+          # - StandaloneWindows
+          # - StandaloneWindows64
+          # - StandaloneLinux64
           - WebGL
     runs-on: ubuntu-latest
     steps:
@@ -70,15 +70,21 @@ jobs:
     needs: [ build ]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
       - name: Download WebGL from service
         uses: actions/download-artifact@v2
         with:
           name: build-WebGL-2019.3.14f1
-          path: docs/player
+          path: artifacts
 
       - name: Prepare WebGL player for GitHub Pages
         run: |
-          ls docs/player
+          mv artifacts/blockycraft docs/play
+          ls docs/play
 
       # - name: Deploy 🚀
       #   uses: JamesIves/github-pages-deploy-action@releases/v3
