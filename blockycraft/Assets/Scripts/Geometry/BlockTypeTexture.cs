@@ -1,7 +1,7 @@
 public enum BlockTypeTexture
 {
-    BambooLog = 3,
-    BambooSiding = 2,
+    BambooLog = 2,
+    BambooSiding = 3,
     Bedrock = 21,
     BedrockWithGravel = 25,
     BirchBark = 57,
@@ -27,8 +27,8 @@ public enum BlockTypeTexture
     Grass = 4,
     Gravel = 19,
     GravelLight = 20,
-    Ice1 = 26,
-    Ice2 = 59,
+    Water = 26,
+    Ice = 59,
     Lava = 27,
     Leaves1 = 17,
     Leaves2 = 28,
