@@ -68,6 +68,7 @@ jobs:
   ghpages:
     # if: github.ref == 'refs/heads/master'
     name: Deploy to GitHub Pages
+    needs: [ build ]
     runs-on: ubuntu-latest
     steps:
       - name: Download WebGL from service
