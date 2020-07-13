@@ -25,8 +25,8 @@ public class BlockTypeEditor : Editor
         previewRenderUtility.camera.transform.LookAt(Vector3.zero, Vector3.up);
 
         previewRendererObject = EditorUtility.CreateGameObjectWithHideFlags(
-            "Preview Object", 
-            HideFlags.HideAndDontSave, 
+            "Preview Object",
+            HideFlags.HideAndDontSave,
             components
         );
 
@@ -105,7 +105,16 @@ public class BlockTypeEditor : Editor
             previewRendererObject.transform.RotateAround(Vector3.zero, Vector3.forward, ANGLE);
         }
         EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Rotation", EditorStyles.miniLabel);
+        if (GUILayout.Button("Reset"))
+        {
+            previewRendererObject.transform.rotation = Quaternion.identity;
+        }
+        EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndFoldoutHeaderGroup();
+
     }
 
     public override bool HasPreviewGUI()
