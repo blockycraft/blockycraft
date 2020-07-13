@@ -26,10 +26,10 @@ jobs:
         unityVersion:
           - 2019.3.14f1
         targetPlatform:
-          # - StandaloneOSX
-          # - StandaloneWindows
-          # - StandaloneWindows64
-          # - StandaloneLinux64
+          - StandaloneOSX
+          - StandaloneWindows
+          - StandaloneWindows64
+          - StandaloneLinux64
           - WebGL
     runs-on: ubuntu-latest
     steps:
@@ -56,8 +56,6 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: blockycraft
 
-      # Upload artifacts if we are working with a release
-
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
         with:
@@ -65,9 +63,9 @@ jobs:
           path: build/${{ matrix.targetPlatform }}/
 
   ghpages:
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     name: Deploy to GitHub Pages
-    needs: [ build ]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -75,20 +73,20 @@ jobs:
         with:
           lfs: true
 
-      - name: Download WebGL from service
+      - name: Download WebGL build
         uses: actions/download-artifact@v2
         with:
           name: build-WebGL-2019.3.14f1
           path: artifacts
 
-      - name: Prepare WebGL player for GitHub Pages
+      - name: Prepare WebGL player
         run: |
           mv artifacts/blockycraft docs/play
           ls docs/play
 
-      # - name: Deploy 🚀
-      #   uses: JamesIves/github-pages-deploy-action@releases/v3
-      #   with:
-      #     ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     BRANCH: gh-pages
-      #     FOLDER: docs/
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs/
