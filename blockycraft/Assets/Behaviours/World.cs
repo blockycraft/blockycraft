@@ -42,7 +42,6 @@ public sealed class World : MonoBehaviour
 
     void Start()
     {
-        var blockTypes = ReadBlockTypes();
         var biome = ReadFlatBiome();
         
         for (int x = 0; x < chunks.GetLength(0); x++)

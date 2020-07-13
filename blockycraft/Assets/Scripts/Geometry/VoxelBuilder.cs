@@ -67,16 +67,19 @@ public sealed class VoxelBuilder
         var vertices = new List<Vector3>();
         var triangles = new List<int>();
         var uvs = new List<Vector2>();
+        var iterator = blocks.GetIterator();
 
-        foreach (var block in blocks.ToList())
+        foreach (var block in iterator)
         {
-            var offset = block.X * Vector3.right + block.Z * Vector3.forward + block.Y * Vector3.up;
+            var type = blocks.Blocks[(int)block.x, (int)block.y, (int)block.z];
+
+            var offset = block.x * Vector3.right + block.z * Vector3.forward + block.y * Vector3.up;
             for (int face = 0; face < Voxel.NumberOfFaces; face++)
             {
                 for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
                     vertices.Add(position + offset + Voxel.Vertices[Voxel.Tris[face, vert]]);
 
-                var uv = ComputeUV(block.Type, face);
+                var uv = ComputeUV(type, face);
                 uvs.Add(uv);
                 uvs.Add(new Vector2(uv.x, uv.y + GridUVFactor));
                 uvs.Add(new Vector2(uv.x + GridUVFactor, uv.y));
