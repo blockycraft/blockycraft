@@ -50,7 +50,7 @@ public sealed class World : MonoBehaviour
             for (int z = 0; z < chunks.GetLength(1); z++)
             {
                 var blocks = WorldGenerator.Generate(biome);
-                chunks[x, z] = Chunk.Create(blocks, material, x, z, gameObject); ;
+                chunks[x, z] = Chunk.Create(blocks, material, x, z, gameObject);
             }
         }
     }
