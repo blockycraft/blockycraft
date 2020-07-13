@@ -10,4 +10,4 @@ Validating the pushing.
 
 You can go to the following to play on the web.
 
-[![Blockycraft - Unity Web Player](logo.png "Blockycraft - Unity Web Player")](player/index.html)
+[![Blockycraft - Unity Web Player](logo.png "Blockycraft - Unity Web Player")](play/)
