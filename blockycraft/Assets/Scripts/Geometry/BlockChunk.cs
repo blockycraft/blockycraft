@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public sealed class BlockChunk
+﻿public sealed class BlockChunk
 {
     public const int SIZE = 8;
     public int Width => Blocks.GetLength(0);
