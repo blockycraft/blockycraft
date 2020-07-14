@@ -4,7 +4,7 @@ Blockycraft is a interactive graphics demo to create a Minecraft inspired demo w
 
 The source of the project is available in `blockycraft-classic`.
 
-![blockycraft world](./classic/screenshots/world.png "Blockycraft")
+![blockycraft world](./screenshots/world.png "Blockycraft")
 
 ## Origin
 
@@ -20,7 +20,7 @@ The refactoring focused on bringing in improvements to the chunk coordinate syst
 
 ### State of the Codebase
 
-As of the time of writing, the classic version of Blockycraft was difficult to built due to missing dependencies in the source code. This included requiring compiling an SDL audio library for supporting footsteps & other audio. Certain game assets have been 'zerod' out, as the source of these assets cannot be known. Based on these issues, I marked the project as archived. 
+As of the time of writing, the classic version of Blockycraft was difficult to built due to missing dependencies in the source code. This included requiring compiling an SDL audio library for supporting footsteps & other audio. Certain game assets have been 'zerod' out, as the source of these assets cannot be known. Based on these issues, I marked the project as archived.
 
 The code is now available under `blockycraft-classic`. This includes screenshots of the project in a running state.
 
