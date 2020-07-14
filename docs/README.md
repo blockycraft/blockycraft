@@ -2,9 +2,9 @@
 
 ## Summary
 
-A stub for the blockycraft webpage.
+Blockycraft is a Minecraft inspired Block Engine.
 
-Validating the pushing.
+Blockycraft was first developed for a University of Waterloo graphics course. The [classic version](./classic/) of the project is available as `blockycraft-classic`.
 
 ## Unity Web Player
 
