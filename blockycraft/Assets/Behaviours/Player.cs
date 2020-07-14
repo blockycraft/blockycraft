@@ -6,6 +6,8 @@ public sealed class Player : MonoBehaviour
     public float Sensitivity { get; } = 0.15f;
     private Vector3 lastMouse = new Vector3(255, 255, 255);
 
+    public World world;
+
     void Update()
     {
         var adjustedPosition = (Input.mousePosition - lastMouse) * Sensitivity;
@@ -17,6 +19,18 @@ public sealed class Player : MonoBehaviour
 
         transform.Translate(GetMovementDirection() * Speed * Time.deltaTime);
         lastMouse = Input.mousePosition;
+
+        var (x, z) = GetChunkCoordFromPosition(transform.position);
+        world.AddChunks(-x, z);
+    }
+
+    (int x, int z) GetChunkCoordFromPosition(Vector3 position)
+    {
+        // Rough estimation of which chunk the player is currently over.
+        return (
+            (int)(position.x / BlockChunk.SIZE),
+            (int)(position.z / BlockChunk.SIZE)
+        );
     }
 
     private static Vector3 GetMovementDirection()
