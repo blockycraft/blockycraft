@@ -2,4 +2,5 @@ theme: jekyll-theme-minimal
 title: Blockycraft
 description: A Minecraft inspired Block Engine.
 logo: logo.png
+logo_link_path: play/
 show_downloads: false
