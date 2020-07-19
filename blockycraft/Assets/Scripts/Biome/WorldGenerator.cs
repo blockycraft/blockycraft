@@ -1,8 +1,8 @@
 public sealed class WorldGenerator
 {
-    public static BlockChunk Generate(Biome biome)
+    public static BlockChunk Generate(Biome biome, int chunkX, int chunkZ)
     {
-        var chunk = new BlockChunk();
+        var chunk = new BlockChunk(chunkX, chunkZ);
         var iterator = chunk.GetIterator();
         foreach (var (x, y, z) in iterator)
         {
@@ -12,9 +12,9 @@ public sealed class WorldGenerator
         return chunk;
     }
 
-    public static BlockChunk Default(BlockType type)
+    public static BlockChunk Default(BlockType type, int chunkX, int chunkZ)
     {
-        var chunk = new BlockChunk();
+        var chunk = new BlockChunk(chunkX, chunkZ);
         var iterator = chunk.GetIterator();
         foreach (var (x, y, z) in iterator)
             chunk.Blocks[x, y, z] = type;
@@ -22,9 +22,9 @@ public sealed class WorldGenerator
         return chunk;
     }
 
-    public static BlockChunk Assorted(BlockType[] types)
+    public static BlockChunk Assorted(BlockType[] types, int chunkX, int chunkZ)
     {
-        var chunk = new BlockChunk();
+        var chunk = new BlockChunk(chunkX, chunkZ);
         var iterator = chunk.GetIterator();
         foreach (var (x, y, z) in iterator)
         {
