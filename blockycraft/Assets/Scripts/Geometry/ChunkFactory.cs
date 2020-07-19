@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Geometry
 {
@@ -7,11 +6,6 @@ namespace Assets.Scripts.Geometry
     {
         public static readonly int GridSize = 8;
         public static float GridUVFactor { get { return 1f / (float)GridSize; } }
-
-        public static Task<ChunkFab> Build(BlockChunk chunk)
-        {
-            return Task.Run(() => CreateFromBlocks(chunk));
-        }
 
         public static bool IsObscured(BlockType[,,] blocks, int x, int y, int z)
         {
@@ -45,7 +39,7 @@ namespace Assets.Scripts.Geometry
             return visible;
         }
 
-        private static ChunkFab CreateFromBlocks(BlockChunk blocks)
+        public static ChunkFab CreateFromBlocks(BlockChunk blocks)
         {
             var faces = ComputeVisibleFaces(blocks);
             var meshFab = new ChunkFab(blocks, faces);
