@@ -30,4 +30,16 @@ public static class Voxel
         {4, 7, 0, 3},
         {1, 2, 5, 6}
     };
+
+    public static Vector2 UV(BlockType block, int face, int sizeOfGrid, float uvFactor)
+    {
+        var textureID = (int)BlockType.GetTextureID(block, face);
+        float y = textureID / sizeOfGrid;
+        float x = textureID - (y * sizeOfGrid);
+        return new Vector2(
+            x * uvFactor,
+            1f - (y + 1) * uvFactor
+        );
+    }
+
 }

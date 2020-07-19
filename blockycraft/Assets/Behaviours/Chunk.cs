@@ -4,6 +4,7 @@ public sealed class Chunk
 {
     public MeshRenderer meshRenderer;
     public MeshFilter meshFilter;
+    public Mesh Mesh { get; set; }
     public BlockChunk Blocks { get; set; }
     public Material Voxel { get; set; }
     public int X { get; set; }
@@ -19,17 +20,14 @@ public sealed class Chunk
         gameObject.transform.position = Position;
         gameObject.name = $"Chunk {X},{Z}";
 
-        var builder = new VoxelBuilder();
-        var mesh = builder.Build(Blocks, Vector3.zero);
-
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.material = Voxel;
 
         meshFilter = gameObject.AddComponent<MeshFilter>();
-        meshFilter.mesh = mesh;
+        meshFilter.mesh = Mesh;
     }
 
-    public static Chunk Create(BlockChunk blocks, Material material, int x, int z, GameObject parent)
+    public static Chunk Create(BlockChunk blocks, Material material, int x, int z, GameObject parent, Mesh mesh)
     {
         var chunk = new Chunk
         {
@@ -37,6 +35,7 @@ public sealed class Chunk
             Voxel = material,
             X = x,
             Z = z,
+            Mesh = mesh,
             Position = x * Vector3.left * BlockChunk.SIZE + z * Vector3.forward * BlockChunk.SIZE
         };
         chunk.Initialize();
