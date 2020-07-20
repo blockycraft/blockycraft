@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
 using Assets.Scripts.Geometry;
 
@@ -8,23 +7,7 @@ public sealed class World : MonoBehaviour
     public const int DRAW_DISTANCE = 4;
     private Dictionary<string, Chunk> chunks;
     public Material material;
-    private Biome biome;
-
-    static Biome ReadFlatBiome()
-    {
-        Biome result;
-        try
-        {
-            result = (Biome)Resources.Load("Biomes/Flat", typeof(Biome));
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Proper Method failed with the following exception: ");
-            Debug.Log(e);
-            throw e;
-        }
-        return result;
-    }
+    public Biome[] biomes;
 
     public void AddChunks(int centerX, int centerZ)
     {
@@ -41,9 +24,10 @@ public sealed class World : MonoBehaviour
                 {
                     continue;
                 }
-                
 
-                var blocks = WorldGenerator.Generate(biome, x, z);
+                var biome = biomes[(int)(Random.value * (biomes.Length))];
+                var generator = biome.Generator;
+                var blocks = generator.Generate(biome, x, z);
                 tasks.Add(ChunkFactory.CreateFromBlocks(blocks));
             }
         }
@@ -61,7 +45,6 @@ public sealed class World : MonoBehaviour
     void Start()
     {
         chunks = new Dictionary<string, Chunk>();
-        biome = ReadFlatBiome();
 
         AddChunks(0, 0);
     }
