@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: Sand
   m_EditorClassIdentifier: 
   Name: Dirt
-  GroundHeight: 0
-  Height: 0
   Generator: {fileID: 11400000, guid: cff092dda5a76d7498cee85f296f50d9, type: 2}
   Blocks:
   - Type: {fileID: 11400000, guid: 59cdc2dd76bc8de43996ac0361c1ea7d, type: 2}
-    Minimum: 0
-    Maximum: 0
-    Threshold: 0

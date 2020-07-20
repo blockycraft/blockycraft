@@ -13,15 +13,7 @@ MonoBehaviour:
   m_Name: Flat
   m_EditorClassIdentifier: 
   Name: Flat
-  GroundHeight: 0
-  Height: 0
   Generator: {fileID: 11400000, guid: cff092dda5a76d7498cee85f296f50d9, type: 2}
   Blocks:
   - Type: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
-    Minimum: 0
-    Maximum: 0
-    Threshold: 0
   - Type: {fileID: 11400000, guid: 28e59d219862508419a9db71331f0f31, type: 2}
-    Minimum: 0
-    Maximum: 0
-    Threshold: 0
