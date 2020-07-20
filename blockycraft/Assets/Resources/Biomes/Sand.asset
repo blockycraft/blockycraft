@@ -10,18 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36b36aab1c7472f45b1d7784fb1bff61, type: 3}
-  m_Name: Flat
+  m_Name: Sand
   m_EditorClassIdentifier: 
-  Name: Flat
+  Name: Dirt
   GroundHeight: 0
   Height: 0
   Generator: {fileID: 11400000, guid: cff092dda5a76d7498cee85f296f50d9, type: 2}
   Blocks:
-  - Type: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
-    Minimum: 0
-    Maximum: 0
-    Threshold: 0
-  - Type: {fileID: 11400000, guid: 28e59d219862508419a9db71331f0f31, type: 2}
+  - Type: {fileID: 11400000, guid: 59cdc2dd76bc8de43996ac0361c1ea7d, type: 2}
     Minimum: 0
     Maximum: 0
     Threshold: 0
