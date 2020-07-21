@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         unityVersion:
-          - 2019.3.14f1
+          - 2019.4.3f1
         targetPlatform:
           - StandaloneOSX
           - StandaloneWindows
@@ -71,7 +71,7 @@ jobs:
       - name: Download WebGL build
         uses: actions/download-artifact@v2
         with:
-          name: build-WebGL-2019.3.14f1
+          name: build-WebGL-2019.4.3f1
           path: artifacts
 
       - name: Prepare WebGL player
@@ -119,7 +119,7 @@ jobs:
       fail-fast: false
       matrix:
         unityVersion:
-          - 2019.3.14f1
+          - 2019.4.3f1
         targetPlatform:
           - StandaloneOSX
           - StandaloneWindows
