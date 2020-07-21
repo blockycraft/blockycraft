@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Lava
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 27
-  right: 27
-  top: 27
-  bottom: 27
-  front: 27
-  back: 27
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: lava
+  right: lava
+  top: lava
+  bottom: lava
+  front: lava
+  back: lava

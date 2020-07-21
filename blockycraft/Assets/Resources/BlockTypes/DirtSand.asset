@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b3dcbb8f276bf4d8e1be3862f9ba27, type: 3}
   m_Name: DirtSand
   m_EditorClassIdentifier: 
-  blockName: Dirt with Sand
+  blockName: Dirt
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 12
-  right: 12
-  top: 40
-  bottom: 10
-  front: 12
-  back: 12
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: dirt_sand
+  right: dirt_sand
+  top: sand
+  bottom: dirt
+  front: dirt_sand
+  back: dirt_sand

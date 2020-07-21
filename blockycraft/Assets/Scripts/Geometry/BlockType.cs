@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Assets.Scripts.Biomes;
+using System;
 
 [CreateAssetMenu(fileName = "BlockType", menuName = "Blockycraft/Block Type")]
 public sealed class BlockType : ScriptableObject
@@ -8,33 +10,34 @@ public sealed class BlockType : ScriptableObject
     public string blockName;
 
     public Material material;
+    public TexturePack textures;
 
     [Header("Texture Faces")]
-    public BlockTypeTexture left;
-    public BlockTypeTexture right;
-    public BlockTypeTexture top;
-    public BlockTypeTexture bottom;
-    public BlockTypeTexture front;
-    public BlockTypeTexture back;
+    public string left;
+    public string right;
+    public string top;
+    public string bottom;
+    public string front;
+    public string back;
 
-    public static BlockTypeTexture GetTextureID(BlockType block, int index)
+    public static TexturePack.Element GetTextureID(BlockType block, int index)
     {
         switch ((BlockFace)index)
         {
             case BlockFace.Back:
-                return block.back;
+                return block.textures.Find(block.back);
             case BlockFace.Front:
-                return block.front;
+                return block.textures.Find(block.front);
             case BlockFace.Top:
-                return block.top;
+                return block.textures.Find(block.top);
             case BlockFace.Bottom:
-                return block.bottom;
+                return block.textures.Find(block.bottom);
             case BlockFace.Left:
-                return block.left;
+                return block.textures.Find(block.left);
             case BlockFace.Right:
-                return block.right;
+                return block.textures.Find(block.right);
             default:
-                return BlockTypeTexture.Dirt;
+                throw new NotSupportedException();
         }
     }
 }

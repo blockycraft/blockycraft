@@ -64,13 +64,16 @@ namespace Assets.Scripts.Geometry
                     for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
                     {
                         meshFab.PushVertex(offset + Voxel.Vertices[Voxel.Tris[face, vert]]);
-                    }                       
+                    }
 
-                    var uv = Voxel.UV(type, face, GridSize, GridUVFactor);
+                    var texture = BlockType.GetTextureID(type, face);
+                    var uv = type.textures.UV(texture);
+                    var dimensions = type.textures.Dimensions(texture);
+
+                    meshFab.PushUV(new Vector2(uv.x + dimensions.x, uv.y + dimensions.y));
+                    meshFab.PushUV(new Vector2(uv.x + dimensions.x, uv.y));
+                    meshFab.PushUV(new Vector2(uv.x, uv.y + dimensions.y));
                     meshFab.PushUV(uv);
-                    meshFab.PushUV(new Vector2(uv.x, uv.y + GridUVFactor));
-                    meshFab.PushUV(new Vector2(uv.x + GridUVFactor, uv.y));
-                    meshFab.PushUV(new Vector2(uv.x + GridUVFactor, uv.y + GridUVFactor));
 
                     for (int idx = 0; idx < Voxel.Triangles.Length; idx++)
                         meshFab.PushTriangle(vertexIndex + Voxel.Triangles[idx]);

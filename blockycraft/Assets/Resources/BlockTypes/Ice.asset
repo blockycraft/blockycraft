@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Ice
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 59
-  right: 59
-  top: 59
-  bottom: 59
-  front: 59
-  back: 59
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: ice
+  right: ice
+  top: ice
+  bottom: ice
+  front: ice
+  back: ice

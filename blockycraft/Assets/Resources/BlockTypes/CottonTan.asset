@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b3dcbb8f276bf4d8e1be3862f9ba27, type: 3}
   m_Name: CottonTan
   m_EditorClassIdentifier: 
-  blockName: Tan Cotton
+  blockName: Red Cotton
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 9
-  right: 9
-  top: 9
-  bottom: 9
-  front: 9
-  back: 9
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: cotton_tan
+  right: cotton_tan
+  top: cotton_tan
+  bottom: cotton_tan
+  front: cotton_tan
+  back: cotton_tan
