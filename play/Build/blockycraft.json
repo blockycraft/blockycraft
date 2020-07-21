@@ -1,7 +1,7 @@
 {
 "companyName": "DefaultCompany",
 "productName": "blockycraft",
-"productVersion": "0.0.1.9",
+"productVersion": "0.0.1.10",
 "dataUrl": "blockycraft.data.unityweb",
 "wasmCodeUrl": "blockycraft.wasm.code.unityweb",
 "wasmFrameworkUrl": "blockycraft.wasm.framework.unityweb",
@@ -12,5 +12,5 @@
 "cacheControl": {"default": "must-revalidate"},
 "developmentBuild": false,
 "multithreading": false,
-"unityVersion": "2019.3.14f1"
+"unityVersion": "2019.4.3f1"
 }
