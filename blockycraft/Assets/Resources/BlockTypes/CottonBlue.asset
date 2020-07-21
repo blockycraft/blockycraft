@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Blue Cotton
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 5
-  right: 5
-  top: 5
-  bottom: 5
-  front: 5
-  back: 5
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: cotton_blue
+  right: cotton_blue
+  top: cotton_blue
+  bottom: cotton_blue
+  front: cotton_blue
+  back: cotton_blue

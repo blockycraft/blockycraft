@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Grass
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 11
-  right: 11
-  top: 4
-  bottom: 10
-  front: 11
-  back: 11
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: dirt_grass
+  right: dirt_grass
+  top: grass_top
+  bottom: dirt
+  front: dirt_grass
+  back: dirt_grass

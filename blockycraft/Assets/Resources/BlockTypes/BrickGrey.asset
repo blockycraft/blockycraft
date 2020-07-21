@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b3dcbb8f276bf4d8e1be3862f9ba27, type: 3}
   m_Name: BrickGrey
   m_EditorClassIdentifier: 
-  blockName: Brick (Grey)
+  blockName: Grey Brick
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 0
-  right: 0
-  top: 0
-  bottom: 0
-  front: 0
-  back: 0
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: brick_grey
+  right: brick_grey
+  top: brick_grey
+  bottom: brick_grey
+  front: brick_grey
+  back: brick_grey

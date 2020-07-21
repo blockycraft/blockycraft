@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b3dcbb8f276bf4d8e1be3862f9ba27, type: 3}
   m_Name: OreDiamond
   m_EditorClassIdentifier: 
-  blockName: Ore Diamond
+  blockName: Diamond Ore
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 49
-  right: 49
-  top: 48
-  bottom: 48
-  front: 49
-  back: 49
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: stone_diamond_alt
+  right: stone_diamond_alt
+  top: stone_diamond
+  bottom: stone_diamond
+  front: stone_diamond_alt
+  back: stone_diamond_alt

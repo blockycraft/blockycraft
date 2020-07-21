@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Stone
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 42
-  right: 42
-  top: 42
-  bottom: 42
-  front: 42
-  back: 42
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: stone
+  right: stone
+  top: stone
+  bottom: stone
+  front: stone
+  back: stone

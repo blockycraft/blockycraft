@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Red Cotton
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  left: 8
-  right: 8
-  top: 8
-  bottom: 8
-  front: 8
-  back: 8
+  textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  left: cotton_red
+  right: cotton_red
+  top: cotton_red
+  bottom: cotton_red
+  front: cotton_red
+  back: cotton_red
