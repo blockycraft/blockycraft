@@ -15,7 +15,7 @@ on:
       - "*"
 
 env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_2019_4_3F1 }}
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
   build:
