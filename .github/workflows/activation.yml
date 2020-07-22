@@ -1,4 +1,4 @@
-name: Acquire activation file 🔑
+name: Acquire activation file
 on:
   pull_request:
     paths:
