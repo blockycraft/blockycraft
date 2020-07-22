@@ -16,6 +16,12 @@ All pull requests trigger the build pipeline for the relevant target platforms. 
 
 These builds only run on pull requests due to the required build minutes per run. By only running on pull requests, it reduce the impact of builds running for small minor changes. Ideally there would be a more efficient way to cache build artifacts to reduce this (a la hermetic builds).
 
+### Unity Upgrades
+
+The build actions work with Unity under the hood, and as such need to be activated. The [upgrade process](upgrades.md) can be performed in a single pull request, but needs to be done in multiple commits. The `UNITY_LICENSE` secret that declares the license is versioned to allow avoid disrupting existing build runs.
+
+The full process is documented under [deployment/upgrades](upgrades.md).
+
 ## Releases
 
 Releases are created when a tag is pushed for a given commit. These tags should follow semantic versioning, but there is no requirement to do so. The intent is to have a bit of flexibility when making alterations to the deployment pipeline on a development branch. From a terminal, the release process is as follows:
