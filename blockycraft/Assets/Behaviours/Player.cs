@@ -20,15 +20,16 @@ public sealed class Player : MonoBehaviour
         transform.Translate(GetMovementDirection() * Speed * Time.deltaTime);
         lastMouse = Input.mousePosition;
 
-        var (x, z) = GetChunkCoordFromPosition(transform.position);
-        world.AddChunks(-x, z);
+        var (x, y, z) = GetChunkCoordFromPosition(transform.position);
+        world.AddChunks(-x, y, z);
     }
 
-    (int x, int z) GetChunkCoordFromPosition(Vector3 position)
+    (int x, int y, int z) GetChunkCoordFromPosition(Vector3 position)
     {
         // Rough estimation of which chunk the player is currently over.
         return (
             (int)(position.x / BlockChunk.SIZE),
+            (int)(position.y / BlockChunk.SIZE),
             (int)(position.z / BlockChunk.SIZE)
         );
     }

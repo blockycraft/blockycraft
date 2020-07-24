@@ -6,9 +6,10 @@
     public int Depth => Blocks.GetLength(2);
     public BlockType[,,] Blocks { get; }
     public int X { get; set; }
+    public int Y { get; set; }
     public int Z { get; set; }
 
-    public BlockChunk(int x, int z)
+    public BlockChunk(int x, int y, int z)
     {
         Blocks = new BlockType[SIZE, SIZE, SIZE];
         X = x;
