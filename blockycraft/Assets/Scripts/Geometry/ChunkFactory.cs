@@ -32,10 +32,12 @@ namespace Assets.Scripts.Geometry
                 foreach (int face in directions)
                 {
                     var (nx, ny, nz) = BlockChunk.GetDirection(x, y, z, (BlockFace)face);
-                    if (!IsVisible(blocks.Blocks, nx, ny, nz))
+                    if (IsVisible(blocks.Blocks, nx, ny, nz))
                     {
-                        visible++;
+                        continue;
                     }
+
+                    visible++;
                 }
             }
             return visible;
@@ -55,7 +57,7 @@ namespace Assets.Scripts.Geometry
                 var type = blocks.Blocks[x, y, z];
                 if (!type.isVisible) continue;
 
-                var offset = (x * Vector3.right * blockSize) + (z * Vector3.forward * blockSize) + (y * Vector3.up * blockSize);
+                var offset = (x * Vector3.left * blockSize) + (z * Vector3.forward * blockSize) + (y * Vector3.up * blockSize);
                 foreach (int face in directions)
                 {
                     var (nx, ny, nz) = BlockChunk.GetDirection(x, y, z, (BlockFace)face);
