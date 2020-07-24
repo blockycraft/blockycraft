@@ -19,10 +19,10 @@
     {
         switch (face)
         {
-            case BlockFace.Back: return (x - 1, y, z);
-            case BlockFace.Front: return (x + 1, y, z);
-            case BlockFace.Left: return (x, y, z + 1);
-            case BlockFace.Right: return (x, y, z - 1);
+            case BlockFace.Left: return (x - 1, y, z);
+            case BlockFace.Right: return (x + 1, y, z);
+            case BlockFace.Back: return (x, y, z + 1);
+            case BlockFace.Front: return (x, y, z - 1);
             case BlockFace.Top: return (x, y + 1, z);
             case BlockFace.Bottom: return (x, y - 1, z);
             default: return (x, y, z);

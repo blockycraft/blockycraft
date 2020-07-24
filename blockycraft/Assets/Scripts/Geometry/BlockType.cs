@@ -12,6 +12,9 @@ public sealed class BlockType : ScriptableObject
     public Material material;
     public TexturePack textures;
 
+    [Header("Properties")]
+    public bool isVisible;
+
     [Header("Texture Faces")]
     public string left;
     public string right;
@@ -19,6 +22,10 @@ public sealed class BlockType : ScriptableObject
     public string bottom;
     public string front;
     public string back;
+
+    public BlockType() {
+        isVisible = true;
+    }
 
     public static TexturePack.Element GetTextureID(BlockType block, int index)
     {

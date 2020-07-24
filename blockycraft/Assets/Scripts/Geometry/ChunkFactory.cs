@@ -7,7 +7,7 @@ namespace Assets.Scripts.Geometry
         public static readonly int GridSize = 8;
         public static float GridUVFactor { get { return 1f / (float)GridSize; } }
 
-        public static bool IsObscured(BlockType[,,] blocks, int x, int y, int z)
+        public static bool IsVisible(BlockType[,,] blocks, int x, int y, int z)
         {
             if (x < 0 || x >= blocks.GetLength(0) ||
                 y < 0 || y >= blocks.GetLength(1) ||
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Geometry
                 return false;
             }
 
-            return blocks[x, y, z] != null;
+            return blocks[x, y, z].isVisible;
         }
 
         public static int ComputeVisibleFaces(BlockChunk blocks)
@@ -27,10 +27,12 @@ namespace Assets.Scripts.Geometry
             foreach (var (x, y, z) in iterator)
             {
                 var type = blocks.Blocks[x, y, z];
+                if (!type.isVisible) continue;
+
                 foreach (int face in directions)
                 {
                     var (nx, ny, nz) = BlockChunk.GetDirection(x, y, z, (BlockFace)face);
-                    if (!IsObscured(blocks.Blocks, nx, ny, nz))
+                    if (!IsVisible(blocks.Blocks, nx, ny, nz))
                     {
                         visible++;
                     }
@@ -51,12 +53,13 @@ namespace Assets.Scripts.Geometry
             foreach (var (x, y, z) in iterator)
             {
                 var type = blocks.Blocks[x, y, z];
+                if (!type.isVisible) continue;
 
                 var offset = (x * Vector3.right * blockSize) + (z * Vector3.forward * blockSize) + (y * Vector3.up * blockSize);
                 foreach (int face in directions)
                 {
                     var (nx, ny, nz) = BlockChunk.GetDirection(x, y, z, (BlockFace)face);
-                    if (IsObscured(blocks.Blocks, nx, ny, nz))
+                    if (IsVisible(blocks.Blocks, nx, ny, nz))
                     {
                         continue;
                     }
