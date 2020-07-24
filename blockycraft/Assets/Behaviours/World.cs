@@ -21,7 +21,6 @@ public sealed class World : MonoBehaviour
             var key = $"{x}:{y}:{z}";
             if (chunks.ContainsKey(key))
             {
-                Debug.Log(key);
                 continue;
             }
 
