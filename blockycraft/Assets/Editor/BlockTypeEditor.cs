@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts;
+using Assets.Scripts.Geometry;
+using Assets.Scripts.World.Chunk;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(BlockType))]
 public class BlockTypeEditor : Editor
@@ -10,7 +13,6 @@ public class BlockTypeEditor : Editor
     private MeshFilter targetMeshFilter;
     private MeshRenderer targetMeshRenderer;
     private GameObject previewRendererObject;
-    private VoxelBuilder builder;
     private readonly System.Type[] components = new System.Type[] { typeof(MeshRenderer), typeof(MeshFilter) };
 
     private void Initialize(BlockType block)
@@ -19,7 +21,6 @@ public class BlockTypeEditor : Editor
             return;
 
         previewRenderUtility = new PreviewRenderUtility(false);
-        builder = new VoxelBuilder();
 
         previewRenderUtility.camera.transform.position = new Vector3(5, 5, 5);
         previewRenderUtility.camera.transform.LookAt(Vector3.zero, Vector3.up);
@@ -35,6 +36,7 @@ public class BlockTypeEditor : Editor
 
         targetMeshFilter = previewRendererObject.GetComponent<MeshFilter>();
         targetMeshRenderer = previewRendererObject.GetComponent<MeshRenderer>();
+        targetMeshRenderer.transform.position = -Voxel.Center;
     }
 
     private void InitializeLighting(PreviewRenderUtility utility)
@@ -55,7 +57,7 @@ public class BlockTypeEditor : Editor
 
     private void ReloadMesh(GameObject previewRendererObject, BlockType block)
     {
-        var mesh = builder.Build(block, -Voxel.Center);
+        var mesh = ChunkFactory.Build(block);
         previewRendererObject.GetComponent<MeshFilter>().mesh = mesh;
     }
 
@@ -63,7 +65,7 @@ public class BlockTypeEditor : Editor
     {
         EditorGUI.BeginChangeCheck();
         base.OnInspectorGUI();
-        if (EditorGUI.EndChangeCheck() && builder != null)
+        if (EditorGUI.EndChangeCheck())
         {
             ReloadMesh(previewRendererObject, (BlockType)target);
         }
@@ -114,7 +116,6 @@ public class BlockTypeEditor : Editor
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndFoldoutHeaderGroup();
-
     }
 
     public override bool HasPreviewGUI()
@@ -145,7 +146,7 @@ public class BlockTypeEditor : Editor
         GUI.DrawTexture(r, resultRender, ScaleMode.StretchToFill, false);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         previewRenderUtility?.Cleanup();
     }

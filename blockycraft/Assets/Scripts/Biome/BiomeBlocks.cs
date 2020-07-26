@@ -1,5 +1,8 @@
-[System.Serializable]
-public sealed class BiomeBlocks
+namespace Assets.Scripts.Biome
 {
-    public BlockType Type;
+    [System.Serializable]
+    public sealed class BiomeBlocks
+    {
+        public BlockType Type;
+    }
 }

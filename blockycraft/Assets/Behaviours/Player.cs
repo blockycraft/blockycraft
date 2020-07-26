@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.World;
+using Assets.Scripts.World.Chunk;
+using UnityEngine;
 
 public sealed class Player : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public sealed class Player : MonoBehaviour
 
     public World world;
 
-    void Update()
+    private void Update()
     {
         var adjustedPosition = (Input.mousePosition - lastMouse) * Sensitivity;
         transform.eulerAngles = new Vector3(
@@ -20,17 +22,16 @@ public sealed class Player : MonoBehaviour
         transform.Translate(GetMovementDirection() * Speed * Time.deltaTime);
         lastMouse = Input.mousePosition;
 
-        var (x, y, z) = GetChunkCoordFromPosition(transform.position);
-        world.AddChunks(-x, y, z);
+        var coord = GetChunkCoordFromPosition(transform.position);
+        world.AddChunks(-coord.x, coord.y, coord.z);
     }
 
-    (int x, int y, int z) GetChunkCoordFromPosition(Vector3 position)
+    private Vector3Int GetChunkCoordFromPosition(Vector3 position)
     {
-        // Rough estimation of which chunk the player is currently over.
-        return (
-            (int)(position.x / BlockChunk.SIZE),
-            (int)(position.y / BlockChunk.SIZE),
-            (int)(position.z / BlockChunk.SIZE)
+        return new Vector3Int(
+            (int)(position.x / WorldComponent.SIZE),
+            (int)(position.y / WorldComponent.SIZE),
+            (int)(position.z / WorldComponent.SIZE)
         );
     }
 
