@@ -28,7 +28,6 @@ public sealed class Player : MonoBehaviour
 
     private Vector3Int GetChunkCoordFromPosition(Vector3 position)
     {
-        // Rough estimation of which chunk the player is currently over.
         return new Vector3Int(
             (int)(position.x / WorldComponent.SIZE),
             (int)(position.y / WorldComponent.SIZE),

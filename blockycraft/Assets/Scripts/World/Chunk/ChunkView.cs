@@ -2,8 +2,8 @@
 {
     public sealed class ChunkView
     {
-        public bool[,,,] Visible { get; private set; }
-        public bool[,,] Blocks { get; private set; }
+        public bool[,,,] Visible { get; }
+        public bool[,,] Blocks { get; }
         public int Count { get; private set; }
 
         public ChunkView(int length, int height, int depth, int faces)

@@ -12,10 +12,10 @@ public sealed class Iterator3D : IEnumerable<Vector3Int>
     {
     }
 
-    public Iterator3D(int width, int length, int depth)
+    public Iterator3D(int width, int height, int depth)
     {
         Width = width;
-        Height = length;
+        Height = height;
         Depth = depth;
     }
 
