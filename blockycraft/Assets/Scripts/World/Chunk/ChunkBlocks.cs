@@ -3,11 +3,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.World.Chunk
 {
-    public sealed class BlockChunk
+    public sealed class ChunkBlocks
     {
-        // Move ot a better spot
-        public const int SIZE = 8;
-
         public int Width => Blocks.GetLength(0);
         public int Length => Blocks.GetLength(1);
         public int Depth => Blocks.GetLength(2);
@@ -16,15 +13,7 @@ namespace Assets.Scripts.World.Chunk
         public int Y { get; set; }
         public int Z { get; set; }
 
-        public BlockChunk(int x, int y, int z)
-        {
-            Blocks = new BlockType[SIZE, SIZE, SIZE];
-            X = x;
-            Y = y;
-            Z = z;
-        }
-
-        public BlockChunk(int x, int y, int z, int size)
+        public ChunkBlocks(int x, int y, int z, int size)
         {
             Blocks = new BlockType[size, size, size];
             X = x;

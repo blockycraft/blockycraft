@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.World.Chunk;
+﻿using Assets.Scripts.World;
+using Assets.Scripts.World.Chunk;
 using UnityEngine;
 
 namespace Assets.Scripts.Biome.Generator
@@ -6,9 +7,9 @@ namespace Assets.Scripts.Biome.Generator
     [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Assorted")]
     public sealed class AssortedWorldGenerator : WorldGenerator
     {
-        public override BlockChunk Generate(Biome biome, Vector3Int coordinate)
+        public override ChunkBlocks Generate(Biome biome, Vector3Int coordinate)
         {
-            var chunk = new BlockChunk(coordinate.x, coordinate.y, coordinate.z);
+            var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
