@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Geometry;
-using UnityEngine;
-
-namespace Assets.Scripts.World.Chunk
+﻿namespace Assets.Scripts.World.Chunk
 {
     public sealed class ChunkBlocks
     {
@@ -19,36 +16,6 @@ namespace Assets.Scripts.World.Chunk
             X = x;
             Y = y;
             Z = z;
-        }
-
-        public static Vector3Int GetDirection(int x, int y, int z, VoxelFace face)
-        {
-            switch (face)
-            {
-                case VoxelFace.Back: return new Vector3Int(x - 1, y, z);
-                case VoxelFace.Front: return new Vector3Int(x + 1, y, z);
-                case VoxelFace.Left: return new Vector3Int(x, y, z - 1);
-                case VoxelFace.Right: return new Vector3Int(x, y, z + 1);
-                case VoxelFace.Top: return new Vector3Int(x, y + 1, z);
-                case VoxelFace.Bottom: return new Vector3Int(x, y - 1, z);
-                default: return new Vector3Int(x, y, z);
-            }
-        }
-
-        public bool WithinBounds(int x, int y, int z)
-        {
-            return x < 0 || x >= Width || y < 0 || y >= Length || z < 0 || z >= Depth;
-        }
-
-        public BlockType GetNeighbour(int x, int y, int z, VoxelFace face)
-        {
-            if (!WithinBounds(x, y, z))
-            {
-                throw new System.IndexOutOfRangeException();
-            }
-
-            var neighbour = GetDirection(x, y, z, face);
-            return Blocks[neighbour.x, neighbour.y, neighbour.z];
         }
 
         public Iterator3D GetIterator()

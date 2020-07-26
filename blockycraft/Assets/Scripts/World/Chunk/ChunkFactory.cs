@@ -63,7 +63,7 @@ namespace Assets.Scripts.World.Chunk
                 var offset = Voxel.Position(coord);
                 foreach (int face in directions)
                 {
-                    var neighbour = ChunkBlocks.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
+                    var neighbour = coord + Voxel.Direction((VoxelFace)face);
                     if (!view.Visible[coord.x, coord.y, coord.z, face]) { continue; }
 
                     for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
