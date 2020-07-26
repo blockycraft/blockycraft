@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using Assets.Scripts.Geometry;
 
 [CustomEditor(typeof(BlockType))]
 public class BlockTypeEditor : Editor
@@ -33,6 +34,7 @@ public class BlockTypeEditor : Editor
 
         targetMeshFilter = previewRendererObject.GetComponent<MeshFilter>();
         targetMeshRenderer = previewRendererObject.GetComponent<MeshRenderer>();
+        targetMeshRenderer.transform.position = -Voxel.Center;
     }
 
     private void InitializeLighting(PreviewRenderUtility utility)
@@ -53,7 +55,7 @@ public class BlockTypeEditor : Editor
 
     private void ReloadMesh(GameObject previewRendererObject, BlockType block)
     {
-        var mesh = VoxelBuilder.Build(block, -Voxel.Center);
+        var mesh = ChunkFactory.Build(block);
         previewRendererObject.GetComponent<MeshFilter>().mesh = mesh;
     }
 

@@ -86,5 +86,14 @@ namespace Assets.Scripts.Geometry
 
             return meshFab;
         }
+
+        public static Mesh Build(BlockType type)
+        {
+            var blockChunk = new BlockChunk(0, 0, 0, 1);
+            blockChunk.Blocks[0,0,0] = type;
+
+            var chunkFab = CreateFromBlocks(blockChunk);
+            return chunkFab.ToMesh();
+        }
     }
 }

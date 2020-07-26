@@ -3,9 +3,6 @@ using UnityEngine;
 
 public sealed class VoxelBuilder
 {
-    public static readonly int GridSize = 8;
-    public static float GridUVFactor { get { return 1f / (float)GridSize; }}
-
     public static Mesh Build(BlockType block, Vector3 position)
     {
         int vertexIndex = 0;

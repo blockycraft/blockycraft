@@ -19,6 +19,14 @@ public sealed class BlockChunk
         Z = z;
     }
 
+    public BlockChunk(int x, int y, int z, int size)
+    {
+        Blocks = new BlockType[size, size, size];
+        X = x;
+        Y = y;
+        Z = z;
+    }
+
     public static Vector3Int GetDirection(int x, int y, int z, BlockFace face)
     {
         switch (face)
