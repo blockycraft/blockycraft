@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Geometry;
+﻿using UnityEngine;
 using System;
-using UnityEngine;
+using Assets.Scripts.Geometry;
 
 namespace Assets.Scripts
 {
@@ -18,7 +18,6 @@ namespace Assets.Scripts
 
         [Header("Texture Faces")]
         public string left;
-
         public string right;
         public string top;
         public string bottom;
@@ -32,15 +31,15 @@ namespace Assets.Scripts
 
         public static TexturePack.Element GetTextureID(BlockType block, int index)
         {
-            return ((VoxelFace)index) switch
+            switch ((VoxelFace)index)
             {
-                VoxelFace.Back => block.textures.Find(block.back),
-                VoxelFace.Front => block.textures.Find(block.front),
-                VoxelFace.Top => block.textures.Find(block.top),
-                VoxelFace.Bottom => block.textures.Find(block.bottom),
-                VoxelFace.Left => block.textures.Find(block.left),
-                VoxelFace.Right => block.textures.Find(block.right),
-                _ => throw new NotSupportedException(),
+                case VoxelFace.Back: return block.textures.Find(block.back);
+                case VoxelFace.Front: return block.textures.Find(block.front);
+                case VoxelFace.Top: return block.textures.Find(block.top);
+                case VoxelFace.Bottom: return block.textures.Find(block.bottom);
+                case VoxelFace.Left: return block.textures.Find(block.left);
+                case VoxelFace.Right: return block.textures.Find(block.right);
+                default: throw new NotSupportedException();
             };
         }
     }
