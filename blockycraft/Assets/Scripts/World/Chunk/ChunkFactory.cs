@@ -41,11 +41,11 @@ namespace Assets.Scripts.World.Chunk
             return visible;
         }
 
-        public static bool[,,,] Visibility(BlockChunk blocks)
+        public static ChunkView Visibility(BlockChunk blocks)
         {
             var iterator = blocks.GetIterator();
             var directions = System.Enum.GetValues(typeof(VoxelFace));
-            var visibility = new bool[blocks.Width, blocks.Length, blocks.Depth, directions.Length];
+            var visibility = new ChunkView(blocks.Width, blocks.Length, blocks.Depth, directions.Length);
             foreach (var coord in iterator)
             {
                 var type = blocks.Blocks[coord.x, coord.y, coord.z];
@@ -56,11 +56,12 @@ namespace Assets.Scripts.World.Chunk
                     var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
                     if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
-                        visibility[coord.x, coord.y, coord.z, face] = true;
+                        visibility.Visibility[coord.x, coord.y, coord.z, face] = true;
+                        visibility.Increment();
                     }
                     else
                     {
-                        visibility[coord.x, coord.y, coord.z, face] = true;
+                        visibility.Visibility[coord.x, coord.y, coord.z, face] = false;
                     }
                 }
             }
@@ -69,8 +70,8 @@ namespace Assets.Scripts.World.Chunk
 
         public static ChunkFab Initialize(BlockChunk blocks)
         {
-            var faces = ComputeVisibleFaces(blocks);
-            return new ChunkFab(faces);
+            var faces = Visibility(blocks);
+            return new ChunkFab(faces.Count);
         }
 
         public static ChunkFab CreateFromBlocks(BlockChunk blocks, ChunkFab meshFab)
