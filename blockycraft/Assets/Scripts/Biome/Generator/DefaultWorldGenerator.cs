@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.World.Chunk;
+using UnityEngine;
 
-namespace Assets.Scripts.Biomes
+namespace Assets.Scripts.Biome.Generator
 {
 
     [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Default")]

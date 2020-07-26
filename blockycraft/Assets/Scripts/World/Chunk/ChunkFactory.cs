@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Geometry;
+using UnityEngine;
 
-namespace Assets.Scripts.Geometry
+namespace Assets.Scripts.World.Chunk
 {
     public static class ChunkFactory
     {
@@ -39,13 +40,40 @@ namespace Assets.Scripts.Geometry
             }
             return visible;
         }
-        
+
+        public static bool[,,,] Visibility(BlockChunk blocks)
+        {
+            var iterator = blocks.GetIterator();
+            var directions = System.Enum.GetValues(typeof(BlockFace));
+            var visibility = new bool[blocks.Width, blocks.Length, blocks.Depth, directions.Length];
+            foreach (var coord in iterator)
+            {
+                var type = blocks.Blocks[coord.x, coord.y, coord.z];
+                if (!type.isVisible) continue;
+
+                foreach (int face in directions)
+                {
+                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (BlockFace)face);
+                    if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
+                    {
+                        visibility[coord.x, coord.y, coord.z, face] = true;
+                    }
+                    else
+                    {
+                        visibility[coord.x, coord.y, coord.z, face] = true;
+                    }
+
+                }
+            }
+            return visibility;
+        }
+
         public static ChunkFab Initialize(BlockChunk blocks)
         {
             var faces = ComputeVisibleFaces(blocks);
             return new ChunkFab(faces);
         }
-        
+
         public static ChunkFab CreateFromBlocks(BlockChunk blocks, ChunkFab meshFab)
         {
             int vertexIndex = 0;
@@ -93,7 +121,7 @@ namespace Assets.Scripts.Geometry
         public static Mesh Build(BlockType type)
         {
             var blockChunk = new BlockChunk(0, 0, 0, 1);
-            blockChunk.Blocks[0,0,0] = type;
+            blockChunk.Blocks[0, 0, 0] = type;
 
             var initFab = Initialize(blockChunk);
             var chunkFab = CreateFromBlocks(blockChunk, initFab);

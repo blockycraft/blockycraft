@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
-using Assets.Scripts.Biomes;
+using Assets.Scripts.Biome.Generator;
 
-[CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biome")]
-public sealed class Biome : ScriptableObject
+namespace Assets.Scripts.Biome
 {
-    [Header("Descriptors")]
-    public string Name;
+    [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biome")]
+    public sealed class Biome : ScriptableObject
+    {
+        [Header("Descriptors")]
+        public string Name;
 
-    [Header("Generator")]
-    public WorldGenerator Generator;
+        [Header("Generator")]
+        public WorldGenerator Generator;
 
-    [Header("Composition")]
-    public BiomeBlocks[] Blocks;
+        [Header("Composition")]
+        public BiomeBlocks[] Blocks;
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Assets.Scripts.Geometry;
+using Assets.Scripts.World.Chunk;
+using Assets.Scripts.Biome;
 
 public sealed class World : MonoBehaviour
 {

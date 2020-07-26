@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Geometry;
+using UnityEngine;
 
-namespace Assets.Scripts.Geometry
+namespace Assets.Scripts.World.Chunk
 {
     public sealed class ChunkFab
     {
@@ -9,7 +10,8 @@ namespace Assets.Scripts.Geometry
         public Vector2[] UVs { get; private set; }
         private int idxVertex, idxUV, idxTriangles;
 
-        public ChunkFab(int faces) {
+        public ChunkFab(int faces)
+        {
             Verticies = new Vector3[Voxel.VerticesInFace * faces];
             UVs = new Vector2[Voxel.VerticesInFace * faces];
             Triangles = new int[Voxel.Triangles.Length * faces];

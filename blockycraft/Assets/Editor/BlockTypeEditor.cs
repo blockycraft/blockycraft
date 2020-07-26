@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using Assets.Scripts.World.Chunk;
 using Assets.Scripts.Geometry;
 
 [CustomEditor(typeof(BlockType))]

@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using Assets.Scripts.World.Chunk;
+using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Biomes
+namespace Assets.Scripts.Biome.Generator
 {
     [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Flat")]
     public sealed class FlatWorldGenerator : WorldGenerator
@@ -13,10 +14,13 @@ namespace Assets.Scripts.Biomes
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
-                if ((air != null && coord.y >= iterator.Height - 1 && Random.value < 0.15f) 
-                    || chunkY*BlockChunk.SIZE+ coord.y >= BlockChunk.SIZE) {
+                if (air != null && coord.y >= iterator.Height - 1 && Random.value < 0.15f
+                    || chunkY * BlockChunk.SIZE + coord.y >= BlockChunk.SIZE)
+                {
                     chunk.Blocks[coord.x, coord.y, coord.z] = air.Type;
-                } else {
+                }
+                else
+                {
                     var idx = coord.y % biome.Blocks.Length;
                     chunk.Blocks[coord.x, coord.y, coord.z] = biome.Blocks[idx].Type;
                 }
