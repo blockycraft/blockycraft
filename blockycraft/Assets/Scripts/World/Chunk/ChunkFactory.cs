@@ -49,7 +49,11 @@ namespace Assets.Scripts.World.Chunk
             foreach (var coord in iterator)
             {
                 var type = blocks.Blocks[coord.x, coord.y, coord.z];
-                if (!type.isVisible) continue;
+                if (!type.isVisible)
+                {
+                    visibility.Void(coord.x, coord.y, coord.z);
+                    continue;
+                }
 
                 foreach (int face in directions)
                 {
@@ -68,31 +72,22 @@ namespace Assets.Scripts.World.Chunk
             return visibility;
         }
 
-        public static ChunkFab Initialize(BlockChunk blocks)
-        {
-            var faces = Visibility(blocks);
-            return new ChunkFab(faces.Count);
-        }
-
-        public static ChunkFab CreateFromBlocks(BlockChunk blocks, ChunkFab meshFab)
+        public static ChunkFab CreateFromBlocks(BlockChunk blocks, ChunkView view, ChunkFab meshFab)
         {
             int vertexIndex = 0;
             var directions = System.Enum.GetValues(typeof(VoxelFace));
 
             var iterator = blocks.GetIterator();
             foreach (var coord in iterator)
-            {
-                var type = blocks.Blocks[coord.x, coord.y, coord.z];
-                if (!type.isVisible) continue;
+            {                
+                if (!view.Blocks[coord.x, coord.y, coord.z]) { continue; }
 
+                var type = blocks.Blocks[coord.x, coord.y, coord.z];
                 var offset = Voxel.Position(coord);
                 foreach (int face in directions)
                 {
                     var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
-                    if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
-                    {
-                        continue;
-                    }
+                    if (!view.Visibility[coord.x, coord.y, coord.z, face]) { continue; }
 
                     for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
                     {
@@ -122,9 +117,14 @@ namespace Assets.Scripts.World.Chunk
         {
             var blockChunk = new BlockChunk(0, 0, 0, 1);
             blockChunk.Blocks[0, 0, 0] = type;
+            return Build(blockChunk);
+        }
 
-            var initFab = Initialize(blockChunk);
-            var chunkFab = CreateFromBlocks(blockChunk, initFab);
+        public static Mesh Build(BlockChunk blockChunk)
+        {
+            var visibility = Visibility(blockChunk);
+            var initFab = new ChunkFab(visibility.Count);
+            var chunkFab = CreateFromBlocks(blockChunk, visibility, initFab);
             return chunkFab.ToMesh();
         }
     }

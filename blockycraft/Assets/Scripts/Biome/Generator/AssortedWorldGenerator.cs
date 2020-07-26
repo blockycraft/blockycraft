@@ -6,9 +6,9 @@ namespace Assets.Scripts.Biome.Generator
     [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Assorted")]
     public sealed class AssortedWorldGenerator : WorldGenerator
     {
-        public override BlockChunk Generate(Biome biome, int chunkX, int chunkY, int chunkZ)
+        public override BlockChunk Generate(Biome biome, Vector3Int coordinate)
         {
-            var chunk = new BlockChunk(chunkX, chunkY, chunkZ);
+            var chunk = new BlockChunk(coordinate.x, coordinate.y, coordinate.z);
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {

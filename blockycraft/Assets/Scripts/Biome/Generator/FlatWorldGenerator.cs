@@ -7,15 +7,15 @@ namespace Assets.Scripts.Biome.Generator
     [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Flat")]
     public sealed class FlatWorldGenerator : WorldGenerator
     {
-        public override BlockChunk Generate(Biome biome, int chunkX, int chunkY, int chunkZ)
+        public override BlockChunk Generate(Biome biome, Vector3Int coordinate)
         {
             var air = biome.Blocks.FirstOrDefault(p => !p.Type.isVisible);
-            var chunk = new BlockChunk(chunkX, chunkY, chunkZ);
+            var chunk = new BlockChunk(coordinate.x, coordinate.y, coordinate.z);
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
                 if (air != null && coord.y >= iterator.Height - 1 && Random.value < 0.15f
-                    || chunkY * BlockChunk.SIZE + coord.y >= BlockChunk.SIZE)
+                    || coordinate.y * BlockChunk.SIZE + coord.y >= BlockChunk.SIZE)
                 {
                     chunk.Blocks[coord.x, coord.y, coord.z] = air.Type;
                 }

@@ -12,7 +12,12 @@
             Blocks = new bool[length, height, depth];
             Count = 0;
         }
-        
+
+        public void Void(int x, int y, int z)
+        {
+            Blocks[x, y, z] = false;
+        }
+
         public void Increment()
         {
             Count++;

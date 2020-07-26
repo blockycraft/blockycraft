@@ -8,9 +8,9 @@ namespace Assets.Scripts.Biome.Generator
     {
         public int Index;
 
-        public override BlockChunk Generate(Biome biome, int chunkX, int chunkY, int chunkZ)
+        public override BlockChunk Generate(Biome biome, Vector3Int coordinate)
         {
-            var chunk = new BlockChunk(chunkX, chunkY, chunkZ);
+            var chunk = new BlockChunk(coordinate.x, coordinate.y, coordinate.z);
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
                 chunk.Blocks[coord.x, coord.y, coord.z] = biome.Blocks[Index].Type;
