@@ -12,6 +12,7 @@ namespace Assets.Scripts.Biomes
         public float Scale;
         public Element[] Elements;
         private System.Collections.Generic.Dictionary<string, Element> lookup;
+        public string defaultKey;
 
         public Element Find(string key) {
             if (lookup == null)
@@ -23,7 +24,7 @@ namespace Assets.Scripts.Biomes
                 }
             }
             if (lookup.ContainsKey(key)) return lookup[key];
-            return Elements[0];
+            return lookup[defaultKey];
         }
 
         public Vector2 UV(Element element)

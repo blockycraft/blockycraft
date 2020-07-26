@@ -19,11 +19,6 @@ MonoBehaviour:
   Scale: 1
   Elements:
   - Name: brick_grey
-    X: 0
-    Y: 0
-    Width: 0
-    Height: 0
-  - Name: brick_grey
     X: 2
     Y: 2
     Width: 128
@@ -333,8 +328,4 @@ MonoBehaviour:
     Y: 926
     Width: 128
     Height: 128
-  - Name: brick_grey
-    X: 0
-    Y: 0
-    Width: 0
-    Height: 0
+  defaultKey: dirt

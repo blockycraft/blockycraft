@@ -11,14 +11,14 @@ namespace Assets.Scripts.Biomes
             var air = biome.Blocks.FirstOrDefault(p => !p.Type.isVisible);
             var chunk = new BlockChunk(chunkX, chunkY, chunkZ);
             var iterator = chunk.GetIterator();
-            foreach (var (x, y, z) in iterator)
+            foreach (var coord in iterator)
             {
-                if ((air != null && y >= iterator.Height - 1 && Random.value < 0.15f) 
-                    || chunkY*BlockChunk.SIZE+y >= BlockChunk.SIZE) {
-                    chunk.Blocks[x, y, z] = air.Type;
+                if ((air != null && coord.y >= iterator.Height - 1 && Random.value < 0.15f) 
+                    || chunkY*BlockChunk.SIZE+ coord.y >= BlockChunk.SIZE) {
+                    chunk.Blocks[coord.x, coord.y, coord.z] = air.Type;
                 } else {
-                    var idx = y % biome.Blocks.Length;
-                    chunk.Blocks[x, y, z] = biome.Blocks[idx].Type;
+                    var idx = coord.y % biome.Blocks.Length;
+                    chunk.Blocks[coord.x, coord.y, coord.z] = biome.Blocks[idx].Type;
                 }
             }
             return chunk;

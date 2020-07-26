@@ -13,10 +13,10 @@ public sealed class World : MonoBehaviour
     public void AddChunks(int centerX, int centerY, int centerZ)
     {
         var iterator = new Iterator3D(DRAW_DISTANCE, DRAW_HEIGHT, DRAW_DISTANCE);
-        foreach(var (ix, iy, iz) in iterator) {
-            var x = centerX + (ix - DRAW_HEIGHT);
-            var y = centerY + (iy - DRAW_HEIGHT);
-            var z = centerZ + (iz - DRAW_HEIGHT);
+        foreach(var coord in iterator) {
+            var x = centerX + (coord.x - DRAW_HEIGHT);
+            var y = centerY + (coord.y - DRAW_HEIGHT);
+            var z = centerZ + (coord.z - DRAW_HEIGHT);
 
             var key = $"{x}:{y}:{z}";
             if (chunks.ContainsKey(key))
@@ -28,7 +28,7 @@ public sealed class World : MonoBehaviour
             var generator = biome.Generator;
             var blocks = generator.Generate(biome, x, y, z);
             var chunkFab = ChunkFactory.CreateFromBlocks(blocks);
-            chunks[key] = Chunk.Create(chunkFab.Blocks, material, x, y, z, gameObject, chunkFab.ToMesh());
+            chunks[key] = Chunk.Create(blocks, material, x, y, z, gameObject, chunkFab.ToMesh());
         }
     }
 

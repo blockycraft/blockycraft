@@ -1,4 +1,6 @@
-﻿public sealed class BlockChunk
+﻿using UnityEngine;
+
+public sealed class BlockChunk
 {
     public const int SIZE = 8;
     public int Width => Blocks.GetLength(0);
@@ -13,28 +15,27 @@
     {
         Blocks = new BlockType[SIZE, SIZE, SIZE];
         X = x;
+        Y = y;
         Z = z;
     }
 
-    public static (int x, int y, int z) GetDirection(int x, int y, int z, BlockFace face)
+    public static Vector3Int GetDirection(int x, int y, int z, BlockFace face)
     {
         switch (face)
         {
-            case BlockFace.Back: return (x - 1, y, z);
-            case BlockFace.Front: return (x + 1, y, z);
-            case BlockFace.Left: return (x, y, z - 1);
-            case BlockFace.Right: return (x, y, z + 1);
-            case BlockFace.Top: return (x, y + 1, z);
-            case BlockFace.Bottom: return (x, y - 1, z);
-            default: return (x, y, z);
+            case BlockFace.Back: return new Vector3Int(x - 1, y, z);
+            case BlockFace.Front: return new Vector3Int(x + 1, y, z);
+            case BlockFace.Left: return new Vector3Int(x, y, z - 1);
+            case BlockFace.Right: return new Vector3Int(x, y, z + 1);
+            case BlockFace.Top: return new Vector3Int(x, y + 1, z);
+            case BlockFace.Bottom: return new Vector3Int(x, y - 1, z);
+            default: return new Vector3Int(x, y, z);
         }
     }
 
     public bool WithinBounds(int x, int y, int z)
     {
-        return x < 0 || x >= Blocks.GetLength(0) ||
-                   y < 0 || y >= Blocks.GetLength(1) ||
-                   z < 0 || z >= Blocks.GetLength(2);
+        return x < 0 || x >= Width || y < 0 || y >= Length || z < 0 || z >= Depth;
     }
 
     public BlockType GetNeighbour(int x, int y, int z, BlockFace face)
@@ -44,8 +45,8 @@
             throw new System.IndexOutOfRangeException();
         }
 
-        var (nx, ny, nz) = GetDirection(x, y, z, face);
-        return Blocks[nx, ny, nz];
+        var neighbour = GetDirection(x, y, z, face);
+        return Blocks[neighbour.x, neighbour.y, neighbour.z];
     }
 
     public Iterator3D GetIterator()

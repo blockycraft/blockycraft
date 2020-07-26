@@ -4,9 +4,6 @@ namespace Assets.Scripts.Geometry
 {
     public static class ChunkFactory
     {
-        public static readonly int GridSize = 8;
-        public static float GridUVFactor { get { return 1f / (float)GridSize; } }
-
         public static bool IsVisible(BlockType[,,] blocks, int x, int y, int z)
         {
             if (x < 0 || x >= blocks.GetLength(0) ||
@@ -24,15 +21,15 @@ namespace Assets.Scripts.Geometry
             var visible = 0;
             var iterator = blocks.GetIterator();
             var directions = System.Enum.GetValues(typeof(BlockFace));
-            foreach (var (x, y, z) in iterator)
+            foreach (var coord in iterator)
             {
-                var type = blocks.Blocks[x, y, z];
+                var type = blocks.Blocks[coord.x, coord.y, coord.z];
                 if (!type.isVisible) continue;
 
                 foreach (int face in directions)
                 {
-                    var (nx, ny, nz) = BlockChunk.GetDirection(x, y, z, (BlockFace)face);
-                    if (IsVisible(blocks.Blocks, nx, ny, nz))
+                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (BlockFace)face);
+                    if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
                         continue;
                     }
@@ -46,22 +43,22 @@ namespace Assets.Scripts.Geometry
         public static ChunkFab CreateFromBlocks(BlockChunk blocks)
         {
             var faces = ComputeVisibleFaces(blocks);
-            var meshFab = new ChunkFab(blocks, faces);
+            var meshFab = new ChunkFab(faces);
             int vertexIndex = 0;
             var blockSize = 1.0f;
             var directions = System.Enum.GetValues(typeof(BlockFace));
 
             var iterator = blocks.GetIterator();
-            foreach (var (x, y, z) in iterator)
+            foreach (var coord in iterator)
             {
-                var type = blocks.Blocks[x, y, z];
+                var type = blocks.Blocks[coord.x, coord.y, coord.z];
                 if (!type.isVisible) continue;
 
-                var offset = (x * Vector3.left * blockSize) + (z * Vector3.forward * blockSize) + (y * Vector3.up * blockSize);
+                var offset = (coord.x * Vector3.left * blockSize) + (coord.z * Vector3.forward * blockSize) + (coord.y * Vector3.up * blockSize);
                 foreach (int face in directions)
                 {
-                    var (nx, ny, nz) = BlockChunk.GetDirection(x, y, z, (BlockFace)face);
-                    if (IsVisible(blocks.Blocks, nx, ny, nz))
+                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (BlockFace)face);
+                    if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
                         continue;
                     }
@@ -88,54 +85,6 @@ namespace Assets.Scripts.Geometry
             }
 
             return meshFab;
-        }
-    }
-
-    public sealed class ChunkFab
-    {
-        public BlockChunk Blocks { get; private set; }
-        public Vector3[] Verticies { get; private set; }
-        public int[] Triangles { get; private set; }
-        public Vector2[] UVs { get; private set; }
-        private int idxVertex, idxUV, idxTriangles;
-
-        public ChunkFab(BlockChunk blocks, int faces) {
-            Verticies = new Vector3[Voxel.VerticesInFace * faces];
-            UVs = new Vector2[Voxel.VerticesInFace * faces];
-            Triangles = new int[Voxel.Triangles.Length * faces];
-            idxVertex = idxUV = idxTriangles = 0;
-            Blocks = blocks;
-        }
-
-        public void PushUV(Vector2 uv)
-        {
-            UVs[idxUV] = uv;
-            idxUV++;
-        }
-
-        public void PushVertex(Vector3 vertex)
-        {
-            Verticies[idxVertex] = vertex;
-            idxVertex++;
-        }
-
-        public void PushTriangle(int triangle)
-        {
-            Triangles[idxTriangles] = triangle;
-            idxTriangles++;
-        }
-
-        public Mesh ToMesh()
-        {
-            var mesh = new Mesh
-            {
-                vertices = Verticies,
-                triangles = Triangles,
-                uv = UVs,
-            };
-
-            mesh.RecalculateNormals();
-            return mesh;
         }
     }
 }

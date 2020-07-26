@@ -10,7 +10,6 @@ public class BlockTypeEditor : Editor
     private MeshFilter targetMeshFilter;
     private MeshRenderer targetMeshRenderer;
     private GameObject previewRendererObject;
-    private VoxelBuilder builder;
     private readonly System.Type[] components = new System.Type[] { typeof(MeshRenderer), typeof(MeshFilter) };
 
     private void Initialize(BlockType block)
@@ -19,7 +18,6 @@ public class BlockTypeEditor : Editor
             return;
 
         previewRenderUtility = new PreviewRenderUtility(false);
-        builder = new VoxelBuilder();
 
         previewRenderUtility.camera.transform.position = new Vector3(5, 5, 5);
         previewRenderUtility.camera.transform.LookAt(Vector3.zero, Vector3.up);
@@ -55,7 +53,7 @@ public class BlockTypeEditor : Editor
 
     private void ReloadMesh(GameObject previewRendererObject, BlockType block)
     {
-        var mesh = builder.Build(block, -Voxel.Center);
+        var mesh = VoxelBuilder.Build(block, -Voxel.Center);
         previewRendererObject.GetComponent<MeshFilter>().mesh = mesh;
     }
 
@@ -63,7 +61,7 @@ public class BlockTypeEditor : Editor
     {
         EditorGUI.BeginChangeCheck();
         base.OnInspectorGUI();
-        if (EditorGUI.EndChangeCheck() && builder != null)
+        if (EditorGUI.EndChangeCheck())
         {
             ReloadMesh(previewRendererObject, (BlockType)target);
         }

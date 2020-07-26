@@ -12,8 +12,8 @@ namespace Assets.Scripts.Biomes
         {
             var chunk = new BlockChunk(chunkX, chunkY, chunkZ);
             var iterator = chunk.GetIterator();
-            foreach (var (x, y, z) in iterator)
-                chunk.Blocks[x, y, z] = biome.Blocks[Index].Type;
+            foreach (var coord in iterator)
+                chunk.Blocks[coord.x, coord.y, coord.z] = biome.Blocks[Index].Type;
 
             return chunk;
         }

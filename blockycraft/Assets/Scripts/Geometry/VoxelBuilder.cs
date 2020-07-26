@@ -6,7 +6,7 @@ public sealed class VoxelBuilder
     public static readonly int GridSize = 8;
     public static float GridUVFactor { get { return 1f / (float)GridSize; }}
 
-    public Mesh Build(BlockType block, Vector3 position)
+    public static Mesh Build(BlockType block, Vector3 position)
     {
         int vertexIndex = 0;
         var vertices = new List<Vector3>();
@@ -19,6 +19,7 @@ public sealed class VoxelBuilder
                 vertices.Add(position + Voxel.Vertices[Voxel.Tris[face, vert]]);
 
             var texture = BlockType.GetTextureID(block, face);
+            if (texture == null) { continue; }
             var uv = block.textures.UV(texture);
             var dimensions = block.textures.Dimensions(texture);
 
