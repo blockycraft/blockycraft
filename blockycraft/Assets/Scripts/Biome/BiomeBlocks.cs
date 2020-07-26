@@ -1,5 +1,3 @@
-using Assets.Scripts.Geometry;
-
 namespace Assets.Scripts.Biome
 {
     [System.Serializable]

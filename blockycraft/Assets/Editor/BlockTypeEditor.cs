@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using UnityEditor;
-using Assets.Scripts.World.Chunk;
+﻿using Assets.Scripts;
 using Assets.Scripts.Geometry;
+using Assets.Scripts.World.Chunk;
+using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(BlockType))]
 public class BlockTypeEditor : Editor
@@ -115,7 +116,6 @@ public class BlockTypeEditor : Editor
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndFoldoutHeaderGroup();
-
     }
 
     public override bool HasPreviewGUI()
@@ -146,7 +146,7 @@ public class BlockTypeEditor : Editor
         GUI.DrawTexture(r, resultRender, ScaleMode.StretchToFill, false);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         previewRenderUtility?.Cleanup();
     }

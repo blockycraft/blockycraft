@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Biome;
 using Assets.Scripts.World.Chunk;
-using Assets.Scripts.Biome;
+using System.Collections.Generic;
+using UnityEngine;
 
 public sealed class World : MonoBehaviour
 {
@@ -14,7 +14,8 @@ public sealed class World : MonoBehaviour
     public void AddChunks(int centerX, int centerY, int centerZ)
     {
         var iterator = new Iterator3D(DRAW_DISTANCE, DRAW_HEIGHT, DRAW_DISTANCE);
-        foreach(var coord in iterator) {
+        foreach (var coord in iterator)
+        {
             var x = centerX + (coord.x - DRAW_HEIGHT);
             var y = centerY + (coord.y - DRAW_HEIGHT);
             var z = centerZ + (coord.z - DRAW_HEIGHT);
@@ -34,7 +35,7 @@ public sealed class World : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         chunks = new Dictionary<string, Chunk>();
 

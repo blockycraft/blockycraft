@@ -8,6 +8,7 @@ namespace Assets.Scripts.Geometry
         public const int NumberOfFaces = 6;
 
         public static readonly Vector3 Center = new Vector3(0.5f, 0.5f, 0.5f);
+
         public static readonly Vector3[] Vertices = new Vector3[8]
         {
         new Vector3(0.0f, 0.0f, 0.0f),

@@ -1,6 +1,6 @@
 namespace Assets.Scripts.Geometry
 {
-    public enum BlockFace
+    public enum VoxelFace
     {
         Left = 0,
         Right = 1,

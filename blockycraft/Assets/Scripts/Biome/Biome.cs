@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Assets.Scripts.Biome.Generator;
+﻿using Assets.Scripts.Biome.Generator;
+using UnityEngine;
 
 namespace Assets.Scripts.Biome
 {

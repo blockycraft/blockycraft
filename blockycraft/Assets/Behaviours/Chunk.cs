@@ -14,9 +14,10 @@ public sealed class Chunk
     public GameObject gameObject { get; set; }
     public Vector3 Position { get; set; }
 
-    Chunk() { }
-    
-    void Initialize()
+    private Chunk()
+    { }
+
+    private void Initialize()
     {
         gameObject = new GameObject();
         gameObject.transform.position = Position;

@@ -8,7 +8,9 @@ public sealed class Iterator3D : IEnumerable<Vector3Int>
     public int Height { get; }
     public int Depth { get; }
 
-    public Iterator3D(int size) : this(size, size, size) { }
+    public Iterator3D(int size) : this(size, size, size)
+    {
+    }
 
     public Iterator3D(int width, int length, int depth)
     {
@@ -16,7 +18,7 @@ public sealed class Iterator3D : IEnumerable<Vector3Int>
         Height = length;
         Depth = depth;
     }
-    
+
     public IEnumerator<Vector3Int> GetEnumerator()
     {
         for (int x = 0; x < Width; x++)

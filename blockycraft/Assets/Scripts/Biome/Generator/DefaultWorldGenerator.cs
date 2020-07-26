@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Biome.Generator
 {
-
     [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Default")]
     public sealed class DefaultWorldGenerator : WorldGenerator
     {

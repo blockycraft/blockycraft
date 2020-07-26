@@ -21,7 +21,7 @@ namespace Assets.Scripts.World.Chunk
         {
             var visible = 0;
             var iterator = blocks.GetIterator();
-            var directions = System.Enum.GetValues(typeof(BlockFace));
+            var directions = System.Enum.GetValues(typeof(VoxelFace));
             foreach (var coord in iterator)
             {
                 var type = blocks.Blocks[coord.x, coord.y, coord.z];
@@ -29,7 +29,7 @@ namespace Assets.Scripts.World.Chunk
 
                 foreach (int face in directions)
                 {
-                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (BlockFace)face);
+                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
                     if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
                         continue;
@@ -44,7 +44,7 @@ namespace Assets.Scripts.World.Chunk
         public static bool[,,,] Visibility(BlockChunk blocks)
         {
             var iterator = blocks.GetIterator();
-            var directions = System.Enum.GetValues(typeof(BlockFace));
+            var directions = System.Enum.GetValues(typeof(VoxelFace));
             var visibility = new bool[blocks.Width, blocks.Length, blocks.Depth, directions.Length];
             foreach (var coord in iterator)
             {
@@ -53,7 +53,7 @@ namespace Assets.Scripts.World.Chunk
 
                 foreach (int face in directions)
                 {
-                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (BlockFace)face);
+                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
                     if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
                         visibility[coord.x, coord.y, coord.z, face] = true;
@@ -62,7 +62,6 @@ namespace Assets.Scripts.World.Chunk
                     {
                         visibility[coord.x, coord.y, coord.z, face] = true;
                     }
-
                 }
             }
             return visibility;
@@ -77,7 +76,7 @@ namespace Assets.Scripts.World.Chunk
         public static ChunkFab CreateFromBlocks(BlockChunk blocks, ChunkFab meshFab)
         {
             int vertexIndex = 0;
-            var directions = System.Enum.GetValues(typeof(BlockFace));
+            var directions = System.Enum.GetValues(typeof(VoxelFace));
 
             var iterator = blocks.GetIterator();
             foreach (var coord in iterator)
@@ -88,7 +87,7 @@ namespace Assets.Scripts.World.Chunk
                 var offset = Voxel.Position(coord);
                 foreach (int face in directions)
                 {
-                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (BlockFace)face);
+                    var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
                     if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
                         continue;

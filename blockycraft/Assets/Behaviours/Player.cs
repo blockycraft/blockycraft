@@ -9,7 +9,7 @@ public sealed class Player : MonoBehaviour
 
     public World world;
 
-    void Update()
+    private void Update()
     {
         var adjustedPosition = (Input.mousePosition - lastMouse) * Sensitivity;
         transform.eulerAngles = new Vector3(
@@ -25,7 +25,7 @@ public sealed class Player : MonoBehaviour
         world.AddChunks(-x, y, z);
     }
 
-    (int x, int y, int z) GetChunkCoordFromPosition(Vector3 position)
+    private (int x, int y, int z) GetChunkCoordFromPosition(Vector3 position)
     {
         // Rough estimation of which chunk the player is currently over.
         return (
