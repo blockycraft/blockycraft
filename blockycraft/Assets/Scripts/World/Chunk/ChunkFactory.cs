@@ -34,7 +34,6 @@ namespace Assets.Scripts.World.Chunk
                     {
                         continue;
                     }
-
                     visible++;
                 }
             }
@@ -54,18 +53,19 @@ namespace Assets.Scripts.World.Chunk
                     visibility.Void(coord.x, coord.y, coord.z);
                     continue;
                 }
+                visibility.Blocks[coord.x, coord.y, coord.z] = true;
 
                 foreach (int face in directions)
                 {
                     var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
                     if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
-                        visibility.Visibility[coord.x, coord.y, coord.z, face] = true;
-                        visibility.Increment();
+                        visibility.Visible[coord.x, coord.y, coord.z, face] = false;
                     }
                     else
                     {
-                        visibility.Visibility[coord.x, coord.y, coord.z, face] = false;
+                        visibility.Increment();
+                        visibility.Visible[coord.x, coord.y, coord.z, face] = true;
                     }
                 }
             }
@@ -87,7 +87,7 @@ namespace Assets.Scripts.World.Chunk
                 foreach (int face in directions)
                 {
                     var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
-                    if (!view.Visibility[coord.x, coord.y, coord.z, face]) { continue; }
+                    if (!view.Visible[coord.x, coord.y, coord.z, face]) { continue; }
 
                     for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
                     {
