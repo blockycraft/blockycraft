@@ -39,13 +39,16 @@ namespace Assets.Scripts.Geometry
             }
             return visible;
         }
-
-        public static ChunkFab CreateFromBlocks(BlockChunk blocks)
+        
+        public static ChunkFab Initialize(BlockChunk blocks)
         {
             var faces = ComputeVisibleFaces(blocks);
-            var meshFab = new ChunkFab(faces);
+            return new ChunkFab(faces);
+        }
+        
+        public static ChunkFab CreateFromBlocks(BlockChunk blocks, ChunkFab meshFab)
+        {
             int vertexIndex = 0;
-            var blockSize = 1.0f;
             var directions = System.Enum.GetValues(typeof(BlockFace));
 
             var iterator = blocks.GetIterator();
@@ -54,7 +57,7 @@ namespace Assets.Scripts.Geometry
                 var type = blocks.Blocks[coord.x, coord.y, coord.z];
                 if (!type.isVisible) continue;
 
-                var offset = (coord.x * Vector3.left * blockSize) + (coord.z * Vector3.forward * blockSize) + (coord.y * Vector3.up * blockSize);
+                var offset = Voxel.Position(coord);
                 foreach (int face in directions)
                 {
                     var neighbour = BlockChunk.GetDirection(coord.x, coord.y, coord.z, (BlockFace)face);
@@ -92,7 +95,8 @@ namespace Assets.Scripts.Geometry
             var blockChunk = new BlockChunk(0, 0, 0, 1);
             blockChunk.Blocks[0,0,0] = type;
 
-            var chunkFab = CreateFromBlocks(blockChunk);
+            var initFab = Initialize(blockChunk);
+            var chunkFab = CreateFromBlocks(blockChunk, initFab);
             return chunkFab.ToMesh();
         }
     }

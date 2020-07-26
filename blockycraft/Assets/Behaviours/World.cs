@@ -27,7 +27,8 @@ public sealed class World : MonoBehaviour
             var biome = biomes[(int)(Random.value * (biomes.Length))];
             var generator = biome.Generator;
             var blocks = generator.Generate(biome, x, y, z);
-            var chunkFab = ChunkFactory.CreateFromBlocks(blocks);
+            var emptyFab = ChunkFactory.Initialize(blocks);
+            var chunkFab = ChunkFactory.CreateFromBlocks(blocks, emptyFab);
             chunks[key] = Chunk.Create(blocks, material, x, y, z, gameObject, chunkFab.ToMesh());
         }
     }

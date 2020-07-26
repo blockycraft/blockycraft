@@ -4,7 +4,6 @@ namespace Assets.Scripts.Geometry
 {
     public sealed class ChunkFab
     {
-        // is this necessary?
         public Vector3[] Verticies { get; private set; }
         public int[] Triangles { get; private set; }
         public Vector2[] UVs { get; private set; }

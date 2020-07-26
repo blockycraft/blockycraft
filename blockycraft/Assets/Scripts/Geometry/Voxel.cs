@@ -30,4 +30,12 @@ public static class Voxel
         {4, 7, 0, 3},
         {1, 2, 5, 6}
     };
+
+    public static float Scale = 1.0f;
+
+    public static Vector3 Position(Vector3Int coord)
+    {
+        //(coord.x * Vector3.left * Scale) + (coord.y * Vector3.up * Scale) + (coord.z * Vector3.forward * Scale);
+        return new Vector3(-1 * coord.x * 1.0f  * Scale, coord.y * Scale, coord.z * Scale); 
+    }
 }
