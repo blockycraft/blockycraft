@@ -23,13 +23,13 @@ public sealed class Player : MonoBehaviour
         lastMouse = Input.mousePosition;
 
         var coord = GetChunkCoordFromPosition(transform.position);
-        world.AddChunks(-coord.x, coord.y, coord.z);
+        world.Ping(coord);
     }
 
     private Vector3Int GetChunkCoordFromPosition(Vector3 position)
     {
         return new Vector3Int(
-            (int)(position.x / WorldComponent.SIZE),
+            (int)(-position.x / WorldComponent.SIZE),
             (int)(position.y / WorldComponent.SIZE),
             (int)(position.z / WorldComponent.SIZE)
         );
