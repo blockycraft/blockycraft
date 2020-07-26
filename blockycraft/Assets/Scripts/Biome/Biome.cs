@@ -13,6 +13,9 @@ namespace Assets.Scripts.Biome
         public WorldGenerator Generator;
 
         [Header("Composition")]
+        public BlockType Air;
+        public int GroundHeight;
+        public float Probability;
         public BiomeBlocks[] Blocks;
     }
 }

@@ -10,15 +10,19 @@ namespace Assets.Scripts.Biome.Generator
     {
         public override ChunkBlocks Generate(Biome biome, Vector3Int coordinate)
         {
-            var air = biome.Blocks.FirstOrDefault(p => !p.Type.isVisible);
+            var air = biome.Air;
             var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
-                if (air != null && coord.y >= iterator.Height - 1 && Random.value < 0.15f
-                    || coordinate.y * WorldComponent.SIZE + coord.y >= WorldComponent.SIZE)
+                var worldY = coordinate.y * WorldComponent.SIZE + coord.y;
+                if (worldY >= biome.GroundHeight)
                 {
-                    chunk.Blocks[coord.x, coord.y, coord.z] = air.Type;
+                    chunk.Blocks[coord.x, coord.y, coord.z] = air;
+                }
+                else if(worldY == biome.GroundHeight - 1 && Random.value < biome.Probability)
+                {
+                    chunk.Blocks[coord.x, coord.y, coord.z] = air;
                 }
                 else
                 {
