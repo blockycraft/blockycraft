@@ -34,7 +34,7 @@ namespace Assets.Scripts.World.Chunk
 
                 foreach (int face in directions)
                 {
-                    var neighbour = ChunkBlocks.GetDirection(coord.x, coord.y, coord.z, (VoxelFace)face);
+                    var neighbour = coord + Voxel.Direction((VoxelFace)face);
                     if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
                     {
                         visibility.Visible[coord.x, coord.y, coord.z, face] = false;
