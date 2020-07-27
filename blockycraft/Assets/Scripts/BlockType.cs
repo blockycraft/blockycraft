@@ -15,6 +15,7 @@ namespace Assets.Scripts
 
         [Header("Properties")]
         public bool isVisible;
+        public bool isTransparent;
 
         [Header("Texture Faces")]
         public string left;
@@ -27,6 +28,11 @@ namespace Assets.Scripts
         public BlockType()
         {
             isVisible = true;
+            isTransparent = false;
+        }
+
+        public bool IsObscure() {
+            return isVisible && !isTransparent;
         }
 
         public static TexturePack.Element GetTextureID(BlockType block, int index)
