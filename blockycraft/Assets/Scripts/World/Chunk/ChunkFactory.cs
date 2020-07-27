@@ -14,7 +14,7 @@ namespace Assets.Scripts.World.Chunk
                 return false;
             }
 
-            return blocks[x, y, z].isVisible;
+            return blocks[x, y, z].IsObscure();
         }
 
         public static ChunkView Visibility(ChunkBlocks blocks)
