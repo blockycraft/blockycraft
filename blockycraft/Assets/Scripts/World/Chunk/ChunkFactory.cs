@@ -9,7 +9,7 @@ namespace Assets.Scripts.World.Chunk
         {
             var iterator = blocks.GetIterator();
             var directions = System.Enum.GetValues(typeof(VoxelFace));
-            var visibility = new ChunkView(blocks.Width, blocks.Length, blocks.Depth, directions.Length);
+            var visibility = new ChunkView(blocks.Length, blocks.Height, blocks.Depth, directions.Length);
             foreach (var coord in iterator)
             {
                 var type = blocks.Blocks[coord.x, coord.y, coord.z];
@@ -25,12 +25,12 @@ namespace Assets.Scripts.World.Chunk
                     var neighbour = coord + Voxel.Direction((VoxelFace)face);
                     if (blocks.TryGet(ref neighbour, out BlockType neighbourType) && neighbourType.IsObscure())
                     {
-                        visibility.Visible[coord.x, coord.y, coord.z, face] = false;
+                        visibility.Faces[coord.x, coord.y, coord.z, face] = false;
                     }
                     else
                     {
                         visibility.Increment();
-                        visibility.Visible[coord.x, coord.y, coord.z, face] = true;
+                        visibility.Faces[coord.x, coord.y, coord.z, face] = true;
                     }
                 }
             }
@@ -52,7 +52,7 @@ namespace Assets.Scripts.World.Chunk
                 foreach (int face in directions)
                 {
                     var neighbour = coord + Voxel.Direction((VoxelFace)face);
-                    if (!view.Visible[coord.x, coord.y, coord.z, face]) { continue; }
+                    if (!view.Faces[coord.x, coord.y, coord.z, face]) { continue; }
 
                     for (int vert = 0; vert < Voxel.VerticesInFace; vert++)
                     {
@@ -90,7 +90,16 @@ namespace Assets.Scripts.World.Chunk
             var visibility = Visibility(blockChunk);
             var initFab = new ChunkFab(visibility.Count);
             var chunkFab = CreateFromBlocks(blockChunk, visibility, initFab);
-            return chunkFab.ToMesh();
+
+            var mesh = new Mesh
+            {
+                vertices = chunkFab.Verticies,
+                triangles = chunkFab.Triangles,
+                uv = chunkFab.UVs,
+            };
+
+            mesh.RecalculateNormals();
+            return mesh;
         }
     }
 }

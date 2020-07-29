@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.World.Chunk;
-using System.CodeDom;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ namespace Assets.Scripts.World
             chunks = new Dictionary<string, ChunkBlocks>();
             circum = circumference;
             radius = circumference / 2;
-            
+
             this.biomes = biomes;
         }
 
@@ -33,9 +32,26 @@ namespace Assets.Scripts.World
             return chunks[key];
         }
 
+        public bool TryGet(ref Vector3Int position, out BlockType type)
+        {
+            int x = position.x / SIZE;
+            int y = position.y / SIZE;
+            int z = position.z / SIZE;
+
+            var key = Key(x, y, z);
+            if (!chunks.ContainsKey(key)) {
+                type = null;
+                return false;
+            }
+
+            var chunk = chunks[key];
+            type = chunk.Blocks[x - x*SIZE, y - y*SIZE, z - z*SIZE];
+            return true;
+        }
+
         public void Ping(Vector3Int position)
         {
-            var iterator = new Iterator3D(circum, circum, circum);
+            var iterator = new Iterator3D(circum);
             foreach (var coord in iterator)
             {
                 var x = position.x + (coord.x - radius);
