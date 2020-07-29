@@ -9,13 +9,13 @@ namespace Assets.Scripts.World.Chunk
         {
             var iterator = blocks.GetIterator();
             var directions = System.Enum.GetValues(typeof(VoxelFace));
-            var visibility = new ChunkView(blocks.Length, blocks.Height, blocks.Depth, directions.Length);
+            var visibility = new ChunkView(blocks.Length, blocks.Height, blocks.Depth);
             foreach (var coord in iterator)
             {
                 var type = blocks.Blocks[coord.x, coord.y, coord.z];
                 if (!type.isVisible)
                 {
-                    visibility.Void(coord.x, coord.y, coord.z);
+                    visibility.Blocks[coord.x, coord.y, coord.z] = true;
                     continue;
                 }
                 visibility.Blocks[coord.x, coord.y, coord.z] = true;

@@ -9,16 +9,15 @@ namespace Assets.Scripts.World
         public const int SIZE = 8;
         public Biome.Biome[] biomes;
 
-        private Dictionary<string, ChunkBlocks> chunks;
-        private int circum;
-        private int radius;
+        private readonly Dictionary<string, ChunkBlocks> chunks;
+        private readonly int circum;
+        private readonly int radius;
 
         public WorldComponent(int circumference, Biome.Biome[] biomes)
         {
             chunks = new Dictionary<string, ChunkBlocks>();
             circum = circumference;
             radius = circumference / 2;
-
             this.biomes = biomes;
         }
 

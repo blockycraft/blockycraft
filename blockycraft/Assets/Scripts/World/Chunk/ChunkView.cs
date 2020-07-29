@@ -8,24 +8,19 @@ namespace Assets.Scripts.World.Chunk
         public bool[,,] Blocks { get; }
         public int Count { get; private set; }
 
-        public ChunkView(int length, int height, int depth, int faces)
+        public ChunkView(int length, int height, int depth)
         {
-            Faces = new bool[length, height, depth, faces];
+            Faces = new bool[length, height, depth, Voxel.NumberOfFaces];
             Blocks = new bool[length, height, depth];
 
             var iterator = new Iterator3D(length, height, depth);
             foreach(var coord in iterator)
             {
                 Blocks[coord.x, coord.y, coord.z] = false;
-                for (int f = 0; f < faces; f++)
+                for (int f = 0; f < Voxel.NumberOfFaces; f++)
                     Faces[coord.x, coord.y, coord.z, f] = false;
             }
             Count = 0;
-        }
-
-        public void Void(int x, int y, int z)
-        {
-            Blocks[x, y, z] = false;
         }
 
         public void Increment()
