@@ -5,18 +5,6 @@ namespace Assets.Scripts.World.Chunk
 {
     public static class ChunkFactory
     {
-        public static bool IsVisible(BlockType[,,] blocks, int x, int y, int z)
-        {
-            if (x < 0 || x >= blocks.GetLength(0) ||
-                y < 0 || y >= blocks.GetLength(1) ||
-                z < 0 || z >= blocks.GetLength(2))
-            {
-                return false;
-            }
-
-            return blocks[x, y, z].IsObscure();
-        }
-
         public static ChunkView Visibility(ChunkBlocks blocks)
         {
             var iterator = blocks.GetIterator();
@@ -35,7 +23,7 @@ namespace Assets.Scripts.World.Chunk
                 foreach (int face in directions)
                 {
                     var neighbour = coord + Voxel.Direction((VoxelFace)face);
-                    if (IsVisible(blocks.Blocks, neighbour.x, neighbour.y, neighbour.z))
+                    if (blocks.TryGet(ref neighbour, out BlockType neighbourType) && neighbourType.IsObscure())
                     {
                         visibility.Visible[coord.x, coord.y, coord.z, face] = false;
                     }
