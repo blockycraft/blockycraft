@@ -39,15 +39,15 @@ namespace Assets.Scripts.Geometry
 
         public static Vector3 Position(Vector3Int coord)
         {
-            return new Vector3(-1 * coord.x * 1.0f * Scale, coord.y * Scale, coord.z * Scale);
+            return new Vector3(coord.x * Scale, coord.y * Scale, coord.z * Scale);
         }
 
         public static Vector3Int Direction(VoxelFace face)
         {
             switch (face)
             {
-                case VoxelFace.Back: return new Vector3Int(-1, 0, 0);
-                case VoxelFace.Front: return new Vector3Int(1, 0, 0);
+                case VoxelFace.Back: return new Vector3Int(1, 0, 0);
+                case VoxelFace.Front: return new Vector3Int(-1, 0, 0);
                 case VoxelFace.Left: return new Vector3Int(0, 0, -1);
                 case VoxelFace.Right: return new Vector3Int(0, 0, 1);
                 case VoxelFace.Top: return new Vector3Int(0, 1, 0);

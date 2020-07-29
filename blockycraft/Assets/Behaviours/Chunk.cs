@@ -41,7 +41,7 @@ public sealed class Chunk
             Y = y,
             Z = z,
             Mesh = mesh,
-            Position = x * Vector3.left * WorldComponent.SIZE + z * Vector3.forward * WorldComponent.SIZE + y * Vector3.up * WorldComponent.SIZE
+            Position = x * Vector3.right * WorldComponent.SIZE + z * Vector3.forward * WorldComponent.SIZE + y * Vector3.up * WorldComponent.SIZE
         };
         chunk.Initialize();
 

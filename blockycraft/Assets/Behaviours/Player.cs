@@ -29,7 +29,7 @@ public sealed class Player : MonoBehaviour
     private Vector3Int GetChunkCoordFromPosition(Vector3 position)
     {
         return new Vector3Int(
-            (int)(-position.x / WorldComponent.SIZE),
+            (int)(position.x / WorldComponent.SIZE),
             (int)(position.y / WorldComponent.SIZE),
             (int)(position.z / WorldComponent.SIZE)
         );
