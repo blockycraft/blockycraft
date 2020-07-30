@@ -5,9 +5,9 @@ namespace Assets.Scripts.World.Chunk
 {
     public sealed class ChunkFab
     {
-        public Vector3[] Verticies { get; private set; }
-        public int[] Triangles { get; private set; }
-        public Vector2[] UVs { get; private set; }
+        public Vector3[] Verticies { get; }
+        public Vector2[] UVs { get; }
+        public int[] Triangles { get;  }
         private int idxVertex, idxUV, idxTriangles;
 
         public ChunkFab(int faces)
@@ -34,19 +34,6 @@ namespace Assets.Scripts.World.Chunk
         {
             Triangles[idxTriangles] = triangle;
             idxTriangles++;
-        }
-
-        public Mesh ToMesh()
-        {
-            var mesh = new Mesh
-            {
-                vertices = Verticies,
-                triangles = Triangles,
-                uv = UVs,
-            };
-
-            mesh.RecalculateNormals();
-            return mesh;
         }
     }
 }

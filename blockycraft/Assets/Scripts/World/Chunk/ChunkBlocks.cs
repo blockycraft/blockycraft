@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.World.Chunk
 {
-    public sealed class ChunkBlocks
+    public sealed class ChunkBlocks : IEnumerable<BlockType>
     {
-        public int Width => Blocks.GetLength(0);
-        public int Length => Blocks.GetLength(1);
+        public int Length => Blocks.GetLength(0);
+        public int Height => Blocks.GetLength(1);
         public int Depth => Blocks.GetLength(2);
         public BlockType[,,] Blocks { get; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Z { get; set; }
+        public int X { get; }
+        public int Y { get; }
+        public int Z { get; }
 
         public ChunkBlocks(int x, int y, int z, int size)
         {
@@ -22,9 +24,9 @@ namespace Assets.Scripts.World.Chunk
 
         public bool TryGet(ref Vector3Int coord, out BlockType type)
         {
-            if (coord.x < 0 || coord.x >= Blocks.GetLength(0) ||
-                coord.y < 0 || coord.y >= Blocks.GetLength(1) ||
-                coord.z < 0 || coord.z >= Blocks.GetLength(2))
+            if (coord.x < 0 || coord.x >= Length ||
+                coord.y < 0 || coord.y >= Height ||
+                coord.z < 0 || coord.z >= Depth)
             {
                 type = null;
                 return false;
@@ -35,9 +37,9 @@ namespace Assets.Scripts.World.Chunk
 
         public bool Contains(int x, int y, int z)
         {
-            if (x < 0 || x >= Blocks.GetLength(0) ||
-                y < 0 || y >= Blocks.GetLength(1) ||
-                z < 0 || z >= Blocks.GetLength(2))
+            if (x < 0 || x >= Length ||
+                y < 0 || y >= Height ||
+                z < 0 || z >= Depth)
             {
                 return false;
             }
@@ -46,7 +48,19 @@ namespace Assets.Scripts.World.Chunk
 
         public Iterator3D GetIterator()
         {
-            return new Iterator3D(Width, Length, Depth);
+            return new Iterator3D(Length, Height, Depth);
+        }
+
+        public IEnumerator<BlockType> GetEnumerator()
+        {
+            var iterator = GetIterator();
+            foreach (var coord in iterator)
+                yield return Blocks[coord.x, coord.y, coord.z];
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
