@@ -14,6 +14,7 @@ namespace Assets.Scripts.Biome
 
         [Header("Composition")]
         public BlockType Air;
+
         public int GroundHeight;
         public float Probability;
         public BiomeBlocks[] Blocks;

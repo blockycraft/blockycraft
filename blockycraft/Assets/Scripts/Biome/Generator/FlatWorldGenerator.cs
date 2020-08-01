@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.World;
 using Assets.Scripts.World.Chunk;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Biome.Generator
@@ -20,7 +19,7 @@ namespace Assets.Scripts.Biome.Generator
                 {
                     chunk.Blocks[coord.x, coord.y, coord.z] = air;
                 }
-                else if(worldY == biome.GroundHeight - 1 && Random.value < biome.Probability)
+                else if (worldY == biome.GroundHeight - 1 && Random.value < biome.Probability)
                 {
                     chunk.Blocks[coord.x, coord.y, coord.z] = air;
                 }

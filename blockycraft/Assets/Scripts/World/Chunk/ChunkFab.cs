@@ -7,7 +7,7 @@ namespace Assets.Scripts.World.Chunk
     {
         public Vector3[] Verticies { get; }
         public Vector2[] UVs { get; }
-        public int[] Triangles { get;  }
+        public int[] Triangles { get; }
         private int idxVertex, idxUV, idxTriangles;
 
         public ChunkFab(int faces)

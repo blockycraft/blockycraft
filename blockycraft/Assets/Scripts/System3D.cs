@@ -7,7 +7,7 @@ namespace Assets.Scripts.World
     public sealed class System3D<TElement>
     {
         private readonly Dictionary<string, TElement> elements;
- 
+
         public System3D()
         {
             elements = new Dictionary<string, TElement>();

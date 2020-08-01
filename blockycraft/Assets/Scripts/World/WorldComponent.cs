@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.World.Chunk;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Assets.Scripts.World
 {

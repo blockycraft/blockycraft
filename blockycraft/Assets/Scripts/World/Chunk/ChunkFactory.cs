@@ -44,7 +44,7 @@ namespace Assets.Scripts.World.Chunk
 
             var iterator = blocks.GetIterator();
             foreach (var coord in iterator)
-            {                
+            {
                 if (!view.Blocks[coord.x, coord.y, coord.z]) { continue; }
 
                 var type = blocks.Blocks[coord.x, coord.y, coord.z];
