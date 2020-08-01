@@ -7,11 +7,11 @@ public sealed class World : MonoBehaviour
 {
     public const int DRAW_HEIGHT = 4;
     public const int DRAW_DISTANCE = DRAW_HEIGHT * 2;
-    private WorldComponent component;
+    public WorldComponent component;
     private System3D<Chunk> chunks;
     public Material material;
     public Biome[] biomes;
-    
+
     public void Ping(Vector3Int center)
     {
         component.Ping(center);

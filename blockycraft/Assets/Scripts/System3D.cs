@@ -13,11 +13,6 @@ namespace Assets.Scripts.World
             elements = new Dictionary<string, TElement>();
         }
 
-        public void Add(int x, int y, int z, TElement element)
-        {
-
-        }
-
         public TElement Get(int x, int y, int z)
         {
             var key = Key(x, y, z);
@@ -45,7 +40,7 @@ namespace Assets.Scripts.World
                 var x = position.x + (coord.x - radius);
                 var y = position.y + (coord.y - radius);
                 var z = position.z + (coord.z - radius);
-                
+
                 var key = Key(x, y, z);
                 if (elements.ContainsKey(key))
                 {
