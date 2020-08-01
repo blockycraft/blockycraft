@@ -9,6 +9,11 @@ public sealed class Player : MonoBehaviour
     private Vector3 lastMouse = new Vector3(255, 255, 255);
 
     public World world;
+    public Transform cam;
+    public Transform highlightBlock;
+    public Transform placeBlock;
+    public float checkIncrement = 0.1f;
+    public float reach = 8f;
 
     private void Update()
     {
@@ -24,6 +29,9 @@ public sealed class Player : MonoBehaviour
 
         var coord = GetChunkCoordFromPosition(transform.position);
         world.Ping(coord);
+
+        // A rough action block highlight
+        UpdateActionBlock();
     }
 
     private Vector3Int GetChunkCoordFromPosition(Vector3 position)
@@ -33,6 +41,29 @@ public sealed class Player : MonoBehaviour
             (int)(position.y / WorldComponent.SIZE),
             (int)(position.z / WorldComponent.SIZE)
         );
+    }
+
+    private void UpdateActionBlock()
+    {
+        float step = 8f;
+        Vector3 pos = cam.position + (cam.forward * step);
+        int x = Mathf.FloorToInt(pos.x);
+        int y = Mathf.FloorToInt(pos.y);
+        int z = Mathf.FloorToInt(pos.z);
+        var coord = new Vector3Int(Mathf.FloorToInt(x / WorldComponent.SIZE), Mathf.FloorToInt(y / WorldComponent.SIZE), Mathf.FloorToInt(z / WorldComponent.SIZE));
+        var block = new Vector3Int(
+            x - coord.x * WorldComponent.SIZE,
+            y - coord.y * WorldComponent.SIZE,
+            z - coord.z * WorldComponent.SIZE
+        );
+        var adjusted = new Vector3(
+            coord.x * WorldComponent.SIZE + block.x,
+            coord.y * WorldComponent.SIZE + block.y,
+            coord.z * WorldComponent.SIZE + block.z
+        );
+
+        highlightBlock.position = adjusted;
+        placeBlock.position = adjusted;
     }
 
     private static Vector3 GetMovementDirection()
