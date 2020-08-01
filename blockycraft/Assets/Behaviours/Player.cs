@@ -44,21 +44,20 @@ public sealed class Player : MonoBehaviour
 
     private void UpdateActionBlock()
     {
-        float step = 8f;
-        Vector3 pos = cam.position + (cam.forward * step);
-
-        // Simple block lookup
-        int x = Mathf.FloorToInt(pos.x);
-        int y = Mathf.FloorToInt(pos.y);
-        int z = Mathf.FloorToInt(pos.z);
-        var type = world.component.GetBlock(x, y, z);
-        if (type == null)
+        var (lastPos, pos, type) = world.Detect(cam.position, cam.forward, checkIncrement, reach);
+        if (type != null)
         {
-            Debug.Log($"Issue occurred getting block at {x}:{y}{z}");
-        }
+            highlightBlock.position = pos;
+            placeBlock.position = lastPos;
 
-        highlightBlock.position = new Vector3(x, y, z);
-        placeBlock.position = new Vector3(x, y, z);
+            highlightBlock.gameObject.SetActive(true);
+            placeBlock.gameObject.SetActive(true);
+        }
+        else
+        {
+            highlightBlock.gameObject.SetActive(false);
+            placeBlock.gameObject.SetActive(false);
+        }
     }
 
     private static Vector3 GetMovementDirection()
