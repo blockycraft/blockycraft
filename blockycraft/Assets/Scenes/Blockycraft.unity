@@ -406,6 +406,8 @@ MonoBehaviour:
   cam: {fileID: 963194228}
   highlightBlock: {fileID: 1551536749}
   placeBlock: {fileID: 1691497281}
+  air: {fileID: 11400000, guid: 0cd8cdf8eb2ebd5458a0b45e89c61fe2, type: 2}
+  selected: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
   checkIncrement: 0.1
   reach: 8
 --- !u!1 &1112436239

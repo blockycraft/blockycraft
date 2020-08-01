@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.World;
+﻿using Assets.Scripts;
+using Assets.Scripts.World;
 using Assets.Scripts.World.Chunk;
 using UnityEngine;
 
@@ -29,6 +30,20 @@ public sealed class Chunk
 
         meshFilter = gameObject.AddComponent<MeshFilter>();
         meshFilter.mesh = Mesh;
+    }
+
+    public void Edit(Vector3Int coord, BlockType type)
+    {
+        if (!Blocks.Contains(coord.x, coord.y, coord.z) || Blocks.Blocks[coord.x, coord.y, coord.z] == type)
+        {
+            return;
+        }
+
+        Blocks.Blocks[coord.x, coord.y, coord.z] = type;
+
+        var mesh = ChunkFactory.Build(Blocks);
+        Mesh = mesh;
+        meshFilter.mesh = mesh;
     }
 
     public static Chunk Create(ChunkBlocks blocks, Material material, int x, int y, int z, GameObject parent, Mesh mesh)

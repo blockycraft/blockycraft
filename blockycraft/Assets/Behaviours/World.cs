@@ -24,6 +24,18 @@ public sealed class World : MonoBehaviour
         });
     }
 
+    public void Set(Vector3 target, BlockType type)
+    {
+        var coord = MathHelper.Anchor(Mathf.FloorToInt(target.x), Mathf.FloorToInt(target.y), Mathf.FloorToInt(target.z), WorldComponent.SIZE);
+        var block = MathHelper.Wrap(Mathf.FloorToInt(target.x), Mathf.FloorToInt(target.y), Mathf.FloorToInt(target.z), WorldComponent.SIZE);
+        if (!chunks.TryGet(ref coord, out Chunk chunk))
+        {
+            return;
+        }
+
+        chunk.Edit(block, type);
+    }
+
     public (Vector3 lastPos, Vector3 pos, BlockType type) Detect(Vector3 position, Vector3 forward, float increment = 0.1f, float reach = 5f)
     {
         float step = increment;

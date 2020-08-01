@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.World;
+﻿using Assets.Scripts;
+using Assets.Scripts.World;
 using UnityEngine;
 
 public sealed class Player : MonoBehaviour
@@ -11,6 +12,8 @@ public sealed class Player : MonoBehaviour
     public Transform cam;
     public Transform highlightBlock;
     public Transform placeBlock;
+    public BlockType air;
+    public BlockType selected;
     public float checkIncrement = 0.1f;
     public float reach = 8f;
 
@@ -31,6 +34,7 @@ public sealed class Player : MonoBehaviour
 
         // A rough action block highlight
         UpdateActionBlock();
+        ProcessActions();
     }
 
     private Vector3Int GetChunkCoordFromPosition(Vector3 position)
@@ -40,6 +44,26 @@ public sealed class Player : MonoBehaviour
             (int)(position.y / WorldComponent.SIZE),
             (int)(position.z / WorldComponent.SIZE)
         );
+    }
+
+    private void ProcessActions()
+    {
+        if (!highlightBlock.gameObject.activeSelf)
+        {
+            return;
+        }
+
+        // Destroy block.
+        if (Input.GetMouseButtonDown(0))
+        {
+            world.Set(highlightBlock.position, air);
+        }
+            
+        // Place block.
+        if (Input.GetMouseButtonDown(1))
+        {
+            world.Set(placeBlock.position, selected);
+        }
     }
 
     private void UpdateActionBlock()
