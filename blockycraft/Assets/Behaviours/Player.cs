@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.World;
-using Assets.Scripts.World.Chunk;
 using UnityEngine;
+using UnityEngine.UI;
 
 public sealed class Player : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public sealed class Player : MonoBehaviour
     public Transform cam;
     public Transform highlightBlock;
     public Transform placeBlock;
+    public Text debug;
     public float checkIncrement = 0.1f;
     public float reach = 8f;
 
@@ -50,12 +51,23 @@ public sealed class Player : MonoBehaviour
         int x = Mathf.FloorToInt(pos.x);
         int y = Mathf.FloorToInt(pos.y);
         int z = Mathf.FloorToInt(pos.z);
+        var type = world.component.GetBlock(x, y, z);
+        if (type == null)
+        {
+            debug.text = "NONE";
+
+        } else
+        {
+            debug.text = $"{type.blockName}";
+        }
+
         var coord = new Vector3Int(Mathf.FloorToInt(x / WorldComponent.SIZE), Mathf.FloorToInt(y / WorldComponent.SIZE), Mathf.FloorToInt(z / WorldComponent.SIZE));
         var block = new Vector3Int(
             x - coord.x * WorldComponent.SIZE,
             y - coord.y * WorldComponent.SIZE,
             z - coord.z * WorldComponent.SIZE
         );
+
         var adjusted = new Vector3(
             coord.x * WorldComponent.SIZE + block.x,
             coord.y * WorldComponent.SIZE + block.y,

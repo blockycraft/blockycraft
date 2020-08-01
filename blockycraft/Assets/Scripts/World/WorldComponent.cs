@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.World.Chunk;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Assets.Scripts.World
 {
@@ -18,6 +19,22 @@ namespace Assets.Scripts.World
             this.biomes = biomes;
         }
 
+        public BlockType GetBlock(int x, int y, int z)
+        {
+            var coord = MathHelper.Anchor(x, y, z, SIZE);
+            var block = MathHelper.Wrap(x, y, z, SIZE);
+            if (!Chunks.TryGet(ref coord, out ChunkBlocks blocks))
+            {
+                return null;
+            }
+
+            if (!blocks.TryGet(ref block, out BlockType type))
+            {
+                return null;
+            }
+            return type;
+        }
+
         public static string Key(int x, int y, int z)
         {
             return $"{x}:{y}:{z}";
@@ -25,7 +42,8 @@ namespace Assets.Scripts.World
 
         public void Ping(Vector3Int position)
         {
-            Chunks.Ping(position, radius, v => {
+            Chunks.Ping(position, radius, v =>
+            {
                 var biome = biomes[(int)(Random.value * (biomes.Length))];
                 return biome.Generator.Generate(biome, v);
             });
