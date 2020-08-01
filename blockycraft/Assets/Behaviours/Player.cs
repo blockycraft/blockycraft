@@ -12,7 +12,6 @@ public sealed class Player : MonoBehaviour
     public Transform cam;
     public Transform highlightBlock;
     public Transform placeBlock;
-    public Text debug;
     public float checkIncrement = 0.1f;
     public float reach = 8f;
 
@@ -54,11 +53,7 @@ public sealed class Player : MonoBehaviour
         var type = world.component.GetBlock(x, y, z);
         if (type == null)
         {
-            debug.text = "NONE";
-
-        } else
-        {
-            debug.text = $"{type.blockName}";
+            Debug.Log($"Issue occurred getting block at {x}:{y}{z}");
         }
 
         var coord = new Vector3Int(Mathf.FloorToInt(x / WorldComponent.SIZE), Mathf.FloorToInt(y / WorldComponent.SIZE), Mathf.FloorToInt(z / WorldComponent.SIZE));
