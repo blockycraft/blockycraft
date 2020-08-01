@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.World.Chunk;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.World
@@ -9,14 +8,12 @@ namespace Assets.Scripts.World
         public const int SIZE = 8;
         public Biome.Biome[] biomes;
 
-        private readonly Dictionary<string, ChunkBlocks> chunks;
-        private readonly int circum;
+        public System3D<ChunkBlocks> Chunks { get; }
         private readonly int radius;
 
         public WorldComponent(int circumference, Biome.Biome[] biomes)
         {
-            chunks = new Dictionary<string, ChunkBlocks>();
-            circum = circumference;
+            Chunks = new System3D<ChunkBlocks>();
             radius = circumference / 2;
             this.biomes = biomes;
         }
@@ -26,47 +23,12 @@ namespace Assets.Scripts.World
             return $"{x}:{y}:{z}";
         }
 
-        public ChunkBlocks Get(string key)
-        {
-            return chunks[key];
-        }
-
-        public bool TryGet(ref Vector3Int position, out BlockType type)
-        {
-            int x = position.x / SIZE;
-            int y = position.y / SIZE;
-            int z = position.z / SIZE;
-
-            var key = Key(x, y, z);
-            if (!chunks.ContainsKey(key)) {
-                type = null;
-                return false;
-            }
-
-            var chunk = chunks[key];
-            type = chunk.Blocks[x - x*SIZE, y - y*SIZE, z - z*SIZE];
-            return true;
-        }
-
         public void Ping(Vector3Int position)
         {
-            var iterator = new Iterator3D(circum);
-            foreach (var coord in iterator)
-            {
-                var x = position.x + (coord.x - radius);
-                var y = position.y + (coord.y - radius);
-                var z = position.z + (coord.z - radius);
-                var adjusted = new Vector3Int(x, y, z);
-
-                var key = Key(x, y, z);
-                if (chunks.ContainsKey(key))
-                {
-                    continue;
-                }
-
+            Chunks.Ping(position, radius, v => {
                 var biome = biomes[(int)(Random.value * (biomes.Length))];
-                chunks[key] = biome.Generator.Generate(biome, adjusted);
-            }
+                return biome.Generator.Generate(biome, v);
+            });
         }
     }
 }
