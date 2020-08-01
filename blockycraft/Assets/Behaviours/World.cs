@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Biome;
+﻿using Assets.Scripts;
+using Assets.Scripts.Biome;
 using Assets.Scripts.World;
 using Assets.Scripts.World.Chunk;
 using UnityEngine;
@@ -21,6 +22,25 @@ public sealed class World : MonoBehaviour
             var mesh = ChunkFactory.Build(blocks);
             return Chunk.Create(blocks, material, v.x, v.y, v.z, gameObject, mesh);
         });
+    }
+
+    public (Vector3 lastPos, Vector3 pos, BlockType type) Detect(Vector3 position, Vector3 forward, float increment = 0.1f, float reach = 5f)
+    {
+        float step = increment;
+        Vector3 lastPos = new Vector3();
+        while (step < reach)
+        {
+            Vector3 pos = position + (forward * step);
+            var type = component.GetBlock(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z));
+            if (type != null && type.isVisible)
+            {
+                pos = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z));
+                return (lastPos, pos, type);
+            }
+            lastPos = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z));
+            step += increment;
+        }
+        return (Vector3.zero, Vector3.zero, null);
     }
 
     private void Start()
