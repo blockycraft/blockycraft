@@ -11,7 +11,7 @@ public sealed class World : MonoBehaviour
     private System3D<Chunk> chunks;
     public Material material;
     public Biome[] biomes;
-    
+
     public void Ping(Vector3Int center)
     {
         component.Ping(center);
