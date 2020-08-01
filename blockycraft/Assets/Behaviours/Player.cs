@@ -46,6 +46,8 @@ public sealed class Player : MonoBehaviour
     {
         float step = 8f;
         Vector3 pos = cam.position + (cam.forward * step);
+
+        // Simple block lookup
         int x = Mathf.FloorToInt(pos.x);
         int y = Mathf.FloorToInt(pos.y);
         int z = Mathf.FloorToInt(pos.z);
@@ -55,21 +57,8 @@ public sealed class Player : MonoBehaviour
             Debug.Log($"Issue occurred getting block at {x}:{y}{z}");
         }
 
-        var coord = new Vector3Int(Mathf.FloorToInt(x / WorldComponent.SIZE), Mathf.FloorToInt(y / WorldComponent.SIZE), Mathf.FloorToInt(z / WorldComponent.SIZE));
-        var block = new Vector3Int(
-            x - coord.x * WorldComponent.SIZE,
-            y - coord.y * WorldComponent.SIZE,
-            z - coord.z * WorldComponent.SIZE
-        );
-
-        var adjusted = new Vector3(
-            coord.x * WorldComponent.SIZE + block.x,
-            coord.y * WorldComponent.SIZE + block.y,
-            coord.z * WorldComponent.SIZE + block.z
-        );
-
-        highlightBlock.position = adjusted;
-        placeBlock.position = adjusted;
+        highlightBlock.position = new Vector3(x, y, z);
+        placeBlock.position = new Vector3(x, y, z);
     }
 
     private static Vector3 GetMovementDirection()
