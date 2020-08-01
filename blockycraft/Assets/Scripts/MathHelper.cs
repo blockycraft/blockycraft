@@ -21,8 +21,8 @@ namespace Assets.Scripts
 
         public static int Anchor(int value, int size)
         {
-            return (value >= 0) 
-                ? Mathf.FloorToInt(value / size) 
+            return (value >= 0)
+                ? Mathf.FloorToInt(value / size)
                 : -(Mathf.FloorToInt((Mathf.Abs(value) - 1) / size) + 1);
         }
 
