@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Biome.Generator
 {
-    [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Flat")]
+    [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Flat")]
     public sealed class FlatWorldGenerator : Biome
     {
         [Header("Descriptors")]
