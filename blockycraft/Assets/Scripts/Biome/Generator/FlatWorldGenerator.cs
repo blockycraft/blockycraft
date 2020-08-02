@@ -4,29 +4,46 @@ using UnityEngine;
 
 namespace Assets.Scripts.Biome.Generator
 {
-    [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Flat")]
-    public sealed class FlatWorldGenerator : WorldGenerator
+    [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Flat")]
+    public sealed class FlatWorldGenerator : Biome
     {
-        public override ChunkBlocks Generate(Biome biome, Vector3Int coordinate)
+        [Header("Descriptors")]
+        public string Name;
+
+        [Header("Composition")]
+        public BlockType Air;
+        public BlockType Shelf;
+        public BlockType Top;
+
+        [Header("Generation")]
+        public int GroundHeight;
+        public float Probability;
+
+        public override ChunkBlocks Generate(Vector3Int coordinate)
         {
-            var air = biome.Air;
+            var air = Air;
             var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
                 var worldY = coordinate.y * WorldComponent.SIZE + coord.y;
-                if (worldY >= biome.GroundHeight)
+                if (worldY > GroundHeight)
                 {
                     chunk.Blocks[coord.x, coord.y, coord.z] = air;
                 }
-                else if (worldY == biome.GroundHeight - 1 && Random.value < biome.Probability)
+                else if (worldY == GroundHeight)
                 {
-                    chunk.Blocks[coord.x, coord.y, coord.z] = air;
+                    if (Random.value < Probability)
+                    {
+                        chunk.Blocks[coord.x, coord.y, coord.z] = air;
+                    } else
+                    {
+                        chunk.Blocks[coord.x, coord.y, coord.z] = Top;
+                    }
                 }
                 else
                 {
-                    var idx = coord.y % biome.Blocks.Length;
-                    chunk.Blocks[coord.x, coord.y, coord.z] = biome.Blocks[idx].Type;
+                    chunk.Blocks[coord.x, coord.y, coord.z] = Shelf;
                 }
             }
             return chunk;

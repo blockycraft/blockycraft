@@ -44,7 +44,7 @@ namespace Assets.Scripts.World
             Chunks.Ping(position, radius, v =>
             {
                 var biome = biomes[(int)(Random.value * (biomes.Length))];
-                return biome.Generator.Generate(biome, v);
+                return biome.Generate(v);
             });
         }
     }
