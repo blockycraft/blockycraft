@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.World;
 using Assets.Scripts.World.Chunk;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Biome.Generator
@@ -16,7 +15,7 @@ namespace Assets.Scripts.Biome.Generator
         public BlockType Bedrock;
         public BlockType Dirt;
         public BlockType Grass;
-        public BiomeBlocks[] Blocks;
+        public PerlinWorldGenerator.Block[] Blocks;
 
         [Header("Generation")]
         public int GroundHeight;
@@ -61,5 +60,17 @@ namespace Assets.Scripts.Biome.Generator
             }
             return chunk;
         }
+
+        [System.Serializable]
+        public sealed class Block
+        {
+            public BlockType Type;
+            public int minHeight;
+            public int maxHeight;
+            public float noiseOffset;
+            public float scale;
+            public float threshold;
+        }
     }
+
 }
