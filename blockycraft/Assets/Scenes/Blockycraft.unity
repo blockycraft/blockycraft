@@ -384,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: -10}
+  m_LocalPosition: {x: 0, y: 25, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -455,8 +455,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
   biomes:
-  - {fileID: 11400000, guid: b04e56a516201f94895a94b488323cf7, type: 2}
-  - {fileID: 11400000, guid: 1e8c927049d371f49ab9a99634e47cf3, type: 2}
+  - {fileID: 11400000, guid: 1ef1eb461201b934f92e99e95e3235bb, type: 2}
+  - {fileID: 11400000, guid: 444bcf2341baf7d46aadabac0d914230, type: 2}
 --- !u!1 &1281086788
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1679a2879e2937842af36c4f453aaec4, type: 3}
+  m_Name: Hilly
+  m_EditorClassIdentifier: 
+  Name: Grasslands
+  Air: {fileID: 11400000, guid: 0cd8cdf8eb2ebd5458a0b45e89c61fe2, type: 2}
+  Bedrock: {fileID: 11400000, guid: 7ef8582028b03074eb8dd47cb5537e1b, type: 2}
+  Dirt: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
+  Grass: {fileID: 11400000, guid: 28e59d219862508419a9db71331f0f31, type: 2}
+  Blocks:
+  - Type: {fileID: 11400000, guid: 6569cea3ef11cdf40801db7926d8f506, type: 2}
+    minHeight: -100
+    maxHeight: 0
+    noiseOffset: 500
+    scale: 0.2
+    threshold: 0.6
+  - Type: {fileID: 11400000, guid: 55d6b24d6607f6a469a7270686024544, type: 2}
+    minHeight: -100
+    maxHeight: -30
+    noiseOffset: 0
+    scale: 0.1
+    threshold: 0.5
+  GroundHeight: 0
+  Height: 15
+  Scale: 0.25
