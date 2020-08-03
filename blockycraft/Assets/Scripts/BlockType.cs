@@ -9,12 +9,12 @@ namespace Assets.Scripts
     {
         [Header("Descriptors")]
         public string blockName;
-
-        public Material material;
         public TexturePack textures;
 
         [Header("Properties")]
+        [Tooltip("Determines if the block has a visibility component.")]
         public bool isVisible;
+        [Tooltip("Determines if the block can be seen through.")]
         public bool isTransparent;
 
         [Header("Texture Faces")]
@@ -31,20 +31,42 @@ namespace Assets.Scripts
             isTransparent = false;
         }
 
-        public bool IsObscure() {
+        public bool IsObscure()
+        {
             return isVisible && !isTransparent;
         }
 
-        public static TexturePack.Element GetTextureID(BlockType block, int index)
+        public bool IsValid()
         {
-            switch ((VoxelFace)index)
+            if (textures == null)
             {
-                case VoxelFace.Back: return block.textures.Find(block.back);
-                case VoxelFace.Front: return block.textures.Find(block.front);
-                case VoxelFace.Top: return block.textures.Find(block.top);
-                case VoxelFace.Bottom: return block.textures.Find(block.bottom);
-                case VoxelFace.Left: return block.textures.Find(block.left);
-                case VoxelFace.Right: return block.textures.Find(block.right);
+                return false;
+            }
+            if (
+                string.IsNullOrEmpty(back) ||
+                string.IsNullOrEmpty(front) ||
+                string.IsNullOrEmpty(top) ||
+                string.IsNullOrEmpty(bottom) ||
+                string.IsNullOrEmpty(left) ||
+                string.IsNullOrEmpty(right)
+               )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static string GetTextureID(BlockType block, VoxelFace face)
+        {
+            switch (face)
+            {
+                case VoxelFace.Back: return block.back;
+                case VoxelFace.Front: return block.front;
+                case VoxelFace.Top: return block.top;
+                case VoxelFace.Bottom: return block.bottom;
+                case VoxelFace.Left: return block.left;
+                case VoxelFace.Right: return block.right;
                 default: throw new NotSupportedException();
             };
         }
