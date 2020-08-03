@@ -53,7 +53,7 @@ jobs:
 
       - name: Run project tests
         uses: webbertakken/unity-test-runner@v1.4
-        if: matrix.targetPlatform == 'StandaloneLinux64'
+        if: matrix.targetPlatform == 'WebGL'
         with:
           projectPath: blockycraft/.
           unityVersion: ${{ matrix.unityVersion }}
