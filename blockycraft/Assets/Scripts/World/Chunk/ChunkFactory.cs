@@ -59,7 +59,8 @@ namespace Assets.Scripts.World.Chunk
                         meshFab.PushVertex(offset + Voxel.Vertices[Voxel.Tris[face, vert]]);
                     }
 
-                    var texture = BlockType.GetTextureID(type, face);
+                    var textureID = BlockType.GetTextureID(type, (VoxelFace)face);
+                    var texture = type.textures.Find(textureID);
                     var uv = type.textures.UV(texture);
                     var dimensions = type.textures.Dimensions(texture);
 
