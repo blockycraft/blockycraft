@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Engine
+namespace Assets.Scripts
 {
     public static class JsonHelper
     {
