@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: OreIron
   m_EditorClassIdentifier: 
   blockName: Iron Ore
-  material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
+  isVisible: 1
+  isTransparent: 0
   left: stone_iron_alt
   right: stone_iron_alt
   top: stone_iron
