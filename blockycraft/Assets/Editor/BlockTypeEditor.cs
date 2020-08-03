@@ -36,7 +36,7 @@ public class BlockTypeEditor : Editor
 
         targetMeshFilter = previewRendererObject.GetComponent<MeshFilter>();
         targetMeshRenderer = previewRendererObject.GetComponent<MeshRenderer>();
-        targetMeshRenderer.transform.position = -Voxel.Center;
+        previewRendererObject.transform.position = -Voxel.Center;
     }
 
     private void InitializeLighting(PreviewRenderUtility utility)
@@ -57,6 +57,11 @@ public class BlockTypeEditor : Editor
 
     private void ReloadMesh(GameObject previewRendererObject, BlockType block)
     {
+        if (previewRendererObject == null)
+        {
+            return;
+        }
+
         var mesh = ChunkFactory.Build(block);
         previewRendererObject.GetComponent<MeshFilter>().mesh = mesh;
     }
@@ -69,7 +74,6 @@ public class BlockTypeEditor : Editor
         {
             ReloadMesh(previewRendererObject, (BlockType)target);
         }
-
         GUILayout.Label("Viewer", EditorStyles.boldLabel);
 
         EditorGUILayout.BeginHorizontal();
@@ -113,6 +117,7 @@ public class BlockTypeEditor : Editor
         if (GUILayout.Button("Reset"))
         {
             previewRendererObject.transform.rotation = Quaternion.identity;
+            previewRendererObject.transform.position = -Voxel.Center;
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndFoldoutHeaderGroup();
@@ -121,6 +126,10 @@ public class BlockTypeEditor : Editor
     public override bool HasPreviewGUI()
     {
         if (!(target is BlockType))
+            return false;
+
+        var block = (BlockType)target;
+        if (!block.IsValid())
             return false;
 
         Initialize((BlockType)target);
@@ -134,7 +143,10 @@ public class BlockTypeEditor : Editor
             return;
 
         var block = (BlockType)target;
-        targetMeshRenderer.sharedMaterial = block.material;
+        if (block.textures == null)
+            return;
+
+        targetMeshRenderer.sharedMaterial = block.textures.Material;
 
         previewRenderUtility.BeginPreview(r, background);
         previewRenderUtility.DrawMesh(targetMeshFilter.sharedMesh,
