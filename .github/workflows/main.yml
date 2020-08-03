@@ -51,6 +51,13 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: blockycraft
 
+      - name: Run project tests
+        uses: webbertakken/unity-test-runner@v1.4
+        if: matrix.targetPlatform == 'StandaloneLinux64'
+        with:
+          projectPath: blockycraft/.
+          unityVersion: ${{ matrix.unityVersion }}
+
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
         with:
