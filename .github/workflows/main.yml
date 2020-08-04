@@ -54,12 +54,9 @@ jobs:
       - name: Run tests
         uses: webbertakken/unity-test-runner@v1.6
         if: matrix.targetPlatform == 'WebGL'
-        env:
-          UNITY_PROJECT_PATH: blockycraft/.
-          PROJECT_PATH: blockycraft/.
         with:
           unityVersion: ${{ matrix.unityVersion }}
-          projectPath: blockycraft/.
+          projectPath: blockycraft
 
       - name: Upload tests
         uses: actions/upload-artifact@v1
