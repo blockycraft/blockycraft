@@ -59,6 +59,7 @@ jobs:
           PROJECT_PATH: blockycraft/.
         with:
           unityVersion: ${{ matrix.unityVersion }}
+          projectPath: blockycraft/.
 
       - name: Upload tests
         uses: actions/upload-artifact@v1
