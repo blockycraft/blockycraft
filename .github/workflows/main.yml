@@ -55,7 +55,6 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.6
         if: matrix.targetPlatform == 'WebGL'
         with:
-          projectPath: blockycraft/.
           unityVersion: ${{ matrix.unityVersion }}
 
       - name: Upload tests
