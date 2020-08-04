@@ -56,7 +56,7 @@ jobs:
         if: matrix.targetPlatform == 'WebGL'
         with:
           unityVersion: ${{ matrix.unityVersion }}
-          projectPath: blockycraft
+          projectPath: ./blockycraft/.
 
       - name: Upload tests
         uses: actions/upload-artifact@v1
