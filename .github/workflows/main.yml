@@ -51,6 +51,20 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: blockycraft
 
+      - name: Run tests
+        uses: webbertakken/unity-test-runner@v1.6
+        if: matrix.targetPlatform == 'WebGL'
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          projectPath: blockycraft
+
+      - name: Upload tests
+        uses: actions/upload-artifact@v1
+        if: matrix.targetPlatform == 'WebGL'
+        with:
+          name: test-results
+          path: artifacts
+
       - name: Upload to artifacts
         uses: actions/upload-artifact@v1
         with:
