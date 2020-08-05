@@ -7,11 +7,7 @@ namespace Assets.Scripts.Biome.Generator
     [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Perlin")]
     public sealed class PerlinWorldGenerator : Biome
     {
-        [Header("Descriptors")]
-        public string Name;
-
         [Header("Composition")]
-        public BlockType Air;
         public BlockType Bedrock;
         public BlockType Dirt;
         public BlockType Grass;
