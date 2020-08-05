@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Biome.Generator
 {
-    [CreateAssetMenu(fileName = "Generator", menuName = "Blockycraft/Generators/Perlin")]
+    [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Perlin")]
     public sealed class PerlinWorldGenerator : Biome
     {
         [Header("Descriptors")]
