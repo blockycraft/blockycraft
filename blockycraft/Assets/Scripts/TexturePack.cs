@@ -17,24 +17,20 @@ namespace Assets.Scripts
         public Material Material;
 
         [Header("Sprites")]
-        public TextAsset Definition;
+        public Element[] Elements;
 
         private Dictionary<string, Element> lookup;
 
-        public void OnValidate()
-        {
-            if (Definition == null) { return; }
-            var elements = JsonHelper.FromJson<Element>(Definition.text);
-
-            lookup = new Dictionary<string, Element>();
-            foreach (var element in elements)
-            {
-                lookup[element.name] = element;
-            }
-        }
-
         public Element Find(string key)
         {
+            if (lookup == null)
+            {
+                lookup = new Dictionary<string, Element>();
+                foreach (var element in Elements)
+                {
+                    lookup[element.name] = element;
+                }
+            }
             if (lookup.ContainsKey(key)) return lookup[key];
             return lookup[defaultKey];
         }
