@@ -16,11 +16,9 @@ namespace Blockycraft.Scripts.Biome.Generator
 
         public float Probability;
 
-        public override ChunkBlocks Generate(Vector3Int coordinate, int size)
+        public override ChunkBlocks Generate(Vector3Int coordinate, ChunkBlocks chunk, int size)
         {
             var air = Air;
-            var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, size);
-            chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {

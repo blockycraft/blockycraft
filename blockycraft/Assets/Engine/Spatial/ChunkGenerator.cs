@@ -15,6 +15,6 @@ namespace Blockycraft.Scripts.Biome
         [Tooltip("Biomes that can be transitioned to from this biome.")]
         public ChunkGenerator[] Transitions;
 
-        public abstract ChunkBlocks Generate(Vector3Int coordinate, int size);
+        public abstract ChunkBlocks Generate(Vector3Int coordinate, ChunkBlocks chunk, int size);
     }
 }

@@ -51,7 +51,8 @@ namespace Blockycraft.Scripts.World
 
             Chunks.Ping(position, radius, v =>
             {
-                return biome.Generate(v, SIZE);
+                var chunk = new ChunkBlocks(v.x, v.y, v.z, SIZE);
+                return biome.Generate(v, chunk, SIZE);
             });
         }
     }

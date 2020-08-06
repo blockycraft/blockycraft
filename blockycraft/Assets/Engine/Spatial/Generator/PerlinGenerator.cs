@@ -19,10 +19,8 @@ namespace Blockycraft.Scripts.Biome.Generator
         public int Height;
         public float Scale;
 
-        public override ChunkBlocks Generate(Vector3Int coordinate, int size)
+        public override ChunkBlocks Generate(Vector3Int coordinate, ChunkBlocks chunk, int size)
         {
-            var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, size);
-            chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {

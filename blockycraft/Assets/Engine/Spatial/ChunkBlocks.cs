@@ -10,7 +10,6 @@ namespace Blockycraft.Scripts.World.Chunk
         public int Height => Blocks.GetLength(1);
         public int Depth => Blocks.GetLength(2);
         public BlockType[,,] Blocks { get; }
-        public Biome.ChunkGenerator Biome { get; set; }
         public int X { get; }
         public int Y { get; }
         public int Z { get; }
