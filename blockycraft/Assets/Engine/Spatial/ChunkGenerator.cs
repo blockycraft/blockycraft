@@ -16,7 +16,5 @@ namespace Blockycraft.Scripts.Biome
         public ChunkGenerator[] Transitions;
 
         public abstract ChunkBlocks Generate(Vector3Int coordinate, int size);
-
-
     }
 }

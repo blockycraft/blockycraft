@@ -1,5 +1,4 @@
-﻿using Blockycraft.Scripts.World;
-using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft.Scripts.World.Chunk;
 using UnityEngine;
 
 namespace Blockycraft.Scripts.Biome.Generator
@@ -9,6 +8,7 @@ namespace Blockycraft.Scripts.Biome.Generator
     {
         [Header("Composition")]
         public BlockType Shelf;
+
         public BlockType Top;
 
         [Header("Generation")]

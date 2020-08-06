@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Blockycraft.Scripts;
+﻿using Blockycraft.Scripts;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -103,7 +103,6 @@ namespace Tests
             Assert.AreEqual(expectedY, actual.y);
             Assert.AreEqual(expectedZ, actual.z);
         }
-
 
         [TestCase(8, 0, 0, 0, 0, 0, 0)]
         [TestCase(8, 1, 1, 1, 0, 0, 0)]

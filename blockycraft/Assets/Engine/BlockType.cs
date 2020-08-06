@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Blockycraft.Engine.Geometry;
+using System;
 using UnityEngine;
-using Blockycraft.Engine.Geometry;
 
 namespace Blockycraft.Scripts
 {

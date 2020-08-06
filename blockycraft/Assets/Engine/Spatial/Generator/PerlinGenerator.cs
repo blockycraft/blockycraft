@@ -8,6 +8,7 @@ namespace Blockycraft.Scripts.Biome.Generator
     {
         [Header("Composition")]
         public BlockType Bedrock;
+
         public BlockType Dirt;
         public BlockType Grass;
         public Block[] Blocks;

@@ -6,7 +6,6 @@ namespace Blockycraft.Scripts.World
     public sealed class WorldComponent
     {
         public const int SIZE = 8;
-        
 
         public System3D<ChunkBlocks> Chunks { get; }
         private readonly int radius;
