@@ -21,7 +21,6 @@ namespace Blockycraft.Scripts
 
         [Header("Texture Faces")]
         public string left;
-
         public string right;
         public string top;
         public string bottom;
