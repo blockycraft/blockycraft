@@ -7,15 +7,13 @@ namespace Blockycraft.Scripts.Biome.Generator
     public sealed class PerlinGenerator : ChunkGenerator
     {
         [Header("Composition")]
-        public BlockType Bedrock;
-
-        public BlockType Dirt;
-        public BlockType Grass;
+        public BlockType Surface;
+        public BlockType Substratum;
+        public BlockType Subsoil;
         public Block[] Blocks;
 
         [Header("Generation")]
         public int GroundHeight;
-
         public int Height;
         public float Scale;
 
@@ -32,12 +30,12 @@ namespace Blockycraft.Scripts.Biome.Generator
                 var noise = Mathf.PerlinNoise(sample2d.x, sample2d.y);
 
                 var terrainHeight = Mathf.FloorToInt(Height * noise) + GroundHeight;
-                BlockType type = Bedrock;
+                BlockType type = Substratum;
 
                 if (y == terrainHeight)
-                    type = Grass;
+                    type = Surface;
                 else if (y < terrainHeight && y > terrainHeight - 4)
-                    type = Dirt;
+                    type = Subsoil;
                 else if (y > terrainHeight)
                     type = Air;
                 else

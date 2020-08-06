@@ -7,13 +7,13 @@ namespace Blockycraft.Scripts.Biome.Generator
     public sealed class FlatGenerator : ChunkGenerator
     {
         [Header("Composition")]
-        public BlockType Shelf;
-
+        public BlockType Default;
         public BlockType Top;
 
         [Header("Generation")]
         public int GroundHeight;
 
+        [Tooltip("Probability of an air block on the ground level")]
         public float Probability;
 
         public override ChunkBlocks Generate(Vector3Int coordinate, ChunkBlocks chunk, int size)
@@ -40,7 +40,7 @@ namespace Blockycraft.Scripts.Biome.Generator
                 }
                 else
                 {
-                    chunk.Blocks[coord.x, coord.y, coord.z] = Shelf;
+                    chunk.Blocks[coord.x, coord.y, coord.z] = Default;
                 }
             }
             return chunk;
