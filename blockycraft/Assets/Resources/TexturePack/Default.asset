@@ -18,4 +18,314 @@ MonoBehaviour:
   Scale: 1
   defaultKey: dirt
   Material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
-  Definition: {fileID: 4900000, guid: 89735127863e6af45bf9ba359d309ac4, type: 3}
+  Elements:
+  - name: brick_grey
+    x: 2
+    y: 2
+    width: 128
+    height: 128
+  - name: brick_red
+    x: 134
+    y: 2
+    width: 128
+    height: 128
+  - name: cactus_inside
+    x: 266
+    y: 2
+    width: 128
+    height: 128
+  - name: cactus_side
+    x: 398
+    y: 2
+    width: 128
+    height: 128
+  - name: cactus_top
+    x: 530
+    y: 2
+    width: 128
+    height: 128
+  - name: cotton_blue
+    x: 662
+    y: 2
+    width: 128
+    height: 128
+  - name: cotton_green
+    x: 794
+    y: 2
+    width: 128
+    height: 128
+  - name: cotton_red
+    x: 2
+    y: 134
+    width: 128
+    height: 128
+  - name: cotton_tan
+    x: 134
+    y: 134
+    width: 128
+    height: 128
+  - name: dirt
+    x: 266
+    y: 134
+    width: 128
+    height: 128
+  - name: dirt_grass
+    x: 398
+    y: 134
+    width: 128
+    height: 128
+  - name: dirt_sand
+    x: 530
+    y: 134
+    width: 128
+    height: 128
+  - name: dirt_snow
+    x: 662
+    y: 134
+    width: 128
+    height: 128
+  - name: glass
+    x: 794
+    y: 134
+    width: 128
+    height: 128
+  - name: glass_frame
+    x: 2
+    y: 266
+    width: 128
+    height: 128
+  - name: grass_top
+    x: 134
+    y: 266
+    width: 128
+    height: 128
+  - name: gravel_dirt
+    x: 266
+    y: 266
+    width: 128
+    height: 128
+  - name: gravel_stone
+    x: 398
+    y: 266
+    width: 128
+    height: 128
+  - name: greysand
+    x: 530
+    y: 266
+    width: 128
+    height: 128
+  - name: greystone
+    x: 662
+    y: 266
+    width: 128
+    height: 128
+  - name: greystone_ruby
+    x: 794
+    y: 266
+    width: 128
+    height: 128
+  - name: greystone_ruby_alt
+    x: 2
+    y: 398
+    width: 128
+    height: 128
+  - name: greystone_sand
+    x: 134
+    y: 398
+    width: 128
+    height: 128
+  - name: ice
+    x: 266
+    y: 398
+    width: 128
+    height: 128
+  - name: lava
+    x: 398
+    y: 398
+    width: 128
+    height: 128
+  - name: leaves
+    x: 530
+    y: 398
+    width: 128
+    height: 128
+  - name: leaves_orange
+    x: 662
+    y: 398
+    width: 128
+    height: 128
+  - name: leaves_orange_transparent
+    x: 794
+    y: 398
+    width: 128
+    height: 128
+  - name: leaves_transparent
+    x: 2
+    y: 530
+    width: 128
+    height: 128
+  - name: oven
+    x: 134
+    y: 530
+    width: 128
+    height: 128
+  - name: redsand
+    x: 266
+    y: 530
+    width: 128
+    height: 128
+  - name: redstone
+    x: 398
+    y: 530
+    width: 128
+    height: 128
+  - name: redstone_emerald
+    x: 530
+    y: 530
+    width: 128
+    height: 128
+  - name: redstone_emerald_alt
+    x: 662
+    y: 530
+    width: 128
+    height: 128
+  - name: redstone_sand
+    x: 794
+    y: 530
+    width: 128
+    height: 128
+  - name: sand
+    x: 2
+    y: 662
+    width: 128
+    height: 128
+  - name: snow
+    x: 134
+    y: 662
+    width: 128
+    height: 128
+  - name: stone
+    x: 266
+    y: 662
+    width: 128
+    height: 128
+  - name: stone_browniron
+    x: 398
+    y: 662
+    width: 128
+    height: 128
+  - name: stone_browniron_alt
+    x: 530
+    y: 662
+    width: 128
+    height: 128
+  - name: stone_coal
+    x: 662
+    y: 662
+    width: 128
+    height: 128
+  - name: stone_coal_alt
+    x: 794
+    y: 662
+    width: 128
+    height: 128
+  - name: stone_diamond
+    x: 2
+    y: 794
+    width: 128
+    height: 128
+  - name: stone_diamond_alt
+    x: 134
+    y: 794
+    width: 128
+    height: 128
+  - name: stone_dirt
+    x: 266
+    y: 794
+    width: 128
+    height: 128
+  - name: stone_gold
+    x: 398
+    y: 794
+    width: 128
+    height: 128
+  - name: stone_gold_alt
+    x: 530
+    y: 794
+    width: 128
+    height: 128
+  - name: stone_grass
+    x: 662
+    y: 794
+    width: 128
+    height: 128
+  - name: stone_iron
+    x: 794
+    y: 794
+    width: 128
+    height: 128
+  - name: stone_iron_alt
+    x: 926
+    y: 2
+    width: 128
+    height: 128
+  - name: stone_sand
+    x: 926
+    y: 134
+    width: 128
+    height: 128
+  - name: stone_silver
+    x: 926
+    y: 266
+    width: 128
+    height: 128
+  - name: stone_silver_alt
+    x: 926
+    y: 398
+    width: 128
+    height: 128
+  - name: stone_snow
+    x: 926
+    y: 530
+    width: 128
+    height: 128
+  - name: table
+    x: 926
+    y: 662
+    width: 128
+    height: 128
+  - name: trunk_side
+    x: 926
+    y: 794
+    width: 128
+    height: 128
+  - name: trunk_top
+    x: 2
+    y: 926
+    width: 128
+    height: 128
+  - name: trunk_white_side
+    x: 134
+    y: 926
+    width: 128
+    height: 128
+  - name: trunk_white_top
+    x: 266
+    y: 926
+    width: 128
+    height: 128
+  - name: water
+    x: 398
+    y: 926
+    width: 128
+    height: 128
+  - name: wood
+    x: 530
+    y: 926
+    width: 128
+    height: 128
+  - name: wood_red
+    x: 662
+    y: 926
+    width: 128
+    height: 128
