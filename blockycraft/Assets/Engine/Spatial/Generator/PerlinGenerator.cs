@@ -1,7 +1,7 @@
-﻿using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft.World.Chunk;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.Biome.Generator
+namespace Blockycraft.Biome.Generator
 {
     [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Perlin")]
     public sealed class PerlinGenerator : ChunkGenerator

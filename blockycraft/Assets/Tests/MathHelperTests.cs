@@ -1,4 +1,4 @@
-﻿using Blockycraft.Scripts;
+﻿using Blockycraft;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Blockycraft.Scripts
+namespace Blockycraft
 {
     public static class JsonHelper
     {

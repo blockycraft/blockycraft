@@ -1,5 +1,5 @@
-﻿using Blockycraft.Scripts;
-using Blockycraft.Scripts.World;
+﻿using Blockycraft;
+using Blockycraft.World;
 using UnityEngine;
 
 public sealed class Player : MonoBehaviour

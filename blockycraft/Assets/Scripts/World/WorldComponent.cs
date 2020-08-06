@@ -1,7 +1,7 @@
-﻿using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft.World.Chunk;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.World
+namespace Blockycraft.World
 {
     public sealed class WorldComponent
     {

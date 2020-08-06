@@ -1,5 +1,5 @@
-﻿using Blockycraft.Scripts;
-using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft;
+using Blockycraft.World.Chunk;
 using UnityEngine;
 namespace Blockycraft.Assets.Engine.Spatial
 {

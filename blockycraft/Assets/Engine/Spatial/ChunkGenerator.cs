@@ -1,7 +1,7 @@
-﻿using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft.World.Chunk;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.Biome
+namespace Blockycraft.Biome
 {
     public abstract class ChunkGenerator : ScriptableObject
     {

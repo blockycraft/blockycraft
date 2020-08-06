@@ -1,7 +1,7 @@
-﻿using Blockycraft.Scripts;
-using Blockycraft.Scripts.Biome;
-using Blockycraft.Scripts.World;
-using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft;
+using Blockycraft.Biome;
+using Blockycraft.World;
+using Blockycraft.World.Chunk;
 using UnityEngine;
 
 public sealed class World : MonoBehaviour
