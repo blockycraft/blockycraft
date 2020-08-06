@@ -1,4 +1,5 @@
 ﻿using Blockycraft.Engine.Geometry;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +46,17 @@ namespace Blockycraft.World.Chunk
             processed.Enqueue(work);
         }
 
+        public System3D<Mesh> Completed()
+        {
+            var system = new System3D<Mesh>();
+            foreach (var work in processed)
+            {
+                var mesh = Compile(work.Fab);
+                system.Set(work.Blocks.Coordinate, mesh);
+            }
+            return system;
+        }
+
         private static ChunkView Visibility(ChunkBlocks blocks)
         {
             var iterator = blocks.GetIterator();
@@ -80,7 +92,7 @@ namespace Blockycraft.World.Chunk
         private static ChunkFab CreateFromBlocks(ChunkBlocks blocks, ChunkView view, ChunkFab meshFab)
         {
             int vertexIndex = 0;
-            var directions = System.Enum.GetValues(typeof(VoxelFace));
+            var directions = Enum.GetValues(typeof(VoxelFace));
 
             var iterator = blocks.GetIterator();
             foreach (var coord in iterator)
@@ -119,6 +131,19 @@ namespace Blockycraft.World.Chunk
             return meshFab;
         }
 
+        private static Mesh Compile(ChunkFab fab)
+        {
+            var mesh = new Mesh
+            {
+                vertices = fab.Verticies,
+                triangles = fab.Triangles,
+                uv = fab.UVs,
+            };
+
+            mesh.RecalculateNormals();
+            return mesh;
+        }
+
         public static Mesh Build(BlockType type)
         {
             var blockChunk = new ChunkBlocks(0, 0, 0, 1);
@@ -132,14 +157,7 @@ namespace Blockycraft.World.Chunk
             var initFab = new ChunkFab(visibility.Count);
             var chunkFab = CreateFromBlocks(blockChunk, visibility, initFab);
 
-            var mesh = new Mesh
-            {
-                vertices = chunkFab.Verticies,
-                triangles = chunkFab.Triangles,
-                uv = chunkFab.UVs,
-            };
-
-            mesh.RecalculateNormals();
+            var mesh = Compile(chunkFab);
             return mesh;
         }
     }

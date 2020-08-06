@@ -8,7 +8,6 @@ namespace Blockycraft
     {
         [Header("Descriptors")]
         public string Name;
-
         public int Width;
         public int Height;
         public float Scale;

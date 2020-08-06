@@ -64,4 +64,14 @@ public sealed class World : MonoBehaviour
 
         Ping(Vector3Int.zero);
     }
+
+    private void Update()
+    {
+        factory.Process();
+
+        var processed = factory.Completed();
+        if (!processed.IsEmpty)
+        {
+        }
+    }
 }

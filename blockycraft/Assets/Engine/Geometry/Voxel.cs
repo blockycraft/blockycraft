@@ -39,6 +39,11 @@ namespace Blockycraft.Engine.Geometry
         {
             return new Vector3(coord.x, coord.y, coord.z);
         }
+        
+        public static Vector3 Position(int x, int y, int z)
+        {
+            return new Vector3(x, y, z);
+        }
 
         public static Vector3Int Direction(VoxelFace face)
         {
