@@ -51,7 +51,7 @@ public sealed class Chunk
             Blocks = blocks,
             MeshMaterial = material,
             Mesh = mesh,
-            Position = Voxel.Position(x, y, z) * WorldComponent.SIZE
+            Position = Voxel.Position(x, y, z) * World.SIZE
         };
         chunk.Initialize();
 
