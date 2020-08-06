@@ -6,16 +6,49 @@ namespace Blockycraft.World.Chunk
 {
     public sealed class ChunkFactory
     {
-        private Queue<ChunkBlocks> _queue;
+        private sealed class WorkItem
+        {
+            public ChunkBlocks Blocks;
+            public ChunkFab Fab;
+        }
+
+        private readonly Queue<WorkItem> queue;
+        private readonly Queue<WorkItem> processed;
 
         public ChunkFactory()
         {
-            _queue = new Queue<ChunkBlocks>();
+            queue = new Queue<WorkItem>();
+            processed = new Queue<WorkItem>();
         }
 
         public void Enqueue(ChunkBlocks blocks)
         {
-            _queue.Enqueue(blocks);
+            var work = new WorkItem()
+            {
+                Blocks = blocks,
+                Fab = null
+            };
+            queue.Enqueue(work);
+        }
+
+        public void Process()
+        {
+            if (queue.Count == 0)
+            {
+                return;
+            }
+
+            var work = queue.Dequeue();
+            var visibility = Visibility(work.Blocks);
+            var initFab = new ChunkFab(visibility.Count);
+            work.Fab = CreateFromBlocks(work.Blocks, visibility, initFab);
+
+            processed.Enqueue(work);
+        }
+
+        public void Shuffle()
+        {
+            // foreach processed
         }
 
         public static ChunkView Visibility(ChunkBlocks blocks)
