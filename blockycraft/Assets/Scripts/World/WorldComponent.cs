@@ -10,10 +10,10 @@ namespace Blockycraft.Scripts.World
 
         public System3D<ChunkBlocks> Chunks { get; }
         private readonly int radius;
-        private readonly Biome.Biome starter;
-        private readonly Biome.Biome current;
+        private readonly Biome.ChunkGenerator starter;
+        private readonly Biome.ChunkGenerator current;
 
-        public WorldComponent(int circumference, Biome.Biome start)
+        public WorldComponent(int circumference, Biome.ChunkGenerator start)
         {
             Chunks = new System3D<ChunkBlocks>();
             radius = circumference / 2;
@@ -52,7 +52,7 @@ namespace Blockycraft.Scripts.World
 
             Chunks.Ping(position, radius, v =>
             {
-                return biome.Generate(v);
+                return biome.Generate(v, SIZE);
             });
         }
     }

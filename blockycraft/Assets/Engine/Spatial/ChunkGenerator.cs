@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Blockycraft.Scripts.Biome
 {
-    public abstract class Biome : ScriptableObject
+    public abstract class ChunkGenerator : ScriptableObject
     {
         [Header("Descriptors")]
         public string Name;
@@ -13,9 +13,9 @@ namespace Blockycraft.Scripts.Biome
 
         [Header("Relations")]
         [Tooltip("Biomes that can be transitioned to from this biome.")]
-        public Biome[] Transitions;
+        public ChunkGenerator[] Transitions;
 
-        public abstract ChunkBlocks Generate(Vector3Int coordinate);
+        public abstract ChunkBlocks Generate(Vector3Int coordinate, int size);
 
 
     }

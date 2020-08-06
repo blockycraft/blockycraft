@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Blockycraft.Scripts.Biome.Generator
 {
     [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Flat")]
-    public sealed class FlatWorldGenerator : Biome
+    public sealed class FlatGenerator : ChunkGenerator
     {
         [Header("Composition")]
         public BlockType Shelf;
@@ -16,15 +16,15 @@ namespace Blockycraft.Scripts.Biome.Generator
 
         public float Probability;
 
-        public override ChunkBlocks Generate(Vector3Int coordinate)
+        public override ChunkBlocks Generate(Vector3Int coordinate, int size)
         {
             var air = Air;
-            var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
+            var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, size);
             chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
-                var worldY = coordinate.y * WorldComponent.SIZE + coord.y;
+                var worldY = coordinate.y * size + coord.y;
                 if (worldY > GroundHeight)
                 {
                     chunk.Blocks[coord.x, coord.y, coord.z] = air;
