@@ -11,7 +11,7 @@ public sealed class World : MonoBehaviour
     public WorldComponent component;
     private System3D<Chunk> chunks;
     public Material material;
-    public Biome[] biomes;
+    public Biome start;
 
     public void Ping(Vector3Int center)
     {
@@ -57,7 +57,7 @@ public sealed class World : MonoBehaviour
 
     private void Start()
     {
-        component = new WorldComponent(DRAW_DISTANCE * 2, biomes);
+        component = new WorldComponent(DRAW_DISTANCE * 2, start);
         chunks = new System3D<Chunk>();
 
         Ping(Vector3Int.zero);

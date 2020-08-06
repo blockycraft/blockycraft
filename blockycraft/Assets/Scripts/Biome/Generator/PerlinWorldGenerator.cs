@@ -21,6 +21,7 @@ namespace Assets.Scripts.Biome.Generator
         public override ChunkBlocks Generate(Vector3Int coordinate)
         {
             var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
+            chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {

@@ -19,6 +19,7 @@ namespace Assets.Scripts.Biome.Generator
         {
             var air = Air;
             var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
+            chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
