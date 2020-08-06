@@ -10,9 +10,6 @@ public sealed class Chunk
     public Mesh Mesh { get; set; }
     public ChunkBlocks Blocks { get; set; }
     public Material Voxel { get; set; }
-    public int X { get; set; }
-    public int Y { get; set; }
-    public int Z { get; set; }
     public GameObject gameObject { get; set; }
     public Vector3 Position { get; set; }
 
@@ -23,7 +20,7 @@ public sealed class Chunk
     {
         gameObject = new GameObject();
         gameObject.transform.position = Position;
-        gameObject.name = $"Chunk {X},{Y},{Z}";
+        gameObject.name = $"Chunk {Blocks.X},{Blocks.Y},{Blocks.Z}";
 
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.material = Voxel;
@@ -52,9 +49,6 @@ public sealed class Chunk
         {
             Blocks = blocks,
             Voxel = material,
-            X = x,
-            Y = y,
-            Z = z,
             Mesh = mesh,
             Position = x * Vector3.right * WorldComponent.SIZE + z * Vector3.forward * WorldComponent.SIZE + y * Vector3.up * WorldComponent.SIZE
         };

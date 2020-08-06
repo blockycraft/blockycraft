@@ -9,9 +9,10 @@ public sealed class World : MonoBehaviour
     public const int DRAW_HEIGHT = 4;
     public const int DRAW_DISTANCE = DRAW_HEIGHT * 2;
     public WorldComponent component;
-    private System3D<Chunk> chunks;
     public Material material;
     public ChunkGenerator start;
+    private System3D<Chunk> chunks;
+    private ChunkFactory factory;
 
     public void Ping(Vector3Int center)
     {
@@ -59,6 +60,7 @@ public sealed class World : MonoBehaviour
     {
         component = new WorldComponent(DRAW_DISTANCE * 2, start);
         chunks = new System3D<Chunk>();
+        factory = new ChunkFactory();
 
         Ping(Vector3Int.zero);
     }

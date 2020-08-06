@@ -1,4 +1,5 @@
-﻿using Blockycraft.World.Chunk;
+﻿using Blockycraft.Biome;
+using Blockycraft.World.Chunk;
 using UnityEngine;
 
 namespace Blockycraft.World
@@ -9,8 +10,8 @@ namespace Blockycraft.World
 
         public System3D<ChunkBlocks> Chunks { get; }
         private readonly int radius;
-        private readonly Biome.ChunkGenerator starter;
-        private readonly Biome.ChunkGenerator current;
+        private readonly ChunkGenerator starter;
+        private readonly ChunkGenerator current;
 
         public WorldComponent(int circumference, Biome.ChunkGenerator start)
         {

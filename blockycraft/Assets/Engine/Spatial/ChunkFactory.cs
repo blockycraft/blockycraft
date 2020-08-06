@@ -25,8 +25,7 @@ namespace Blockycraft.World.Chunk
         {
             var work = new WorkItem()
             {
-                Blocks = blocks,
-                Fab = null
+                Blocks = blocks
             };
             queue.Enqueue(work);
         }
@@ -46,12 +45,7 @@ namespace Blockycraft.World.Chunk
             processed.Enqueue(work);
         }
 
-        public void Shuffle()
-        {
-            // foreach processed
-        }
-
-        public static ChunkView Visibility(ChunkBlocks blocks)
+        private static ChunkView Visibility(ChunkBlocks blocks)
         {
             var iterator = blocks.GetIterator();
             var directions = System.Enum.GetValues(typeof(VoxelFace));
@@ -83,7 +77,7 @@ namespace Blockycraft.World.Chunk
             return visibility;
         }
 
-        public static ChunkFab CreateFromBlocks(ChunkBlocks blocks, ChunkView view, ChunkFab meshFab)
+        private static ChunkFab CreateFromBlocks(ChunkBlocks blocks, ChunkView view, ChunkFab meshFab)
         {
             int vertexIndex = 0;
             var directions = System.Enum.GetValues(typeof(VoxelFace));
