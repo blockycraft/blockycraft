@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.World.Chunk;
+﻿using Blockycraft.Scripts.World.Chunk;
 using UnityEngine;
 
-namespace Assets.Scripts.Biome
+namespace Blockycraft.Scripts.Biome
 {
     public abstract class Biome : ScriptableObject
     {

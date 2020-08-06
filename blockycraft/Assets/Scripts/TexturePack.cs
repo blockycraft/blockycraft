@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Blockycraft.Scripts
 {
     [CreateAssetMenu(fileName = "Pack", menuName = "Blockycraft/Texture Pack")]
     public sealed class TexturePack : ScriptableObject

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Engine.Geometry
+namespace Blockycraft.Engine.Geometry
 {
     public static class Voxel
     {

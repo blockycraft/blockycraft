@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using Assets.Engine.Geometry;
+using Blockycraft.Engine.Geometry;
 
-namespace Assets.Scripts
+namespace Blockycraft.Scripts
 {
     [CreateAssetMenu(fileName = "BlockType", menuName = "Blockycraft/Block Type")]
     public sealed class BlockType : ScriptableObject

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts
+namespace Blockycraft.Scripts
 {
     public static class MathHelper
     {

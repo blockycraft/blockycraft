@@ -1,7 +1,7 @@
-﻿using Assets.Scripts;
-using Assets.Scripts.Biome;
-using Assets.Scripts.World;
-using Assets.Scripts.World.Chunk;
+﻿using Blockycraft.Scripts;
+using Blockycraft.Scripts.Biome;
+using Blockycraft.Scripts.World;
+using Blockycraft.Scripts.World.Chunk;
 using UnityEngine;
 
 public sealed class World : MonoBehaviour
