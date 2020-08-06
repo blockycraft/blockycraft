@@ -1,10 +1,23 @@
 ﻿using Blockycraft.Engine.Geometry;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Blockycraft.Scripts.World.Chunk
 {
-    public static class ChunkFactory
+    public sealed class ChunkFactory
     {
+        private Queue<ChunkBlocks> _queue;
+
+        public ChunkFactory()
+        {
+            _queue = new Queue<ChunkBlocks>();
+        }
+
+        public void Enqueue(ChunkBlocks blocks)
+        {
+            _queue.Enqueue(blocks);
+        }
+
         public static ChunkView Visibility(ChunkBlocks blocks)
         {
             var iterator = blocks.GetIterator();
