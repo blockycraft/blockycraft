@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.World
+namespace Blockycraft.Scripts.World
 {
     public sealed class System3D<TElement>
     {

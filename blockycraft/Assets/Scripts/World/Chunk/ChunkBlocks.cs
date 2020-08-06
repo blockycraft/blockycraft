@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.World.Chunk
+namespace Blockycraft.Scripts.World.Chunk
 {
     public sealed class ChunkBlocks : IEnumerable<BlockType>
     {

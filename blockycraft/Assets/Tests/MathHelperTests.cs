@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts;
+using Blockycraft.Scripts;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 

@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Geometry;
+﻿using Blockycraft.Engine.Geometry;
 using UnityEngine;
 
-namespace Assets.Scripts.World.Chunk
+namespace Blockycraft.Scripts.World.Chunk
 {
     public static class ChunkFactory
     {

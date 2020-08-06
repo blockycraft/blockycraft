@@ -1,9 +1,12 @@
 {
-    "name": "Blockycraft",
+    "name": "Blockycraft.Editor",
     "references": [
+        "GUID:5fcfffff9ea0eaa469c820b6e93d9eeb",
         "GUID:56f7b643f34698042bc53580c6443b49"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

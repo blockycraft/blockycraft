@@ -1,6 +1,6 @@
-﻿using Assets.Scripts;
-using Assets.Scripts.Geometry;
-using Assets.Scripts.World.Chunk;
+﻿using Blockycraft.Engine.Geometry;
+using Blockycraft.Scripts;
+using Blockycraft.Scripts.World.Chunk;
 using UnityEditor;
 using UnityEngine;
 

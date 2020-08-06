@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Geometry
+namespace Blockycraft.Engine.Geometry
 {
     public enum VoxelFace
     {

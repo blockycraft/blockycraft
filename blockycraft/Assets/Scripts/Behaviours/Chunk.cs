@@ -1,6 +1,6 @@
-﻿using Assets.Scripts;
-using Assets.Scripts.World;
-using Assets.Scripts.World.Chunk;
+﻿using Blockycraft.Scripts;
+using Blockycraft.Scripts.World;
+using Blockycraft.Scripts.World.Chunk;
 using UnityEngine;
 
 public sealed class Chunk

@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.World;
-using Assets.Scripts.World.Chunk;
+﻿using Blockycraft.Scripts.World;
+using Blockycraft.Scripts.World.Chunk;
 using UnityEngine;
 
-namespace Assets.Scripts.Biome.Generator
+namespace Blockycraft.Scripts.Biome.Generator
 {
     [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Flat")]
     public sealed class FlatWorldGenerator : Biome
@@ -13,6 +13,7 @@ namespace Assets.Scripts.Biome.Generator
 
         [Header("Generation")]
         public int GroundHeight;
+
         public float Probability;
 
         public override ChunkBlocks Generate(Vector3Int coordinate)
@@ -33,7 +34,8 @@ namespace Assets.Scripts.Biome.Generator
                     if (Random.value < Probability)
                     {
                         chunk.Blocks[coord.x, coord.y, coord.z] = air;
-                    } else
+                    }
+                    else
                     {
                         chunk.Blocks[coord.x, coord.y, coord.z] = Top;
                     }
