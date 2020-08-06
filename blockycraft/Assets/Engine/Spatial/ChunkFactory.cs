@@ -1,6 +1,7 @@
 ﻿using Blockycraft.Engine.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Blockycraft.World.Chunk
@@ -13,6 +14,7 @@ namespace Blockycraft.World.Chunk
             public ChunkFab Fab;
         }
 
+        private Dictionary<string, bool> registered;
         private readonly Queue<WorkItem> queue;
         private readonly Queue<WorkItem> processed;
 
@@ -20,10 +22,15 @@ namespace Blockycraft.World.Chunk
         {
             queue = new Queue<WorkItem>();
             processed = new Queue<WorkItem>();
+            registered = new Dictionary<string, bool>();
         }
 
         public void Enqueue(ChunkBlocks blocks)
         {
+            var key = $"{blocks.X}:{blocks.Y}:{blocks.Z}";
+            if (registered.ContainsKey(key)) { return; }
+
+            registered[key] = true;
             var work = new WorkItem()
             {
                 Blocks = blocks
@@ -31,11 +38,11 @@ namespace Blockycraft.World.Chunk
             queue.Enqueue(work);
         }
 
-        public void Process()
+        public bool Process()
         {
             if (queue.Count == 0)
             {
-                return;
+                return false;
             }
 
             var work = queue.Dequeue();
@@ -44,6 +51,7 @@ namespace Blockycraft.World.Chunk
             work.Fab = CreateFromBlocks(work.Blocks, visibility, initFab);
 
             processed.Enqueue(work);
+            return true;
         }
 
         public System3D<Mesh> Completed()
@@ -54,6 +62,7 @@ namespace Blockycraft.World.Chunk
                 var mesh = Compile(work.Fab);
                 system.Set(work.Blocks.Coordinate, mesh);
             }
+            processed.Clear();
             return system;
         }
 

@@ -29,6 +29,12 @@ namespace Blockycraft.World
             return elements[key];
         }
 
+        public TElement Get(Vector3Int coordinate)
+        {
+            var key = Key(coordinate.x, coordinate.y, coordinate.z);
+            return elements[key];
+        }
+
         public void Set(int x, int y, int z, TElement element)
         {
             var key = Key(x, y, z);
@@ -54,33 +60,14 @@ namespace Blockycraft.World
             return true;
         }
 
-        public IEnumerable<Vector3Int> Radial(Vector3Int position, int radius)
+        public void Ping(Vector3Int position, Vector3Int radius, Func<Vector3Int, TElement> selector)
         {
-            var iterator = new Iterator3D(radius * 2);
+            var iterator = new Iterator3D(radius.x, radius.y, radius.z);
             foreach (var coord in iterator)
             {
-                var x = position.x + (coord.x - radius);
-                var y = position.y + (coord.y - radius);
-                var z = position.z + (coord.z - radius);
-
-                var key = Key(x, y, z);
-                if (elements.ContainsKey(key))
-                {
-                    continue;
-                }
-
-                var adjusted = new Vector3Int(x, y, z);
-                yield return adjusted;
-            }
-        }
-        public void Ping(Vector3Int position, int radius, Func<Vector3Int, TElement> selector)
-        {
-            var iterator = new Iterator3D(radius * 2);
-            foreach (var coord in iterator)
-            {
-                var x = position.x + (coord.x - radius);
-                var y = position.y + (coord.y - radius);
-                var z = position.z + (coord.z - radius);
+                var x = position.x + (coord.x - radius.x / 2);
+                var y = position.y + (coord.y - radius.y / 2);
+                var z = position.z + (coord.z - radius.z / 2);
 
                 var key = Key(x, y, z);
                 if (elements.ContainsKey(key))
@@ -102,10 +89,12 @@ namespace Blockycraft.World
         {
             foreach (var item in elements)
             {
+                //TODO: Workaround for now till better support for keys
+                var dims = item.Key.Split(':');
                 yield return new Element()
                 {
                     Value = item.Value,
-                    Coordinate = Vector3Int.zero
+                    Coordinate = new Vector3Int(int.Parse(dims[0]), int.Parse(dims[1]), int.Parse(dims[2]))
                 };
             }
         }

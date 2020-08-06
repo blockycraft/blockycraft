@@ -6,20 +6,19 @@ using UnityEngine;
 
 public sealed class World : MonoBehaviour
 {
-    public const int SIZE = 8;
-    public const int DRAW_HEIGHT = 4;
-    public const int DRAW_DISTANCE = DRAW_HEIGHT * 2;
+    public const int SIZE = 16;
     public Material material;
 
     private System3D<Chunk> chunks;
-    public System3D<ChunkBlocks> Chunks { get; private set; }
+    private System3D<ChunkBlocks> chunkBlocks;
     private ChunkFactory factory;
-    private int radius;
+    private Vector3Int radius;
 
+    public Player player;
     public ChunkGenerator start;
     private ChunkGenerator current;
 
-    public void Ping(Vector3Int center)
+    public void Ping(Vector3Int position)
     {
         var biome = current;
         if (Random.value < 0.40f)
@@ -28,17 +27,12 @@ public sealed class World : MonoBehaviour
             current = biome;
         }
 
-        Chunks.Ping(center, radius, v =>
+        chunkBlocks.Ping(position, radius, v =>
         {
             var chunk = new ChunkBlocks(v.x, v.y, v.z, SIZE);
-            return biome.Generate(v, chunk, SIZE);
-        });
-
-        chunks.Ping(center, DRAW_HEIGHT, (v) =>
-        {
-            var blocks = Chunks.Get(v.x, v.y, v.z);
-            var mesh = ChunkFactory.Build(blocks);
-            return Chunk.Create(blocks, material, v.x, v.y, v.z, gameObject, mesh);
+            var result = biome.Generate(v, chunk, SIZE);
+            factory.Enqueue(result);
+            return result;
         });
     }
 
@@ -46,7 +40,7 @@ public sealed class World : MonoBehaviour
     {
         var coord = MathHelper.Anchor(x, y, z, SIZE);
         var block = MathHelper.Wrap(x, y, z, SIZE);
-        if (!Chunks.TryGet(ref coord, out ChunkBlocks blocks))
+        if (!chunkBlocks.TryGet(ref coord, out ChunkBlocks blocks))
         {
             return null;
         }
@@ -96,22 +90,38 @@ public sealed class World : MonoBehaviour
 
     private void Start()
     {
-        radius = DRAW_DISTANCE;
+        radius = new Vector3Int(8, 3, 8);
         chunks = new System3D<Chunk>();
-        Chunks = new System3D<ChunkBlocks>();
+        chunkBlocks = new System3D<ChunkBlocks>();
         factory = new ChunkFactory();
         current = start;
 
-        Ping(Vector3Int.zero);
+        Ping(player.WhereAmI());
+        while (factory.Process()) { }
+    }
+
+    private void UpdateChunks()
+    {
+        var processed = factory.Completed();
+        if (!processed.IsEmpty)
+        {
+            foreach (var entity in processed)
+            {
+                var coord = entity.Coordinate;
+                var mesh = entity.Value;
+                var blocks = chunkBlocks.Get(coord);
+                var chunk = Chunk.Create(blocks, material, coord.x, coord.y, coord.z, gameObject, mesh);
+                chunks.Set(coord, chunk);
+            }
+        }
     }
 
     private void Update()
     {
         factory.Process();
 
-        var processed = factory.Completed();
-        if (!processed.IsEmpty)
-        {
-        }
+        UpdateChunks();
+
+        Ping(player.WhereAmI());
     }
 }
