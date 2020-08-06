@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1679a2879e2937842af36c4f453aaec4, type: 3}
   m_Name: Desert
   m_EditorClassIdentifier: 
-  Name: Plains
+  Name: Desert
   Air: {fileID: 11400000, guid: 0cd8cdf8eb2ebd5458a0b45e89c61fe2, type: 2}
+  Transitions:
+  - {fileID: 11400000, guid: f8b452e959322b448b5127a44847a248, type: 2}
+  - {fileID: 11400000, guid: 6545d3b09fb31864291517429e30afc2, type: 2}
   Bedrock: {fileID: 11400000, guid: 7ef8582028b03074eb8dd47cb5537e1b, type: 2}
   Dirt: {fileID: 11400000, guid: 59cdc2dd76bc8de43996ac0361c1ea7d, type: 2}
   Grass: {fileID: 11400000, guid: f11ba406ea413344396955b48d733617, type: 2}
