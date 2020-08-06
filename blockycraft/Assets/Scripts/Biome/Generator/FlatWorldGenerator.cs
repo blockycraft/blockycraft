@@ -7,11 +7,7 @@ namespace Assets.Scripts.Biome.Generator
     [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Flat")]
     public sealed class FlatWorldGenerator : Biome
     {
-        [Header("Descriptors")]
-        public string Name;
-
         [Header("Composition")]
-        public BlockType Air;
         public BlockType Shelf;
         public BlockType Top;
 
@@ -23,6 +19,7 @@ namespace Assets.Scripts.Biome.Generator
         {
             var air = Air;
             var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
+            chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {

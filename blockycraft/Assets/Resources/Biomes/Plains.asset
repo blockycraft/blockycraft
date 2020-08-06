@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Plains
   Air: {fileID: 11400000, guid: 0cd8cdf8eb2ebd5458a0b45e89c61fe2, type: 2}
+  Transitions:
+  - {fileID: 11400000, guid: 444bcf2341baf7d46aadabac0d914230, type: 2}
+  - {fileID: 11400000, guid: 1ef1eb461201b934f92e99e95e3235bb, type: 2}
   Bedrock: {fileID: 11400000, guid: 7ef8582028b03074eb8dd47cb5537e1b, type: 2}
   Dirt: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
   Grass: {fileID: 11400000, guid: 28e59d219862508419a9db71331f0f31, type: 2}

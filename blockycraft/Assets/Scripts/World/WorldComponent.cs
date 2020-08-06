@@ -6,16 +6,19 @@ namespace Assets.Scripts.World
     public sealed class WorldComponent
     {
         public const int SIZE = 8;
-        public Biome.Biome[] biomes;
+        
 
         public System3D<ChunkBlocks> Chunks { get; }
         private readonly int radius;
+        private readonly Biome.Biome starter;
+        private readonly Biome.Biome current;
 
-        public WorldComponent(int circumference, Biome.Biome[] biomes)
+        public WorldComponent(int circumference, Biome.Biome start)
         {
             Chunks = new System3D<ChunkBlocks>();
             radius = circumference / 2;
-            this.biomes = biomes;
+            starter = start;
+            current = start;
         }
 
         public BlockType GetBlock(int x, int y, int z)
@@ -41,9 +44,14 @@ namespace Assets.Scripts.World
 
         public void Ping(Vector3Int position)
         {
+            var biome = current;
+            if (Random.value < 0.40f)
+            {
+                biome = current.Transitions[(int)(Random.value * (current.Transitions.Length))];
+            }
+
             Chunks.Ping(position, radius, v =>
             {
-                var biome = biomes[(int)(Random.value * (biomes.Length))];
                 return biome.Generate(v);
             });
         }
