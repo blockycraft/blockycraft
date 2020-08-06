@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -8,6 +8,7 @@ namespace Assets.Scripts
     {
         [Header("Descriptors")]
         public string Name;
+
         public int Width;
         public int Height;
         public float Scale;

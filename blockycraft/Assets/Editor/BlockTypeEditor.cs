@@ -1,5 +1,5 @@
-﻿using Assets.Scripts;
-using Assets.Scripts.Geometry;
+﻿using Assets.Engine.Geometry;
+using Assets.Scripts;
 using Assets.Scripts.World.Chunk;
 using UnityEditor;
 using UnityEngine;

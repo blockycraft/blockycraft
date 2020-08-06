@@ -58,7 +58,7 @@ public sealed class Player : MonoBehaviour
         {
             world.Set(highlightBlock.position, air);
         }
-            
+
         // Place block.
         if (Input.GetMouseButtonDown(1))
         {

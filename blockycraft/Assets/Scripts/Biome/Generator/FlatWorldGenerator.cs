@@ -13,6 +13,7 @@ namespace Assets.Scripts.Biome.Generator
 
         [Header("Generation")]
         public int GroundHeight;
+
         public float Probability;
 
         public override ChunkBlocks Generate(Vector3Int coordinate)
@@ -33,7 +34,8 @@ namespace Assets.Scripts.Biome.Generator
                     if (Random.value < Probability)
                     {
                         chunk.Blocks[coord.x, coord.y, coord.z] = air;
-                    } else
+                    }
+                    else
                     {
                         chunk.Blocks[coord.x, coord.y, coord.z] = Top;
                     }

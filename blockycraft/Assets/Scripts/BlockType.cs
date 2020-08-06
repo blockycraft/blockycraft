@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System;
-using Assets.Scripts.Geometry;
+﻿using System;
+using UnityEngine;
+using Assets.Engine.Geometry;
 
 namespace Assets.Scripts
 {
@@ -9,16 +9,19 @@ namespace Assets.Scripts
     {
         [Header("Descriptors")]
         public string blockName;
+
         public TexturePack textures;
 
         [Header("Properties")]
         [Tooltip("Determines if the block has a visibility component.")]
         public bool isVisible;
+
         [Tooltip("Determines if the block can be seen through.")]
         public bool isTransparent;
 
         [Header("Texture Faces")]
         public string left;
+
         public string right;
         public string top;
         public string bottom;

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Geometry
+namespace Assets.Engine.Geometry
 {
     public static class Voxel
     {
@@ -35,11 +35,9 @@ namespace Assets.Scripts.Geometry
             {1, 2, 5, 6}
         };
 
-        public static readonly float Scale = 1.0f;
-
         public static Vector3 Position(Vector3Int coord)
         {
-            return new Vector3(coord.x * Scale, coord.y * Scale, coord.z * Scale);
+            return new Vector3(coord.x, coord.y, coord.z);
         }
 
         public static Vector3Int Direction(VoxelFace face)

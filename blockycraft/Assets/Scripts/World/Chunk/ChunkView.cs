@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Geometry;
+﻿using Assets.Engine.Geometry;
 
 namespace Assets.Scripts.World.Chunk
 {

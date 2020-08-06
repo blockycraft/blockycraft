@@ -1,6 +1,8 @@
 {
     "name": "Blockycraft",
-    "references": [],
+    "references": [
+        "GUID:56f7b643f34698042bc53580c6443b49"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

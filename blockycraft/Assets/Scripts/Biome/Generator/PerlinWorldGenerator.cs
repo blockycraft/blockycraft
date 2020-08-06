@@ -15,6 +15,7 @@ namespace Assets.Scripts.Biome.Generator
 
         [Header("Generation")]
         public int GroundHeight;
+
         public int Height;
         public float Scale;
 
@@ -69,5 +70,4 @@ namespace Assets.Scripts.Biome.Generator
             public float threshold;
         }
     }
-
 }

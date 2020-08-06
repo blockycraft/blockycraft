@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Geometry
+namespace Assets.Engine.Geometry
 {
     public enum VoxelFace
     {
