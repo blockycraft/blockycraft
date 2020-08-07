@@ -3,6 +3,8 @@ using Blockycraft;
 using Blockycraft.World.Chunk;
 using UnityEditor;
 using UnityEngine;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 [CustomEditor(typeof(BlockType))]
 public class BlockTypeEditor : Editor
@@ -10,6 +12,7 @@ public class BlockTypeEditor : Editor
     public const float ANGLE = 90.0f;
 
     private PreviewRenderUtility previewRenderUtility;
+    private Scene previewScene;
     private MeshFilter targetMeshFilter;
     private MeshRenderer targetMeshRenderer;
     private GameObject previewRendererObject;
@@ -20,16 +23,19 @@ public class BlockTypeEditor : Editor
         if (previewRenderUtility != null)
             return;
 
+        previewScene = EditorSceneManager.NewPreviewScene();
         previewRenderUtility = new PreviewRenderUtility(false);
 
         previewRenderUtility.camera.transform.position = new Vector3(5, 5, 5);
         previewRenderUtility.camera.transform.LookAt(Vector3.zero, Vector3.up);
-
+        previewRenderUtility.camera.scene = previewScene;
+        
         previewRendererObject = EditorUtility.CreateGameObjectWithHideFlags(
             "Preview Object",
             HideFlags.HideAndDontSave,
             components
         );
+        SceneManager.MoveGameObjectToScene(previewRendererObject, previewScene);
 
         InitializeLighting(previewRenderUtility);
         ReloadMesh(previewRendererObject, block);
