@@ -54,9 +54,9 @@ namespace Blockycraft.World.Chunk
             return true;
         }
 
-        public System3D<Mesh> Completed()
+        public Space3D<Mesh> Completed()
         {
-            var system = new System3D<Mesh>();
+            var system = new Space3D<Mesh>();
             foreach (var work in processed)
             {
                 var mesh = Compile(work.Fab);

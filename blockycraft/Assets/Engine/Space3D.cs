@@ -5,20 +5,13 @@ using UnityEngine;
 
 namespace Blockycraft.World
 {
-    public sealed class System3D<TElement> : IEnumerable<System3D<TElement>.Element>
+    public sealed class Space3D<TElement> : IEnumerable<Object3D<TElement>>
     {
-        public sealed class Element
-        {
-            public Vector3Int Coordinate;
-            public TElement Value;
-        }
-
-        private readonly Dictionary<string, TElement> elements;
-
         public int Count { get { return elements.Count; } }
         public bool IsEmpty { get { return elements.Count == 0; } }
+        private readonly Dictionary<string, TElement> elements;
 
-        public System3D()
+        public Space3D()
         {
             elements = new Dictionary<string, TElement>();
         }
@@ -85,17 +78,12 @@ namespace Blockycraft.World
             return $"{x}:{y}:{z}";
         }
 
-        public IEnumerator<Element> GetEnumerator()
+        public IEnumerator<Object3D<TElement>> GetEnumerator()
         {
             foreach (var item in elements)
             {
-                //TODO: Workaround for now till better support for keys
                 var dims = item.Key.Split(':');
-                yield return new Element()
-                {
-                    Value = item.Value,
-                    Coordinate = new Vector3Int(int.Parse(dims[0]), int.Parse(dims[1]), int.Parse(dims[2]))
-                };
+                yield return new Object3D<TElement>(int.Parse(dims[0]), int.Parse(dims[1]), int.Parse(dims[2]), item.Value);
             }
         }
 

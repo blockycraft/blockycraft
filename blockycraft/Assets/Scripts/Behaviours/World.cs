@@ -9,8 +9,8 @@ public sealed class World : MonoBehaviour
     public const int SIZE = 16;
     public Material material;
 
-    private System3D<Chunk> chunks;
-    private System3D<ChunkBlocks> chunkBlocks;
+    private Space3D<Chunk> chunks;
+    private Space3D<ChunkBlocks> chunkBlocks;
     private ChunkFactory factory;
     private Vector3Int radius;
 
@@ -91,8 +91,8 @@ public sealed class World : MonoBehaviour
     private void Start()
     {
         radius = new Vector3Int(8, 3, 8);
-        chunks = new System3D<Chunk>();
-        chunkBlocks = new System3D<ChunkBlocks>();
+        chunks = new Space3D<Chunk>();
+        chunkBlocks = new Space3D<ChunkBlocks>();
         factory = new ChunkFactory();
         current = start;
 
@@ -108,7 +108,7 @@ public sealed class World : MonoBehaviour
             foreach (var entity in processed)
             {
                 var coord = entity.Coordinate;
-                var mesh = entity.Value;
+                var mesh = entity.Element;
                 var blocks = chunkBlocks.Get(coord);
                 var chunk = Chunk.Create(blocks, material, coord.x, coord.y, coord.z, gameObject, mesh);
                 chunks.Set(coord, chunk);
