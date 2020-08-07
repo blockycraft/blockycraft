@@ -1,11 +1,72 @@
 ﻿using Blockycraft.Engine.Geometry;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.World.Chunk
+namespace Blockycraft.World.Chunk
 {
-    public static class ChunkFactory
+    public sealed class ChunkFactory
     {
-        public static ChunkView Visibility(ChunkBlocks blocks)
+        private sealed class WorkItem
+        {
+            public ChunkBlocks Blocks;
+            public ChunkFab Fab;
+        }
+
+        private Dictionary<string, bool> registered;
+        private readonly Queue<WorkItem> queue;
+        private readonly Queue<WorkItem> processed;
+
+        public ChunkFactory()
+        {
+            queue = new Queue<WorkItem>();
+            processed = new Queue<WorkItem>();
+            registered = new Dictionary<string, bool>();
+        }
+
+        public void Enqueue(ChunkBlocks blocks)
+        {
+            var key = $"{blocks.X}:{blocks.Y}:{blocks.Z}";
+            if (registered.ContainsKey(key)) { return; }
+
+            registered[key] = true;
+            var work = new WorkItem()
+            {
+                Blocks = blocks
+            };
+            queue.Enqueue(work);
+        }
+
+        public bool Process()
+        {
+            if (queue.Count == 0)
+            {
+                return false;
+            }
+
+            var work = queue.Dequeue();
+            var visibility = Visibility(work.Blocks);
+            var initFab = new ChunkFab(visibility.Count);
+            work.Fab = CreateFromBlocks(work.Blocks, visibility, initFab);
+
+            processed.Enqueue(work);
+            return true;
+        }
+
+        public System3D<Mesh> Completed()
+        {
+            var system = new System3D<Mesh>();
+            foreach (var work in processed)
+            {
+                var mesh = Compile(work.Fab);
+                system.Set(work.Blocks.Coordinate, mesh);
+            }
+            processed.Clear();
+            return system;
+        }
+
+        private static ChunkView Visibility(ChunkBlocks blocks)
         {
             var iterator = blocks.GetIterator();
             var directions = System.Enum.GetValues(typeof(VoxelFace));
@@ -37,10 +98,10 @@ namespace Blockycraft.Scripts.World.Chunk
             return visibility;
         }
 
-        public static ChunkFab CreateFromBlocks(ChunkBlocks blocks, ChunkView view, ChunkFab meshFab)
+        private static ChunkFab CreateFromBlocks(ChunkBlocks blocks, ChunkView view, ChunkFab meshFab)
         {
             int vertexIndex = 0;
-            var directions = System.Enum.GetValues(typeof(VoxelFace));
+            var directions = Enum.GetValues(typeof(VoxelFace));
 
             var iterator = blocks.GetIterator();
             foreach (var coord in iterator)
@@ -79,6 +140,19 @@ namespace Blockycraft.Scripts.World.Chunk
             return meshFab;
         }
 
+        private static Mesh Compile(ChunkFab fab)
+        {
+            var mesh = new Mesh
+            {
+                vertices = fab.Verticies,
+                triangles = fab.Triangles,
+                uv = fab.UVs,
+            };
+
+            mesh.RecalculateNormals();
+            return mesh;
+        }
+
         public static Mesh Build(BlockType type)
         {
             var blockChunk = new ChunkBlocks(0, 0, 0, 1);
@@ -92,14 +166,7 @@ namespace Blockycraft.Scripts.World.Chunk
             var initFab = new ChunkFab(visibility.Count);
             var chunkFab = CreateFromBlocks(blockChunk, visibility, initFab);
 
-            var mesh = new Mesh
-            {
-                vertices = chunkFab.Verticies,
-                triangles = chunkFab.Triangles,
-                uv = chunkFab.UVs,
-            };
-
-            mesh.RecalculateNormals();
+            var mesh = Compile(chunkFab);
             return mesh;
         }
     }

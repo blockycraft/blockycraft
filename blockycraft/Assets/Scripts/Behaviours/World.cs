@@ -1,33 +1,66 @@
-﻿using Blockycraft.Scripts;
-using Blockycraft.Scripts.Biome;
-using Blockycraft.Scripts.World;
-using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft;
+using Blockycraft.Biome;
+using Blockycraft.World;
+using Blockycraft.World.Chunk;
 using UnityEngine;
 
 public sealed class World : MonoBehaviour
 {
-    public const int DRAW_HEIGHT = 4;
-    public const int DRAW_DISTANCE = DRAW_HEIGHT * 2;
-    public WorldComponent component;
-    private System3D<Chunk> chunks;
+    public const int SIZE = 16;
     public Material material;
-    public Biome start;
 
-    public void Ping(Vector3Int center)
+    private System3D<Chunk> chunks;
+    private System3D<ChunkBlocks> chunkBlocks;
+    private ChunkFactory factory;
+    private Vector3Int radius;
+
+    public Player player;
+    public ChunkGenerator start;
+    private ChunkGenerator current;
+
+    public void Ping(Vector3Int position)
     {
-        component.Ping(center);
-        chunks.Ping(center, DRAW_HEIGHT, (v) =>
+        var biome = current;
+        if (Random.value < 0.40f)
         {
-            var blocks = component.Chunks.Get(v.x, v.y, v.z);
-            var mesh = ChunkFactory.Build(blocks);
-            return Chunk.Create(blocks, material, v.x, v.y, v.z, gameObject, mesh);
+            biome = current.Transitions[(int)(Random.value * (current.Transitions.Length))];
+            current = biome;
+        }
+
+        chunkBlocks.Ping(position, radius, v =>
+        {
+            var chunk = new ChunkBlocks(v.x, v.y, v.z, SIZE);
+            var result = biome.Generate(v, chunk, SIZE);
+            factory.Enqueue(result);
+            return result;
         });
+    }
+
+    public BlockType GetBlock(int x, int y, int z)
+    {
+        var coord = MathHelper.Anchor(x, y, z, SIZE);
+        var block = MathHelper.Wrap(x, y, z, SIZE);
+        if (!chunkBlocks.TryGet(ref coord, out ChunkBlocks blocks))
+        {
+            return null;
+        }
+
+        if (!blocks.TryGet(ref block, out BlockType type))
+        {
+            return null;
+        }
+        return type;
+    }
+
+    public static string Key(int x, int y, int z)
+    {
+        return $"{x}:{y}:{z}";
     }
 
     public void Set(Vector3 target, BlockType type)
     {
-        var coord = MathHelper.Anchor(Mathf.FloorToInt(target.x), Mathf.FloorToInt(target.y), Mathf.FloorToInt(target.z), WorldComponent.SIZE);
-        var block = MathHelper.Wrap(Mathf.FloorToInt(target.x), Mathf.FloorToInt(target.y), Mathf.FloorToInt(target.z), WorldComponent.SIZE);
+        var coord = MathHelper.Anchor(Mathf.FloorToInt(target.x), Mathf.FloorToInt(target.y), Mathf.FloorToInt(target.z), SIZE);
+        var block = MathHelper.Wrap(Mathf.FloorToInt(target.x), Mathf.FloorToInt(target.y), Mathf.FloorToInt(target.z), SIZE);
         if (!chunks.TryGet(ref coord, out Chunk chunk))
         {
             return;
@@ -43,7 +76,7 @@ public sealed class World : MonoBehaviour
         while (step < reach)
         {
             Vector3 pos = position + (forward * step);
-            var type = component.GetBlock(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z));
+            var type = GetBlock(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z));
             if (type != null && type.isVisible)
             {
                 pos = new Vector3(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), Mathf.FloorToInt(pos.z));
@@ -57,9 +90,38 @@ public sealed class World : MonoBehaviour
 
     private void Start()
     {
-        component = new WorldComponent(DRAW_DISTANCE * 2, start);
+        radius = new Vector3Int(8, 3, 8);
         chunks = new System3D<Chunk>();
+        chunkBlocks = new System3D<ChunkBlocks>();
+        factory = new ChunkFactory();
+        current = start;
 
-        Ping(Vector3Int.zero);
+        Ping(player.WhereAmI());
+        while (factory.Process()) { }
+    }
+
+    private void UpdateChunks()
+    {
+        var processed = factory.Completed();
+        if (!processed.IsEmpty)
+        {
+            foreach (var entity in processed)
+            {
+                var coord = entity.Coordinate;
+                var mesh = entity.Value;
+                var blocks = chunkBlocks.Get(coord);
+                var chunk = Chunk.Create(blocks, material, coord.x, coord.y, coord.z, gameObject, mesh);
+                chunks.Set(coord, chunk);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        factory.Process();
+
+        UpdateChunks();
+
+        Ping(player.WhereAmI());
     }
 }

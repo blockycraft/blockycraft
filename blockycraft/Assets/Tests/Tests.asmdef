@@ -4,7 +4,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Blockycraft",
-        "BlockycraftScripts"
+        "Blockycraft.Engine"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.World.Chunk
+namespace Blockycraft.World.Chunk
 {
     public sealed class ChunkBlocks : IEnumerable<BlockType>
     {
+        public BlockType[,,] Blocks { get; }
         public int Length => Blocks.GetLength(0);
         public int Height => Blocks.GetLength(1);
         public int Depth => Blocks.GetLength(2);
-        public BlockType[,,] Blocks { get; }
-        public Biome.Biome Biome { get; set; }
+        public Vector3Int Coordinate => new Vector3Int(X, Y, Z);
         public int X { get; }
         public int Y { get; }
         public int Z { get; }

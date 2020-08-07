@@ -1,6 +1,7 @@
-﻿using Blockycraft.Scripts;
-using Blockycraft.Scripts.World;
-using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft;
+using Blockycraft.Engine.Geometry;
+using Blockycraft.World;
+using Blockycraft.World.Chunk;
 using UnityEngine;
 
 public sealed class Chunk
@@ -9,10 +10,7 @@ public sealed class Chunk
     public MeshFilter meshFilter;
     public Mesh Mesh { get; set; }
     public ChunkBlocks Blocks { get; set; }
-    public Material Voxel { get; set; }
-    public int X { get; set; }
-    public int Y { get; set; }
-    public int Z { get; set; }
+    public Material MeshMaterial { get; set; }
     public GameObject gameObject { get; set; }
     public Vector3 Position { get; set; }
 
@@ -23,10 +21,10 @@ public sealed class Chunk
     {
         gameObject = new GameObject();
         gameObject.transform.position = Position;
-        gameObject.name = $"Chunk {X},{Y},{Z}";
+        gameObject.name = $"Chunk {Blocks.X},{Blocks.Y},{Blocks.Z}";
 
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
-        meshRenderer.material = Voxel;
+        meshRenderer.material = MeshMaterial;
 
         meshFilter = gameObject.AddComponent<MeshFilter>();
         meshFilter.mesh = Mesh;
@@ -51,12 +49,9 @@ public sealed class Chunk
         var chunk = new Chunk
         {
             Blocks = blocks,
-            Voxel = material,
-            X = x,
-            Y = y,
-            Z = z,
+            MeshMaterial = material,
             Mesh = mesh,
-            Position = x * Vector3.right * WorldComponent.SIZE + z * Vector3.forward * WorldComponent.SIZE + y * Vector3.up * WorldComponent.SIZE
+            Position = Voxel.Position(x, y, z) * World.SIZE
         };
         chunk.Initialize();
 

@@ -454,6 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 7b1043f1574203e419d8073f6a72ed8e, type: 2}
+  player: {fileID: 963194229}
   start: {fileID: 11400000, guid: 1ef1eb461201b934f92e99e95e3235bb, type: 2}
 --- !u!1 &1281086788
 GameObject:

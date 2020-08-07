@@ -1,6 +1,6 @@
 ﻿using Blockycraft.Engine.Geometry;
 
-namespace Blockycraft.Scripts.World.Chunk
+namespace Blockycraft.World.Chunk
 {
     public sealed class ChunkView
     {

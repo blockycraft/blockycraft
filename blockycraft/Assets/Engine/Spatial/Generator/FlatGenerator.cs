@@ -1,30 +1,28 @@
-﻿using Blockycraft.Scripts.World;
-using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft.World.Chunk;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.Biome.Generator
+namespace Blockycraft.Biome.Generator
 {
     [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Flat")]
-    public sealed class FlatWorldGenerator : Biome
+    public sealed class FlatGenerator : ChunkGenerator
     {
         [Header("Composition")]
-        public BlockType Shelf;
+        public BlockType Default;
         public BlockType Top;
 
         [Header("Generation")]
         public int GroundHeight;
 
+        [Tooltip("Probability of an air block on the ground level")]
         public float Probability;
 
-        public override ChunkBlocks Generate(Vector3Int coordinate)
+        public override ChunkBlocks Generate(Vector3Int coordinate, ChunkBlocks chunk, int size)
         {
             var air = Air;
-            var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
-            chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
-                var worldY = coordinate.y * WorldComponent.SIZE + coord.y;
+                var worldY = coordinate.y * size + coord.y;
                 if (worldY > GroundHeight)
                 {
                     chunk.Blocks[coord.x, coord.y, coord.z] = air;
@@ -42,7 +40,7 @@ namespace Blockycraft.Scripts.Biome.Generator
                 }
                 else
                 {
-                    chunk.Blocks[coord.x, coord.y, coord.z] = Shelf;
+                    chunk.Blocks[coord.x, coord.y, coord.z] = Default;
                 }
             }
             return chunk;

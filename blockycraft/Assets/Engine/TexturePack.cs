@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Blockycraft.Scripts
+namespace Blockycraft
 {
     [CreateAssetMenu(fileName = "Pack", menuName = "Blockycraft/Texture Pack")]
     public sealed class TexturePack : ScriptableObject
     {
         [Header("Descriptors")]
         public string Name;
-
         public int Width;
         public int Height;
         public float Scale;

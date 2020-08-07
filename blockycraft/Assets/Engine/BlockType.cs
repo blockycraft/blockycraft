@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Blockycraft.Engine.Geometry;
+using System;
 using UnityEngine;
-using Blockycraft.Engine.Geometry;
 
-namespace Blockycraft.Scripts
+namespace Blockycraft
 {
     [CreateAssetMenu(fileName = "BlockType", menuName = "Blockycraft/Block Type")]
     public sealed class BlockType : ScriptableObject
@@ -21,7 +21,6 @@ namespace Blockycraft.Scripts
 
         [Header("Texture Faces")]
         public string left;
-
         public string right;
         public string top;
         public string bottom;

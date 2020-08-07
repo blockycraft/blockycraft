@@ -1,5 +1,4 @@
-﻿using Blockycraft.Scripts;
-using Blockycraft.Scripts.World;
+﻿using Blockycraft;
 using UnityEngine;
 
 public sealed class Player : MonoBehaviour
@@ -29,21 +28,15 @@ public sealed class Player : MonoBehaviour
         transform.Translate(GetMovementDirection() * Speed * Time.deltaTime);
         lastMouse = Input.mousePosition;
 
-        var coord = GetChunkCoordFromPosition(transform.position);
-        world.Ping(coord);
-
         // A rough action block highlight
         UpdateActionBlock();
         ProcessActions();
     }
 
-    private Vector3Int GetChunkCoordFromPosition(Vector3 position)
+    public Vector3Int WhereAmI()
     {
-        return new Vector3Int(
-            (int)(position.x / WorldComponent.SIZE),
-            (int)(position.y / WorldComponent.SIZE),
-            (int)(position.z / WorldComponent.SIZE)
-        );
+        var position = transform.position;
+        return MathHelper.Anchor((int)position.x, (int)position.y, (int)position.z, World.SIZE);
     }
 
     private void ProcessActions()

@@ -17,9 +17,9 @@ MonoBehaviour:
   Transitions:
   - {fileID: 11400000, guid: f8b452e959322b448b5127a44847a248, type: 2}
   - {fileID: 11400000, guid: 6545d3b09fb31864291517429e30afc2, type: 2}
-  Bedrock: {fileID: 11400000, guid: 7ef8582028b03074eb8dd47cb5537e1b, type: 2}
-  Dirt: {fileID: 11400000, guid: 59cdc2dd76bc8de43996ac0361c1ea7d, type: 2}
-  Grass: {fileID: 11400000, guid: f11ba406ea413344396955b48d733617, type: 2}
+  Surface: {fileID: 11400000, guid: f11ba406ea413344396955b48d733617, type: 2}
+  Substratum: {fileID: 11400000, guid: 7ef8582028b03074eb8dd47cb5537e1b, type: 2}
+  Subsoil: {fileID: 11400000, guid: 59cdc2dd76bc8de43996ac0361c1ea7d, type: 2}
   Blocks: []
   GroundHeight: 2
   Height: 7

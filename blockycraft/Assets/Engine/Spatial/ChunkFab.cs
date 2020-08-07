@@ -1,7 +1,7 @@
 ﻿using Blockycraft.Engine.Geometry;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.World.Chunk
+namespace Blockycraft.World.Chunk
 {
     public sealed class ChunkFab
     {

@@ -1,45 +1,41 @@
-﻿using Blockycraft.Scripts.World;
-using Blockycraft.Scripts.World.Chunk;
+﻿using Blockycraft.World.Chunk;
 using UnityEngine;
 
-namespace Blockycraft.Scripts.Biome.Generator
+namespace Blockycraft.Biome.Generator
 {
     [CreateAssetMenu(fileName = "Biome", menuName = "Blockycraft/Biomes/Perlin")]
-    public sealed class PerlinWorldGenerator : Biome
+    public sealed class PerlinGenerator : ChunkGenerator
     {
         [Header("Composition")]
-        public BlockType Bedrock;
-        public BlockType Dirt;
-        public BlockType Grass;
-        public PerlinWorldGenerator.Block[] Blocks;
+        public BlockType Surface;
+        public BlockType Substratum;
+        public BlockType Subsoil;
+        public Block[] Blocks;
 
         [Header("Generation")]
         public int GroundHeight;
-
         public int Height;
         public float Scale;
 
-        public override ChunkBlocks Generate(Vector3Int coordinate)
+        public override ChunkBlocks Generate(Vector3Int coordinate, ChunkBlocks chunk, int size)
         {
-            var chunk = new ChunkBlocks(coordinate.x, coordinate.y, coordinate.z, WorldComponent.SIZE);
-            chunk.Biome = this;
             var iterator = chunk.GetIterator();
             foreach (var coord in iterator)
             {
-                var x = coordinate.x * WorldComponent.SIZE + coord.x;
-                var y = coordinate.y * WorldComponent.SIZE + coord.y;
-                var z = coordinate.z * WorldComponent.SIZE + coord.z;
+                var x = coordinate.x * size + coord.x;
+                var y = coordinate.y * size + coord.y;
+                var z = coordinate.z * size + coord.z;
 
-                var sample2d = MathHelper.Perlin2DSample(x, z, WorldComponent.SIZE, 0, Scale);
+                var sample2d = MathHelper.Perlin2DSample(x, z, size, 0, Scale);
                 var noise = Mathf.PerlinNoise(sample2d.x, sample2d.y);
 
                 var terrainHeight = Mathf.FloorToInt(Height * noise) + GroundHeight;
-                BlockType type = Bedrock;
+                BlockType type = Substratum;
 
                 if (y == terrainHeight)
-                    type = Grass;
+                    type = Surface;
                 else if (y < terrainHeight && y > terrainHeight - 4)
-                    type = Dirt;
+                    type = Subsoil;
                 else if (y > terrainHeight)
                     type = Air;
                 else
