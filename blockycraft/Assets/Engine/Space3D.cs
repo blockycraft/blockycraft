@@ -9,35 +9,86 @@ namespace Blockycraft.World
     {
         public int Count { get { return elements.Count; } }
         public bool IsEmpty { get { return elements.Count == 0; } }
-        private readonly Dictionary<string, TElement> elements;
+        private readonly Dictionary<string, Object3D<TElement>> elements;
 
         public Space3D()
         {
-            elements = new Dictionary<string, TElement>();
+            elements = new Dictionary<string, Object3D<TElement>>();
         }
 
         public TElement Get(int x, int y, int z)
         {
             var key = Key(x, y, z);
-            return elements[key];
+            return elements[key].Element;
         }
 
         public TElement Get(Vector3Int coordinate)
         {
             var key = Key(coordinate.x, coordinate.y, coordinate.z);
-            return elements[key];
+            return elements[key].Element;
+        }
+
+        public bool Contains(Vector3Int position)
+        {
+            return Contains(position.x, position.y, position.z);
+        }
+
+        public bool Contains(int x, int y, int z)
+        {
+            var key = Key(x, y, z);
+            return elements.ContainsKey(key);
+        }
+
+        public bool Remove(Vector3Int position)
+        {
+            return Remove(position.x, position.y, position.z);
+        }
+
+        public bool Remove(int x, int y, int z)
+        {
+            var key = Key(x, y, z);
+            return elements.Remove(key);
         }
 
         public void Set(int x, int y, int z, TElement element)
         {
             var key = Key(x, y, z);
-            elements[key] = element;
+            elements[key] = new Object3D<TElement>(x, y, z, element);
         }
 
         public void Set(Vector3Int position, TElement element)
         {
             var key = Key(position.x, position.y, position.z);
-            elements[key] = element;
+            elements[key] = new Object3D<TElement>(position.x, position.y, position.z, element);
+        }
+
+        public TElement Closest(Vector3Int position)
+        {
+            if (elements.Count == 0)
+            {
+                return default;
+            }
+
+            var key = Key(position.x, position.y, position.z);
+            if (elements.ContainsKey(key))
+            {
+                return elements[key].Element;
+            }
+
+            // Algorithm: Find nearest point to position
+            float nearest = float.MaxValue;
+            TElement result = default;
+            foreach (var element in elements)
+            {
+                var distance = Vector3Int.Distance(element.Value.Coordinate, position);
+                if (nearest > distance)
+                {
+                    nearest = distance;
+                    result = element.Value.Element;
+                }
+            }
+
+            return result;
         }
 
         public bool TryGet(ref Vector3Int position, out TElement type)
@@ -49,7 +100,7 @@ namespace Blockycraft.World
                 return false;
             }
 
-            type = elements[key];
+            type = elements[key].Element;
             return true;
         }
 
@@ -69,7 +120,7 @@ namespace Blockycraft.World
                 }
 
                 var adjusted = new Vector3Int(x, y, z);
-                elements[key] = selector(adjusted);
+                elements[key] = new Object3D<TElement>(adjusted, selector(adjusted));
             }
         }
 
@@ -82,8 +133,7 @@ namespace Blockycraft.World
         {
             foreach (var item in elements)
             {
-                var dims = item.Key.Split(':');
-                yield return new Object3D<TElement>(int.Parse(dims[0]), int.Parse(dims[1]), int.Parse(dims[2]), item.Value);
+                yield return item.Value;
             }
         }
 
