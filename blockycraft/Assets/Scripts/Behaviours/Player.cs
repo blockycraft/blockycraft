@@ -3,40 +3,60 @@ using UnityEngine;
 
 public sealed class Player : MonoBehaviour
 {
-    public float Speed { get; } = 10.0f;
-    public float Sensitivity { get; } = 0.15f;
-    private Vector3 lastMouse = new Vector3(255, 255, 255);
-
     public World world;
     public Transform cam;
     public Transform highlightBlock;
     public Transform placeBlock;
     public BlockType air;
     public BlockSelector selector;
-    public float checkIncrement = 0.1f;
-    public float reach = 8f;
+    public float increment;
+    public float reach;
+    public float speed;
+    private bool isFalling;
+    private bool isClimbing;
 
     private void Update()
     {
-        var adjustedPosition = (Input.mousePosition - lastMouse) * Sensitivity;
-        transform.eulerAngles = new Vector3(
-            transform.eulerAngles.x - adjustedPosition.y,
-            transform.eulerAngles.y + adjustedPosition.x,
-            0
-        );
-
-        transform.Translate(GetMovementDirection() * Speed * Time.deltaTime);
-        lastMouse = Input.mousePosition;
-
-        // A rough action block highlight
         UpdateActionBlock();
         ProcessActions();
+    }
+
+    private void FixedUpdate()
+    {
+        var horizontal = Input.GetAxis("Horizontal");
+        var vertical = Input.GetAxis("Vertical");
+        var mouseHorizontal = Input.GetAxis("Mouse X");
+        var mouseVertical = Input.GetAxis("Mouse Y");
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) isFalling = true;
+        if (Input.GetKeyUp(KeyCode.LeftShift)) isFalling = false;
+        if (Input.GetKeyDown(KeyCode.Space)) isClimbing = true;
+        if (Input.GetKeyUp(KeyCode.Space)) isClimbing = false;
+
+        var velocity = CalculateHorizontalVelocity(horizontal, vertical);
+        if (isFalling) velocity += Vector3.down * Time.fixedDeltaTime * speed;
+        if (isClimbing) velocity += Vector3.up * Time.fixedDeltaTime * speed;
+
+        transform.Rotate(Vector3.up * mouseHorizontal);
+        cam.Rotate(Vector3.right * -mouseVertical);
+        transform.Translate(velocity, Space.World);
+    }
+
+    private Vector3 CalculateHorizontalVelocity(float horizontal, float vertical)
+    {
+        return ((transform.forward * vertical) + (transform.right * horizontal)) * Time.fixedDeltaTime * speed;
+    }
+
+    public Vector3Int Chunk()
+    {
+        var position = transform.position;
+        return MathHelper.Anchor((int)position.x, (int)position.y, (int)position.z, World.SIZE);
     }
 
     public Vector3Int WhereAmI()
     {
         var position = transform.position;
-        return MathHelper.Anchor((int)position.x, (int)position.y, (int)position.z, World.SIZE);
+        return new Vector3Int(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y), Mathf.RoundToInt(position.z));
     }
 
     private void ProcessActions()
@@ -61,7 +81,7 @@ public sealed class Player : MonoBehaviour
 
     private void UpdateActionBlock()
     {
-        var (lastPos, pos, type) = world.Detect(cam.position, cam.forward, checkIncrement, reach);
+        var (lastPos, pos, type) = world.Detect(cam.position, cam.forward, increment, reach);
         if (type != null)
         {
             highlightBlock.position = pos;
@@ -75,20 +95,5 @@ public sealed class Player : MonoBehaviour
             highlightBlock.gameObject.SetActive(false);
             placeBlock.gameObject.SetActive(false);
         }
-    }
-
-    private static Vector3 GetMovementDirection()
-    {
-        var direction = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
-            direction += Vector3.forward;
-        if (Input.GetKey(KeyCode.S))
-            direction += Vector3.back;
-        if (Input.GetKey(KeyCode.A))
-            direction += Vector3.left;
-        if (Input.GetKey(KeyCode.D))
-            direction += Vector3.right;
-
-        return direction;
     }
 }
