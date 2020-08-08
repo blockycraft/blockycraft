@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StoneSnow
   m_EditorClassIdentifier: 
   blockName: Snow (Stone)
+  preview: {fileID: 2800000, guid: cf8fccb4ed046d04b85f69c7a919fcfc, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

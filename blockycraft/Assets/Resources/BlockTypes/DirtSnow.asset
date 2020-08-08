@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DirtSnow
   m_EditorClassIdentifier: 
   blockName: Snow (Dirt)
+  preview: {fileID: 2800000, guid: 83d52f4eed6af0c488c5d511deb8fd7d, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

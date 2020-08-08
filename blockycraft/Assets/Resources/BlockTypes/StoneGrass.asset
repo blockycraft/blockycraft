@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StoneGrass
   m_EditorClassIdentifier: 
   blockName: Grass (Stone)
+  preview: {fileID: 2800000, guid: 00588d9105816d648ae25236937274d1, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

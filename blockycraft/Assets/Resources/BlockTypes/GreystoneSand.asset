@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GreystoneSand
   m_EditorClassIdentifier: 
   blockName: Greystone Sand
+  preview: {fileID: 2800000, guid: 605ce50ff9908c144ba2e1e8f33d311d, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

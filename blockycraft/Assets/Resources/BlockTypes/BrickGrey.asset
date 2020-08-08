@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BrickGrey
   m_EditorClassIdentifier: 
   blockName: Grey Brick
+  preview: {fileID: 2800000, guid: 99607f3f39b188545b9aee42250e72ff, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0
