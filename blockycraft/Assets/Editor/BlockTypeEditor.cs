@@ -5,21 +5,22 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
-using System.IO;
+using Blockycraft.Assets.Editor;
 
 [CustomEditor(typeof(BlockType))]
 public class BlockTypeEditor : Editor
 {
+    public const int DefaultPreviewSize = 1024;
     public const float ANGLE = 90.0f;
 
     private PreviewRenderUtility previewRenderUtility;
-    private Scene previewScene;
+    private static Scene previewScene;
     private MeshFilter targetMeshFilter;
     private MeshRenderer targetMeshRenderer;
     private GameObject previewRendererObject;
     private readonly System.Type[] components = new System.Type[] { typeof(MeshRenderer), typeof(MeshFilter) };
 
-    private void Initialize(BlockType block)
+    private void Initialize()
     {
         if (previewRenderUtility != null)
             return;
@@ -37,13 +38,11 @@ public class BlockTypeEditor : Editor
             components
         );
         SceneManager.MoveGameObjectToScene(previewRendererObject, previewScene);
-
-        InitializeLighting(previewRenderUtility);
-        ReloadMesh(previewRendererObject, block);
-
         targetMeshFilter = previewRendererObject.GetComponent<MeshFilter>();
         targetMeshRenderer = previewRendererObject.GetComponent<MeshRenderer>();
         previewRendererObject.transform.position = -Voxel.Center;
+
+        InitializeLighting(previewRenderUtility);
     }
 
     private void InitializeLighting(PreviewRenderUtility utility)
@@ -75,11 +74,12 @@ public class BlockTypeEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        var block = target as BlockType;
         EditorGUI.BeginChangeCheck();
         base.OnInspectorGUI();
         if (EditorGUI.EndChangeCheck())
         {
-            ReloadMesh(previewRendererObject, (BlockType)target);
+            ReloadMesh(previewRendererObject, block);
         }
         GUILayout.Label("Viewer", EditorStyles.boldLabel);
 
@@ -126,7 +126,7 @@ public class BlockTypeEditor : Editor
             previewRendererObject.transform.rotation = Quaternion.identity;
             previewRendererObject.transform.position = -Voxel.Center;
         }
-        if (GUILayout.Button("Preview"))
+        if (GUILayout.Button("Preview [*]"))
         {
             GeneratePreview();
         }
@@ -143,8 +143,8 @@ public class BlockTypeEditor : Editor
         if (!block.IsValid())
             return false;
 
-        Initialize((BlockType)target);
-
+        Initialize();
+        ReloadMesh(previewRendererObject, (BlockType)target);
         return true;
     }
 
@@ -159,13 +159,7 @@ public class BlockTypeEditor : Editor
 
         targetMeshRenderer.sharedMaterial = block.textures.Material;
 
-        previewRenderUtility.BeginPreview(r, background);
-        previewRenderUtility.DrawMesh(targetMeshFilter.sharedMesh,
-            previewRendererObject.transform.localToWorldMatrix,
-            targetMeshRenderer.sharedMaterial, 0);
-        previewRenderUtility.camera.Render();
-        Texture resultRender = previewRenderUtility.EndPreview();
-
+        var resultRender = RenderPreview(r, background);
         GUI.DrawTexture(r, resultRender, ScaleMode.StretchToFill, false);
     }
 
@@ -175,34 +169,35 @@ public class BlockTypeEditor : Editor
             return;
 
         var block = (BlockType)target;
-        var background = previewRenderUtility.camera.backgroundColor;
+        var rectangle = new Rect(0, 0, DefaultPreviewSize, DefaultPreviewSize);
 
-        var rectangle = new Rect(0, 0, 1024, 1024);
+        var background = previewRenderUtility.camera.backgroundColor;
         previewRenderUtility.camera.backgroundColor = Color.clear;
-        previewRenderUtility.BeginPreview(rectangle, GUIStyle.none);
+
+        var resultRender = RenderPreview(rectangle, GUIStyle.none);
+        TextureHelper.SaveTexture(block.blockName, (RenderTexture)resultRender);
+
+        previewRenderUtility.camera.backgroundColor = background;
+    }
+
+    private Texture RenderPreview(Rect r, GUIStyle background)
+    {
+        previewRenderUtility.BeginPreview(r, background);
         previewRenderUtility.DrawMesh(targetMeshFilter.sharedMesh,
             previewRendererObject.transform.localToWorldMatrix,
             targetMeshRenderer.sharedMaterial, 0);
         previewRenderUtility.camera.Render();
-        var resultRender = previewRenderUtility.EndPreview();
-
-        var filePath = Path.Combine(Application.dataPath, "Resources", "Previews", $"{block.blockName}.png");
-        var text2d = ToTexture2D((RenderTexture)resultRender);
-        File.WriteAllBytes(filePath, text2d.EncodeToPNG());
-        previewRenderUtility.camera.backgroundColor = background;
+        return previewRenderUtility.EndPreview();
     }
 
-    private static Texture2D ToTexture2D(RenderTexture rTex)
+    private void OnEnable()
     {
-        Texture2D tex = new Texture2D(rTex.width, rTex.height, TextureFormat.RGBA32, false);
-        RenderTexture.active = rTex;
-        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
-        tex.Apply();
-        return tex;
+        HasPreviewGUI();
     }
 
     private void OnDisable()
     {
         previewRenderUtility?.Cleanup();
+        EditorSceneManager.ClosePreviewScene(previewScene);
     }
 }
