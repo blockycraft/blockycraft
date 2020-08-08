@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 [CustomEditor(typeof(BlockType))]
 public class BlockTypeEditor : Editor
@@ -29,7 +30,7 @@ public class BlockTypeEditor : Editor
         previewRenderUtility.camera.transform.position = new Vector3(5, 5, 5);
         previewRenderUtility.camera.transform.LookAt(Vector3.zero, Vector3.up);
         previewRenderUtility.camera.scene = previewScene;
-        
+
         previewRendererObject = EditorUtility.CreateGameObjectWithHideFlags(
             "Preview Object",
             HideFlags.HideAndDontSave,
@@ -125,6 +126,10 @@ public class BlockTypeEditor : Editor
             previewRendererObject.transform.rotation = Quaternion.identity;
             previewRendererObject.transform.position = -Voxel.Center;
         }
+        if (GUILayout.Button("Preview"))
+        {
+            GeneratePreview();
+        }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndFoldoutHeaderGroup();
     }
@@ -162,6 +167,38 @@ public class BlockTypeEditor : Editor
         Texture resultRender = previewRenderUtility.EndPreview();
 
         GUI.DrawTexture(r, resultRender, ScaleMode.StretchToFill, false);
+    }
+
+    public void GeneratePreview()
+    {
+        if (!(target is BlockType))
+            return;
+
+        var block = (BlockType)target;
+        var background = previewRenderUtility.camera.backgroundColor;
+
+        var rectangle = new Rect(0, 0, 256, 256);
+        previewRenderUtility.camera.backgroundColor = Color.clear;
+        previewRenderUtility.BeginPreview(rectangle, GUIStyle.none);
+        previewRenderUtility.DrawMesh(targetMeshFilter.sharedMesh,
+            previewRendererObject.transform.localToWorldMatrix,
+            targetMeshRenderer.sharedMaterial, 0);
+        previewRenderUtility.camera.Render();
+        var resultRender = previewRenderUtility.EndPreview();
+
+        var filePath = Path.Combine(Application.dataPath, "Resources", "Previews", $"{block.blockName}.png");
+        var text2d = ToTexture2D((RenderTexture)resultRender);
+        File.WriteAllBytes(filePath, text2d.EncodeToPNG());
+        previewRenderUtility.camera.backgroundColor = background;
+    }
+
+    private static Texture2D ToTexture2D(RenderTexture rTex)
+    {
+        Texture2D tex = new Texture2D(rTex.width, rTex.height, TextureFormat.RGBA32, false);
+        RenderTexture.active = rTex;
+        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
+        tex.Apply();
+        return tex;
     }
 
     private void OnDisable()
