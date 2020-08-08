@@ -9,17 +9,18 @@ namespace Blockycraft.Engine.Geometry
         public const int NumberOfFaces = 6;
 
         public static readonly Vector3 Center = new Vector3(0.5f, 0.5f, 0.5f);
+        public const float Epsilon = 0.005f;
 
         public static readonly Vector3[] Vertices = new Vector3[8]
         {
-            new Vector3(0.0f, 0.0f, 0.0f),
-            new Vector3(1.0f, 0.0f, 0.0f),
-            new Vector3(1.0f, 1.0f, 0.0f),
-            new Vector3(0.0f, 1.0f, 0.0f),
-            new Vector3(0.0f, 0.0f, 1.0f),
-            new Vector3(1.0f, 0.0f, 1.0f),
-            new Vector3(1.0f, 1.0f, 1.0f),
-            new Vector3(0.0f, 1.0f, 1.0f)
+            new Vector3(0.0f - Epsilon, 0.0f - Epsilon, 0.0f - Epsilon),
+            new Vector3(1.0f + Epsilon, 0.0f - Epsilon, 0.0f - Epsilon),
+            new Vector3(1.0f + Epsilon, 1.0f + Epsilon, 0.0f - Epsilon),
+            new Vector3(0.0f - Epsilon, 1.0f + Epsilon, 0.0f - Epsilon),
+            new Vector3(0.0f - Epsilon, 0.0f - Epsilon, 1.0f + Epsilon),
+            new Vector3(1.0f + Epsilon, 0.0f - Epsilon, 1.0f + Epsilon),
+            new Vector3(1.0f + Epsilon, 1.0f + Epsilon, 1.0f + Epsilon),
+            new Vector3(0.0f - Epsilon, 1.0f + Epsilon, 1.0f + Epsilon)
         };
 
         public static readonly int[] Triangles = new int[6]{
