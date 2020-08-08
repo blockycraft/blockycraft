@@ -579,6 +579,7 @@ MonoBehaviour:
   placeBlock: {fileID: 1691497281}
   air: {fileID: 11400000, guid: 0cd8cdf8eb2ebd5458a0b45e89c61fe2, type: 2}
   selected: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
+  selector: {fileID: 963194230}
   checkIncrement: 0.1
   reach: 8
 --- !u!114 &963194230
