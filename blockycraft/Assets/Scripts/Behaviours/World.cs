@@ -53,6 +53,17 @@ public sealed class World : MonoBehaviour
         return type;
     }
 
+    public bool HasBlock(float x, float y, float z)
+    {
+        return HasBlock(Mathf.RoundToInt(x), Mathf.RoundToInt(y), Mathf.RoundToInt(z));
+    }
+
+    public bool HasBlock(int x, int y, int z)
+    {
+        var type = GetBlock(x, y, z);
+        return type != null && type.isVisible;
+    }
+
     public static string Key(int x, int y, int z)
     {
         return $"{x}:{y}:{z}";
@@ -97,8 +108,8 @@ public sealed class World : MonoBehaviour
         factory = new ChunkFactory();
         current = start;
 
-        Ping(player.WhereAmI());
-        for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.WhereAmI());
+        Ping(player.Chunk());
+        for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.Chunk());
     }
 
     private void UpdateChunks()
@@ -119,10 +130,10 @@ public sealed class World : MonoBehaviour
 
     private void Update()
     {
-        factory.Process(player.WhereAmI());
+        factory.Process(player.Chunk());
 
         UpdateChunks();
 
-        Ping(player.WhereAmI());
+        Ping(player.Chunk());
     }
 }
