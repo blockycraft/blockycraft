@@ -273,7 +273,8 @@ MonoBehaviour:
   selector: {fileID: 47591553}
   increment: 0.1
   reach: 7
-  speed: 5
+  speed: 10
+  factor: 1.25
 --- !u!114 &47591553
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,8 +7,8 @@ using UnityEngine;
 public sealed class World : MonoBehaviour
 {
     public const int SIZE = 16;
+    public const int REGION = 4;
     public const int STARTUP_PROCESSED_CHUNKS = 16;
-    public Material material;
 
     private Space3D<Chunk> chunks;
     private Space3D<ChunkBlocks> chunkBlocks;
@@ -16,9 +16,9 @@ public sealed class World : MonoBehaviour
     private ChunkFactory factory;
     private Vector3Int radius;
 
+    public Material material;
     public Player player;
     public ChunkGenerator start;
-    private ChunkGenerator current;
 
     private void Start()
     {
@@ -27,7 +27,9 @@ public sealed class World : MonoBehaviour
         generators = new Space3D<ChunkGenerator>();
         chunkBlocks = new Space3D<ChunkBlocks>();
         factory = new ChunkFactory();
-        current = start;
+
+        var chunk = player.Chunk();
+        generators.Set(MathHelper.Anchor(chunk.x, chunk.y, chunk.z, REGION), start);
 
         Ping(player.Chunk());
         for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.Chunk());
@@ -60,17 +62,16 @@ public sealed class World : MonoBehaviour
 
     public void Ping(Vector3Int position)
     {
-        var biome = current;
-        if (Random.value < 0.40f)
-        {
-            biome = current.Transitions[(int)(Random.value * (current.Transitions.Length))];
-            current = biome;
-        }
-
-        //generators
-
+        var current = generators.Get(MathHelper.Anchor(position.x, position.y, position.z, REGION));
         chunkBlocks.Ping(position, radius, v =>
         {
+            var coord = MathHelper.Anchor(v.x, v.y, v.z, REGION);
+            if (!generators.TryGet(ref coord, out ChunkGenerator biome))
+            {
+                biome = current.Transitions[(int)(Random.value * (current.Transitions.Length))];
+                generators.Set(coord, biome);
+            }
+
             var chunk = new ChunkBlocks(v.x, v.y, v.z, SIZE);
             var result = biome.Generate(v, chunk, SIZE);
             factory.Enqueue(result);
