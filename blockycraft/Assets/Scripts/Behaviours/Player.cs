@@ -33,18 +33,18 @@ public sealed class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) isClimbing = true;
         if (Input.GetKeyUp(KeyCode.Space)) isClimbing = false;
 
-        var velocity = CalculateHorizontalVelocity(horizontal, vertical);
-        if (isFalling) velocity += Vector3.down * Time.fixedDeltaTime * speed;
-        if (isClimbing) velocity += Vector3.up * Time.fixedDeltaTime * speed;
+        var velocity = CalculateVelocity(horizontal, vertical, (isFalling) ? -1 : (isClimbing) ? 1 : 0);
 
         transform.Rotate(Vector3.up * mouseHorizontal);
         cam.Rotate(Vector3.right * -mouseVertical);
         transform.Translate(velocity, Space.World);
     }
 
-    private Vector3 CalculateHorizontalVelocity(float horizontal, float vertical)
+    private Vector3 CalculateVelocity(float horizontal, float depth, float vertical)
     {
-        return ((transform.forward * vertical) + (transform.right * horizontal)) * Time.fixedDeltaTime * speed;
+        return ((transform.forward * depth) +
+                (transform.right * horizontal) +
+                (transform.up * vertical)) * Time.fixedDeltaTime * speed;
     }
 
     public Vector3Int Chunk()
