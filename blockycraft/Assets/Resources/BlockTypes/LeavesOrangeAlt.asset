@@ -16,7 +16,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: b2946a969b5221d41be346e05b193d61, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
-  isTransparent: 0
+  isTransparent: 1
   left: leaves_orange_transparent
   right: leaves_orange_transparent
   top: leaves_orange_transparent
