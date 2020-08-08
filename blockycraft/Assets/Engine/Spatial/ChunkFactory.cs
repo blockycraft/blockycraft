@@ -1,7 +1,6 @@
 ﻿using Blockycraft.Engine.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Blockycraft.World.Chunk
@@ -14,38 +13,36 @@ namespace Blockycraft.World.Chunk
             public ChunkFab Fab;
         }
 
-        private Dictionary<string, bool> registered;
-        private readonly Queue<WorkItem> queue;
         private readonly Queue<WorkItem> processed;
+        private readonly Space3D<WorkItem> queue;
 
         public ChunkFactory()
         {
-            queue = new Queue<WorkItem>();
+            queue = new Space3D<WorkItem>();
             processed = new Queue<WorkItem>();
-            registered = new Dictionary<string, bool>();
         }
 
         public void Enqueue(ChunkBlocks blocks)
         {
-            var key = $"{blocks.X}:{blocks.Y}:{blocks.Z}";
-            if (registered.ContainsKey(key)) { return; }
+            if (queue.Contains(blocks.X, blocks.Y, blocks.Z)) { return; }
 
-            registered[key] = true;
             var work = new WorkItem()
             {
                 Blocks = blocks
             };
-            queue.Enqueue(work);
+            queue.Set(blocks.X, blocks.Y, blocks.Z, work);
         }
 
-        public bool Process()
+        public bool Process(Vector3Int position)
         {
-            if (queue.Count == 0)
+            if (queue.IsEmpty)
             {
                 return false;
             }
 
-            var work = queue.Dequeue();
+            var work = queue.Closest(position);
+            queue.Remove(work.Blocks.X, work.Blocks.Y, work.Blocks.Z);
+
             var visibility = Visibility(work.Blocks);
             var initFab = new ChunkFab(visibility.Count);
             work.Fab = CreateFromBlocks(work.Blocks, visibility, initFab);

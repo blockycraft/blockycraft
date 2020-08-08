@@ -7,6 +7,7 @@ using UnityEngine;
 public sealed class World : MonoBehaviour
 {
     public const int SIZE = 16;
+    public const int STARTUP_PROCESSED_CHUNKS = 16;
     public Material material;
 
     private Space3D<Chunk> chunks;
@@ -90,14 +91,14 @@ public sealed class World : MonoBehaviour
 
     private void Start()
     {
-        radius = new Vector3Int(8, 3, 8);
+        radius = new Vector3Int(16, 3, 16);
         chunks = new Space3D<Chunk>();
         chunkBlocks = new Space3D<ChunkBlocks>();
         factory = new ChunkFactory();
         current = start;
 
         Ping(player.WhereAmI());
-        while (factory.Process()) { }
+        for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.WhereAmI());
     }
 
     private void UpdateChunks()
@@ -118,7 +119,7 @@ public sealed class World : MonoBehaviour
 
     private void Update()
     {
-        factory.Process();
+        factory.Process(player.WhereAmI());
 
         UpdateChunks();
 
