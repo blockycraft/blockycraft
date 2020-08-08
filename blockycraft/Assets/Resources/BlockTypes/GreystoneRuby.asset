@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GreystoneRuby
   m_EditorClassIdentifier: 
   blockName: Greystone Ruby
+  preview: {fileID: 2800000, guid: ba8e750c121d18c4f86c80ae9041439c, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

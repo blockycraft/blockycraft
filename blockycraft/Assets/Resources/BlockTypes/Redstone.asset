@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Redstone
   m_EditorClassIdentifier: 
   blockName: Redstone
+  preview: {fileID: 2800000, guid: a99598e8a99c2364caaf70eb23737b35, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

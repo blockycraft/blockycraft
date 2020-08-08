@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Greysand
   m_EditorClassIdentifier: 
   blockName: Greysand
+  preview: {fileID: 2800000, guid: a36a969d75adeaf4686351950feb0572, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

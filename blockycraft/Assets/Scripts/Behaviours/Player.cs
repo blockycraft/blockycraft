@@ -12,7 +12,7 @@ public sealed class Player : MonoBehaviour
     public Transform highlightBlock;
     public Transform placeBlock;
     public BlockType air;
-    public BlockType selected;
+    public BlockSelector selector;
     public float checkIncrement = 0.1f;
     public float reach = 8f;
 
@@ -55,7 +55,7 @@ public sealed class Player : MonoBehaviour
         // Place block.
         if (Input.GetMouseButtonDown(1))
         {
-            world.Set(placeBlock.position, selected);
+            world.Set(placeBlock.position, selector.Selected);
         }
     }
 

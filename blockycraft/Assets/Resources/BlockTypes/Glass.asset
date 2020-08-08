@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Glass
   m_EditorClassIdentifier: 
   blockName: Glass
+  preview: {fileID: 2800000, guid: dc6b020912430424a86583400adf1750, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 1

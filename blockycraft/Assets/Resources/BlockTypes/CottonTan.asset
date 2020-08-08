@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CottonTan
   m_EditorClassIdentifier: 
   blockName: Tan Cotton
+  preview: {fileID: 2800000, guid: 59bfa22b1015e1d4d8424de710784651, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

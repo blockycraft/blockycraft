@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Redsand
   m_EditorClassIdentifier: 
   blockName: Red Sand
+  preview: {fileID: 2800000, guid: 072d9714a84c71646a60250ac8f50fb0, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0

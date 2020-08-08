@@ -9,7 +9,7 @@ namespace Blockycraft
     {
         [Header("Descriptors")]
         public string blockName;
-
+        public Texture2D preview;
         public TexturePack textures;
 
         [Header("Properties")]

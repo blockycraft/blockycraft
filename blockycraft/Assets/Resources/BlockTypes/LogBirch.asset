@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LogBirch
   m_EditorClassIdentifier: 
   blockName: Birch Log
+  preview: {fileID: 2800000, guid: 4690a3899b0f7d14790be572f4f8793e, type: 3}
   textures: {fileID: 11400000, guid: 0e310aebe477bee4eba6ddcebc07f5f0, type: 2}
   isVisible: 1
   isTransparent: 0
