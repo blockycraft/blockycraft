@@ -16,7 +16,7 @@ MonoBehaviour:
   Air: {fileID: 11400000, guid: 0cd8cdf8eb2ebd5458a0b45e89c61fe2, type: 2}
   Transitions:
   - {fileID: 11400000, guid: e476856728ba058469d7b77933bca4b6, type: 2}
-  Surface: {fileID: 11400000, guid: 28e59d219862508419a9db71331f0f31, type: 2}
+  Surface: {fileID: 11400000, guid: 2a9aecd86d2fc6d48a8de270fe00a499, type: 2}
   Substratum: {fileID: 11400000, guid: 0c955e61c7b02654993650d1fea535d6, type: 2}
   Subsoil: {fileID: 11400000, guid: 7ef8582028b03074eb8dd47cb5537e1b, type: 2}
   Blocks:
