@@ -578,7 +578,6 @@ MonoBehaviour:
   highlightBlock: {fileID: 1551536749}
   placeBlock: {fileID: 1691497281}
   air: {fileID: 11400000, guid: 0cd8cdf8eb2ebd5458a0b45e89c61fe2, type: 2}
-  selected: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
   selector: {fileID: 963194230}
   checkIncrement: 0.1
   reach: 8
@@ -594,11 +593,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e032a37f6c23a947acf6bc9db8869f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Types:
-  - {fileID: 11400000, guid: 5d67cc685bc61684cbc06ad9052da31e, type: 2}
-  - {fileID: 11400000, guid: c231aa8cad7d4a5409e662e99edc62c9, type: 2}
   Index: 0
   Image: {fileID: 508692941}
+  DefaultKey: Grass (Dirt)
 --- !u!1 &993907763
 GameObject:
   m_ObjectHideFlags: 0
