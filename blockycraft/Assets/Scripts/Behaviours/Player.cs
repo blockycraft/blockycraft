@@ -15,6 +15,11 @@ public sealed class Player : MonoBehaviour
     private bool isFalling;
     private bool isClimbing;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         UpdateActionBlock();
