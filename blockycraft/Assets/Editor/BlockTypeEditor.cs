@@ -177,7 +177,7 @@ public class BlockTypeEditor : Editor
         var block = (BlockType)target;
         var background = previewRenderUtility.camera.backgroundColor;
 
-        var rectangle = new Rect(0, 0, 256, 256);
+        var rectangle = new Rect(0, 0, 1024, 1024);
         previewRenderUtility.camera.backgroundColor = Color.clear;
         previewRenderUtility.BeginPreview(rectangle, GUIStyle.none);
         previewRenderUtility.DrawMesh(targetMeshFilter.sharedMesh,
