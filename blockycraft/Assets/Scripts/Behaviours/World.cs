@@ -12,12 +12,51 @@ public sealed class World : MonoBehaviour
 
     private Space3D<Chunk> chunks;
     private Space3D<ChunkBlocks> chunkBlocks;
+    private Space3D<ChunkGenerator> generators;
     private ChunkFactory factory;
     private Vector3Int radius;
 
     public Player player;
     public ChunkGenerator start;
     private ChunkGenerator current;
+
+    private void Start()
+    {
+        radius = new Vector3Int(16, 3, 16);
+        chunks = new Space3D<Chunk>();
+        generators = new Space3D<ChunkGenerator>();
+        chunkBlocks = new Space3D<ChunkBlocks>();
+        factory = new ChunkFactory();
+        current = start;
+
+        Ping(player.Chunk());
+        for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.Chunk());
+    }
+
+    private void Update()
+    {
+        factory.Process(player.Chunk());
+
+        UpdateChunks();
+
+        Ping(player.Chunk());
+    }
+
+    private void UpdateChunks()
+    {
+        var processed = factory.Completed();
+        if (!processed.IsEmpty)
+        {
+            foreach (var entity in processed)
+            {
+                var coord = entity.Coordinate;
+                var mesh = entity.Element;
+                var blocks = chunkBlocks.Get(coord);
+                var chunk = Chunk.Create(blocks, material, coord.x, coord.y, coord.z, gameObject, mesh);
+                chunks.Set(coord, chunk);
+            }
+        }
+    }
 
     public void Ping(Vector3Int position)
     {
@@ -27,6 +66,8 @@ public sealed class World : MonoBehaviour
             biome = current.Transitions[(int)(Random.value * (current.Transitions.Length))];
             current = biome;
         }
+
+        //generators
 
         chunkBlocks.Ping(position, radius, v =>
         {
@@ -98,42 +139,5 @@ public sealed class World : MonoBehaviour
             step += increment;
         }
         return (Vector3.zero, Vector3.zero, null);
-    }
-
-    private void Start()
-    {
-        radius = new Vector3Int(16, 3, 16);
-        chunks = new Space3D<Chunk>();
-        chunkBlocks = new Space3D<ChunkBlocks>();
-        factory = new ChunkFactory();
-        current = start;
-
-        Ping(player.Chunk());
-        for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.Chunk());
-    }
-
-    private void UpdateChunks()
-    {
-        var processed = factory.Completed();
-        if (!processed.IsEmpty)
-        {
-            foreach (var entity in processed)
-            {
-                var coord = entity.Coordinate;
-                var mesh = entity.Element;
-                var blocks = chunkBlocks.Get(coord);
-                var chunk = Chunk.Create(blocks, material, coord.x, coord.y, coord.z, gameObject, mesh);
-                chunks.Set(coord, chunk);
-            }
-        }
-    }
-
-    private void Update()
-    {
-        factory.Process(player.Chunk());
-
-        UpdateChunks();
-
-        Ping(player.Chunk());
     }
 }
