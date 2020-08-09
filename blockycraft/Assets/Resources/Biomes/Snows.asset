@@ -20,7 +20,19 @@ MonoBehaviour:
   Surface: {fileID: 11400000, guid: 5853ceb84440137468bebebb4e57556f, type: 2}
   Substratum: {fileID: 11400000, guid: 0c955e61c7b02654993650d1fea535d6, type: 2}
   Subsoil: {fileID: 11400000, guid: d48715b848e5f834f8548ba832df83e2, type: 2}
-  Blocks: []
+  Blocks:
+  - Type: {fileID: 11400000, guid: 2a40330d0d5e7a04788a872ae9b2e91c, type: 2}
+    minHeight: -100
+    maxHeight: 0
+    noiseOffset: 500
+    scale: 0.5
+    threshold: 0.8
+  - Type: {fileID: 11400000, guid: 3f04780139987614caa702665f3523df, type: 2}
+    minHeight: -100
+    maxHeight: -30
+    noiseOffset: 0
+    scale: 0.1
+    threshold: 0.5
   GroundHeight: 2
-  Height: 7
-  Scale: 0.3
+  Height: 9
+  Scale: 0.5
