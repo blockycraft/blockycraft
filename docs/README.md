@@ -4,7 +4,7 @@
 
 Blockycraft is a Minecraft inspired Block Engine written in Unity3D and built using GitHub Actions. The intent of this project is to better learn Unity, and discover some new use cases with GitHub Actions.
 
-The project is available as binary releases for different operating systems, and includes a host WebGL version that can be played in supported browsers:
+The project is available as binary releases for different operating systems, and includes a hosted WebGL version that can be played in supported browsers:
 
 [blockycraft.jrbeverly.dev/play](https://blockycraft.jrbeverly.dev/play)
 
@@ -14,7 +14,7 @@ There is no formal feature list or any intentions to carry the project long-term
 
 The Blockycraft project was first developed for a University of Waterloo graphics course, and this codebase is available as [blockycraft-classic](./classic/). The first codebase went through some revisions in an attempt to address the technical debt incurred in the original development cycle for the demo. While these did make some improvements, they still left the codebase in a less than ideal state.
 
-With the introduced of GitHub Actions, and a recent spark of interest in using Unity, I looked to rebuild parts of the project in Unity. The project isn't intended to be feature complete with the original blockycraft, but instead address pain points encountered while previously working with Blockycraft in C++/OpenGL.
+With the introduced of GitHub Actions, and a recent spark of interest in using Unity, I looked to rebuild parts of the project in Unity. The project isn't intended to be feature complete with the original blockycraft, but instead be a enjoyable project for [tinkering with unity](./unity/).
 
 ## Build Pipeline
 
@@ -24,7 +24,7 @@ A playable WebGL copy is available at [blockycraft.jrbeverly.dev/play](https://b
 
 ## Controls
 
-The project can be interacted with in the following way:
+The project can be interacted with in the following ways:
 
 |**Action**|**Description**|
 |---|---|
