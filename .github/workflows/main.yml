@@ -145,7 +145,8 @@ jobs:
     - name: Load Release URL File from release job
       uses: actions/download-artifact@v1
       with:
-        name: /tmp/release_url
+        name: release_url
+        path: /tmp/release_url
 
     - name: Download artifact
       uses: actions/download-artifact@v2
