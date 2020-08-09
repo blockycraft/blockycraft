@@ -33,4 +33,4 @@ The project can be interacted with in the following ways:
 |Space | Increase the height of the player |
 |Left Click| Destroy a block at the highlighted location |
 |Right Click| Place the block at the identified location |
-|Mouse Wheel (Alt: Q/R)| Cycle through the available block types for placement |
+|Mouse Wheel (Alt: Q/E)| Cycle through the available block types for placement |

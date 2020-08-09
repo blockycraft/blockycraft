@@ -29,7 +29,7 @@ public sealed class BlockSelector : MonoBehaviour
     public void Update()
     {
         bool changed = false;
-        if (Input.GetAxis("Mouse ScrollWheel") > 0.0f || Input.GetKeyDown(KeyCode.R))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0.0f || Input.GetKeyDown(KeyCode.E))
         {
             index++;
             changed = true;
