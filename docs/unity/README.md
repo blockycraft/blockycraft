@@ -6,9 +6,9 @@ Below I have included a colletion of notes relating to the development of Unity.
 
 A BlockType defines any block that can exist within the block engine. This defines the texture configuration and visibility properties of all blocks in the world. Rather than rely on just a data file (JSON/YAML), I thought it would be a good idea to make use of the Unity Inspector's custom editor options.
 
-The BlockType has a [custom editor](./docs/unity/screenshots/BlockTypeLookup.png) that shows a preview of each block, and supports rotation to view each face. You can see an example of this below:
+The BlockType has a [custom editor](./screenshots/BlockTypeLookup.png) that shows a preview of each block, and supports rotation to view each face. You can see an example of this below:
 
-<img alt="BlockType Editor" src="./docs/unity/screenshots/BlockTypePreview.png" width="150">
+<img alt="BlockType Editor" src="./screenshots/BlockTypePreview.png" width="150">
 
 A pain point I noted is with the string lookup for each block face. Rather than be a lookup window (showing each of the textures), it requires knowing the name of the texture from a map.
 
@@ -16,7 +16,7 @@ A pain point I noted is with the string lookup for each block face. Rather than 
 
 When a biome is defined, block types must be passed in that will be used by the generator. Each of these types has a preview associated with it when you are looking it up in the Unity Editor. This is an extremely nice quality of life feature. I have included a screenshot below of this quality of life improvement:
 
-<img alt="BlockType Lookup" src="./docs/unity/screenshots/BlockTypeLookup.png" width="150">
+<img alt="BlockType Lookup" src="./screenshots/BlockTypeLookup.png" width="150">
 
 ## Unity Threading
 
