@@ -20,7 +20,7 @@ MonoBehaviour:
   Substratum: {fileID: 11400000, guid: 7ef8582028b03074eb8dd47cb5537e1b, type: 2}
   Subsoil: {fileID: 11400000, guid: a8f914cd637083345854577f4a7cfd3c, type: 2}
   Blocks:
-  - Type: {fileID: 11400000, guid: 6569cea3ef11cdf40801db7926d8f506, type: 2}
+  - Type: {fileID: 11400000, guid: 55d6b24d6607f6a469a7270686024544, type: 2}
     minHeight: -100
     maxHeight: 0
     noiseOffset: 500
@@ -32,6 +32,6 @@ MonoBehaviour:
     noiseOffset: 0
     scale: 0.1
     threshold: 0.5
-  GroundHeight: 3
+  GroundHeight: 6
   Height: 15
   Scale: 0.3
