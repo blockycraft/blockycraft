@@ -146,23 +146,24 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: release_url
+        path: /tmp/release_url
 
     - name: Download artifact
       uses: actions/download-artifact@v2
       with:
         name: build-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
-        path: artifacts
+        path: artifacts/
 
     - name: Package artifact for release
       run: |
-        zip -r ../${{ matrix.targetPlatform }}.zip .* *
-      working-directory: artifacts
+        zip -v -r ../${{ matrix.targetPlatform }}.zip *
+      working-directory: artifacts/
 
     - name: Get Release File Name & Upload URL
       id: get_release_info
       run: |
         echo ::set-output name=file_name::${REPOSITORY_NAME##*/}-${TAG_REF_NAME##*/v}
-        value=`cat release_url/release_url.txt`
+        value=`cat /tmp/release_url/release_url.txt`
         echo ::set-output name=upload_url::$value
       env:
         TAG_REF_NAME: ${{ github.ref }}
