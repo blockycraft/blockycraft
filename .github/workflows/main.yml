@@ -156,7 +156,7 @@ jobs:
 
     - name: Package artifact for release
       run: |
-        zip -v -r ../${{ matrix.targetPlatform }}.zip .* *
+        zip -v -r ../${{ matrix.targetPlatform }}.zip *
       working-directory: artifacts/
 
     - name: Get Release File Name & Upload URL
