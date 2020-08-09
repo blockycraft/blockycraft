@@ -7,29 +7,71 @@ using UnityEngine;
 public sealed class World : MonoBehaviour
 {
     public const int SIZE = 16;
+    public const int REGION = 4;
     public const int STARTUP_PROCESSED_CHUNKS = 16;
-    public Material material;
 
     private Space3D<Chunk> chunks;
     private Space3D<ChunkBlocks> chunkBlocks;
+    private Space3D<ChunkGenerator> generators;
     private ChunkFactory factory;
     private Vector3Int radius;
 
+    public Material material;
     public Player player;
     public ChunkGenerator start;
-    private ChunkGenerator current;
+
+    private void Start()
+    {
+        radius = new Vector3Int(16, 3, 16);
+        chunks = new Space3D<Chunk>();
+        generators = new Space3D<ChunkGenerator>();
+        chunkBlocks = new Space3D<ChunkBlocks>();
+        factory = new ChunkFactory();
+
+        var chunk = player.Chunk();
+        generators.Set(MathHelper.Anchor(chunk.x, chunk.y, chunk.z, REGION), start);
+
+        Ping(player.Chunk());
+        for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.Chunk());
+    }
+
+    private void Update()
+    {
+        factory.Process(player.Chunk());
+
+        UpdateChunks();
+
+        Ping(player.Chunk());
+    }
+
+    private void UpdateChunks()
+    {
+        var processed = factory.Completed();
+        if (!processed.IsEmpty)
+        {
+            foreach (var entity in processed)
+            {
+                var coord = entity.Coordinate;
+                var mesh = entity.Element;
+                var blocks = chunkBlocks.Get(coord);
+                var chunk = Chunk.Create(blocks, material, coord.x, coord.y, coord.z, gameObject, mesh);
+                chunks.Set(coord, chunk);
+            }
+        }
+    }
 
     public void Ping(Vector3Int position)
     {
-        var biome = current;
-        if (Random.value < 0.40f)
-        {
-            biome = current.Transitions[(int)(Random.value * (current.Transitions.Length))];
-            current = biome;
-        }
-
+        var current = generators.Get(MathHelper.Anchor(position.x, position.y, position.z, REGION));
         chunkBlocks.Ping(position, radius, v =>
         {
+            var coord = MathHelper.Anchor(v.x, v.y, v.z, REGION);
+            if (!generators.TryGet(ref coord, out ChunkGenerator biome))
+            {
+                biome = current.Transitions[(int)(Random.value * (current.Transitions.Length))];
+                generators.Set(coord, biome);
+            }
+
             var chunk = new ChunkBlocks(v.x, v.y, v.z, SIZE);
             var result = biome.Generate(v, chunk, SIZE);
             factory.Enqueue(result);
@@ -98,42 +140,5 @@ public sealed class World : MonoBehaviour
             step += increment;
         }
         return (Vector3.zero, Vector3.zero, null);
-    }
-
-    private void Start()
-    {
-        radius = new Vector3Int(16, 3, 16);
-        chunks = new Space3D<Chunk>();
-        chunkBlocks = new Space3D<ChunkBlocks>();
-        factory = new ChunkFactory();
-        current = start;
-
-        Ping(player.Chunk());
-        for (int i = 0; i < STARTUP_PROCESSED_CHUNKS; i++) factory.Process(player.Chunk());
-    }
-
-    private void UpdateChunks()
-    {
-        var processed = factory.Completed();
-        if (!processed.IsEmpty)
-        {
-            foreach (var entity in processed)
-            {
-                var coord = entity.Coordinate;
-                var mesh = entity.Element;
-                var blocks = chunkBlocks.Get(coord);
-                var chunk = Chunk.Create(blocks, material, coord.x, coord.y, coord.z, gameObject, mesh);
-                chunks.Set(coord, chunk);
-            }
-        }
-    }
-
-    private void Update()
-    {
-        factory.Process(player.Chunk());
-
-        UpdateChunks();
-
-        Ping(player.Chunk());
     }
 }

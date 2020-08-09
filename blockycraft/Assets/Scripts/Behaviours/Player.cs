@@ -12,8 +12,13 @@ public sealed class Player : MonoBehaviour
     public float increment;
     public float reach;
     public float speed;
+    public float factor;
+
     private bool isFalling;
     private bool isClimbing;
+    private float mouseHorizontal;
+    private float mouseVertical;
+    private Vector3 velocity;
 
     private void Start()
     {
@@ -22,26 +27,31 @@ public sealed class Player : MonoBehaviour
 
     private void Update()
     {
-        UpdateActionBlock();
-        ProcessActions();
-    }
-
-    private void FixedUpdate()
-    {
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
-        var mouseHorizontal = Input.GetAxis("Mouse X");
-        var mouseVertical = Input.GetAxis("Mouse Y");
+        mouseHorizontal = Input.GetAxis("Mouse X");
+        mouseVertical = Input.GetAxis("Mouse Y");
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) isFalling = true;
         if (Input.GetKeyUp(KeyCode.LeftShift)) isFalling = false;
         if (Input.GetKeyDown(KeyCode.Space)) isClimbing = true;
         if (Input.GetKeyUp(KeyCode.Space)) isClimbing = false;
 
-        var velocity = CalculateVelocity(horizontal, vertical, (isFalling) ? -1 : (isClimbing) ? 1 : 0);
+        float value = 0f;
+        if (isClimbing && isFalling) value = 0f;
+        else if (isClimbing) value = 1f;
+        else if (isFalling) value = -1f;
 
-        transform.Rotate(Vector3.up * mouseHorizontal);
-        cam.Rotate(Vector3.right * -mouseVertical);
+        velocity = CalculateVelocity(horizontal, vertical, value);
+
+        UpdateActionBlock();
+        ProcessActions();
+    }
+
+    private void FixedUpdate()
+    {
+        transform.Rotate(Vector3.up * mouseHorizontal * factor);
+        cam.Rotate(Vector3.right * -mouseVertical * factor);
         transform.Translate(velocity, Space.World);
     }
 

@@ -14,13 +14,13 @@ public class BlockTypeEditor : Editor
     public const float ANGLE = 90.0f;
 
     private PreviewRenderUtility previewRenderUtility;
-    private static Scene previewScene;
+    private Scene previewScene;
     private MeshFilter targetMeshFilter;
     private MeshRenderer targetMeshRenderer;
     private GameObject previewRendererObject;
     private readonly System.Type[] components = new System.Type[] { typeof(MeshRenderer), typeof(MeshFilter) };
 
-    private void Initialize()
+    private void Initialize(BlockType type)
     {
         if (previewRenderUtility != null)
             return;
@@ -43,6 +43,8 @@ public class BlockTypeEditor : Editor
         previewRendererObject.transform.position = -Voxel.Center;
 
         InitializeLighting(previewRenderUtility);
+
+        ReloadMesh(previewRendererObject, type);
     }
 
     private void InitializeLighting(PreviewRenderUtility utility)
@@ -143,8 +145,8 @@ public class BlockTypeEditor : Editor
         if (!block.IsValid())
             return false;
 
-        Initialize();
-        ReloadMesh(previewRendererObject, (BlockType)target);
+        Initialize(block);
+       
         return true;
     }
 
@@ -199,5 +201,6 @@ public class BlockTypeEditor : Editor
     {
         previewRenderUtility?.Cleanup();
         EditorSceneManager.ClosePreviewScene(previewScene);
+        previewRenderUtility = null;
     }
 }
