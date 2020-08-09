@@ -32,6 +32,6 @@ MonoBehaviour:
     noiseOffset: 0
     scale: 0.1
     threshold: 0.5
-  GroundHeight: 3
-  Height: 15
-  Scale: 0.3
+  GroundHeight: 10
+  Height: 20
+  Scale: 0.7
