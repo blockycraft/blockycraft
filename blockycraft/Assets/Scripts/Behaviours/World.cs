@@ -7,7 +7,7 @@ using UnityEngine;
 public sealed class World : MonoBehaviour
 {
     public const int SIZE = 16;
-    public const int REGION = 4;
+    public const int REGION = 8;
     public const int STARTUP_PROCESSED_CHUNKS = 16;
 
     private Space3D<Chunk> chunks;
