@@ -28,22 +28,23 @@ public sealed class BlockSelector : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        bool changed = false;
+        if (Input.GetAxis("Mouse ScrollWheel") > 0.0f || Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0.0f)
-            {
-                index++;
-            }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0.0f)
-            {
-                index--;
-            }
+            index++;
+            changed = true;
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0.0f || Input.GetKeyUp(KeyCode.Q))
+        {
+            changed = true;
+            index--;
+        }
 
+        if (changed) {
             if (index < 0) { index = types.Length - 1; }
             else if (index >= types.Length) { index = 0; }
 
             Image.texture = types[index].preview;
         }
     }
-
 }

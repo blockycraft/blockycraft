@@ -8,7 +8,7 @@ The pipeline is composed of three types of runs:
 - Web Deploy: Deploy the project to GitHub Pages.
 - Release: Build project artifacts and upload to GitHub Releases.
 
-Details about these build processes are available in [.github/workflows/](.github/workflows), and documented to some degree below. A playable copy of the project is available at [blockycraft.jrbeverly.dev/play](https://blockycraft.jrbeverly.dev/play).
+Details about these build processes are available in `.github/workflows/`, and documented to some degree below. A playable copy of the project is available at [blockycraft.jrbeverly.dev/play](https://blockycraft.jrbeverly.dev/play).
 
 ## Continuous Integration & Web Deploy
 
