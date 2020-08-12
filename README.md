@@ -8,6 +8,8 @@ The project is available as binary releases for different operating systems, and
 
 [blockycraft.jrbeverly.dev/play](https://blockycraft.jrbeverly.dev/play)
 
+![blockycraft world](./docs/screenshots/world.png "Blockycraft")
+
 There is no formal feature list or any intentions to carry the project long-term into a fully featured block engine.
 
 ## Build Pipeline
