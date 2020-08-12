@@ -36,6 +36,6 @@ These acknowledgements are mirrored in the `blockycraft-classic` repository, but
 
 ### Kenney.nl
 
-The project icon is retrieved from [kenney.nl](docs/icon/icon.json). The original source material has been altered for the purposes of the project. The icon is used under the terms of the [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
+The project icon is retrieved from kenney.nl. The original source material has been altered for the purposes of the project. The icon is used under the terms of the [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
 
 The project uses assets by [Kenney from kenney.nl/](http://kenney.nl/assets/voxel-pack), and the icon is built from these assets.
