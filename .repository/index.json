@@ -1,0 +1,18 @@
+{
+  "slug": "blockycraft",
+  "namespace": "blockycraft",
+  "status": "archived",
+  "icon": "icon.svg",
+  "license": {
+    "type": "MIT",
+    "content": "Jonathan Beverly <jrbeverly>"
+  },
+  "topics": [
+    "unity",
+    "block-engine"
+  ],
+  "languages": [
+    "C#",
+    "Shell"
+  ]
+}
