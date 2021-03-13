@@ -1,0 +1,14 @@
+slug: blockycraft
+namespace:
+project: blockycraft
+status: archived
+icon: icon.svg
+license:
+  type: MIT
+  content: Jonathan Beverly <jrbeverly>
+  year: 2020
+topics: |-
+  [
+    "unity",
+    "block-engine"
+  ]
